@@ -1,2 +1,5 @@
 class Post < ApplicationRecord
-end
+    validates :content, presence: true
+  
+    belongs_to :user
+  end
