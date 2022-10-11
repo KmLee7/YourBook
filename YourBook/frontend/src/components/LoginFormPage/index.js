@@ -1,13 +1,13 @@
-import "./LoginFormPage.css";
+import React, { useState } from "react";
+import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { useState } from "react";
-import * as sessionActions from "../../store/session";
+import './LoginFormPage.css';
 
-const LoginFormPage = () => {
+function LoginFormPage() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
-  const [email, setEmail] = useState("");
+  const sessionUser = useSelector(state => state.session.user);
+  const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
@@ -15,51 +15,51 @@ const LoginFormPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    <ul>
-      {errors.map((error) => (
-        <li key={error}>{error}</li>
-      ))}
-    </ul>;
-    return dispatch(sessionActions.loginUser(email, password)).catch(
-      async (res) => {
+    setErrors([]);
+    return dispatch(sessionActions.login({ credential, password }))
+      .catch(async (res) => {
         let data;
         try {
+          // .clone() essentially allows you to read the response body twice
           data = await res.clone().json();
         } catch {
-          data = await res.text();
+          data = await res.text(); // Will hit this case if, e.g., server is down
         }
-        if (data?.errors) {
-          setErrors(data.errors);
-        } else if (data) {
-          setErrors([data]);
-        } else {
-          setErrors([res.statusText]);
-        }
-      }
-    );
+        if (data?.errors) setErrors(data.errors);
+        else if (data) setErrors([data]);
+        else setErrors([res.statusText]);
+      });
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      {errors.map((error) => error)}
-      <label htmlFor="email">E-mail:</label>
-      <input
-        type="text"
-        name="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <label htmlFor="password">Password:</label>
-      <input
-        type="text"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <button type="submit">Login</button>
-    </form>
+    <>
+      <h1>Log In</h1>
+      <form onSubmit={handleSubmit}>
+        <ul>
+          {errors.map(error => <li key={error}>{error}</li>)}
+        </ul>
+        <label>
+          <input
+            placeholder="Email"
+            type="email"
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          <input
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        <button type="submit">Log In</button>
+      </form>
+    </>
   );
-};
+}
 
 export default LoginFormPage;

@@ -1,0 +1,21 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+}
+
+.name-container {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    gap: 10px;
+}
+
+#firstname {
+    width: 10vh;
+}
+
+#lastname {
+    width: 10vh;
+}
