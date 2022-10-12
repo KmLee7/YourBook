@@ -3593,3 +3593,68 @@ Processing by Api::SessionsController#show as JSON
 Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 896)
 
 
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 00:16:11 -0400
+  [1m[36mActiveRecord::SchemaMigration Pluck (2.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 6.3ms | Allocations: 7089)
+
+
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 04:09:47 -0400
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 96ms (Views: 4.4ms | ActiveRecord: 26.3ms | Allocations: 3999)
+
+
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 04:30:44 -0400
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 60ms (Views: 1.0ms | ActiveRecord: 16.3ms | Allocations: 3762)
+
+
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 04:38:15 -0400
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 29ms (Views: 0.2ms | ActiveRecord: 8.4ms | Allocations: 3761)
+
+
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 04:38:57 -0400
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 22ms (Views: 0.1ms | ActiveRecord: 4.0ms | Allocations: 906)
+
+
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 05:50:16 -0400
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 14ms (Views: 0.2ms | ActiveRecord: 5.7ms | Allocations: 3740)
+
+
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 06:10:49 -0400
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 40ms (Views: 0.2ms | ActiveRecord: 5.7ms | Allocations: 3742)
+
+
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 06:15:11 -0400
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.5ms | Allocations: 902)
+
+
+Started GET "/api/session" for 127.0.0.1 at 2022-10-12 06:29:00 -0400
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::SessionsController#show as JSON
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:12:in `current_user'
+Completed 200 OK in 12ms (Views: 0.1ms | ActiveRecord: 6.0ms | Allocations: 6953)
+
+

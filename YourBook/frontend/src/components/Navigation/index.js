@@ -15,7 +15,7 @@ function Navigation() {
   if (!sessionUser) {
     return (
       sessionLinks = (
-      
+      <>
         <div className='home-page'>
           <div className='left-container'>
               <div id='facebook-logo'>facebook</div>
@@ -30,7 +30,7 @@ function Navigation() {
             onChange={(e) => setCredential(e.target.value)}
             required
             />
-            <br />
+              <div className='line-break'></div>
             <input
             id='login-password'
             placeholder='Password' 
@@ -39,15 +39,21 @@ function Navigation() {
             onChange={(e) => setPassword(e.target.value)}
             required
             />
-            <br />
-          <button className='loginButton'>Log In</button>
-          <hr className='borderline'></hr>
-          <div style={{textAlign: 'center'}}>
-            <SignupFormModal />
-          </div>
+              <div className='line-break'></div>
+            <a href='https://thesecmaster.com/12-tips-to-never-forget-a-password/#:~:text=Jog%20Your%20Memory!&text=You%20can%20use%20the%20first,you%20seem%20to%20forget%20it.'>Forget password?</a>
+              <div className='line-break'></div>
+            <button className='loginButton'>Log In</button>
+              <hr className='borderline'></hr>
+            <div style={{textAlign: 'center'}}>
+              <SignupFormModal />
+            </div>
+            helloo
           </div>
         </div>
-      
+        <div className='footer'>
+          HEllo this is the footer
+        </div>
+        </>
       )
     );
     // sessionLinks = (
