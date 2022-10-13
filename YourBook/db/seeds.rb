@@ -22,7 +22,7 @@ ApplicationRecord.transaction do
       email: 'demo@demo.io', 
       password: 'password',
       birthday: '0000/01/02',
-      gender: 'Custom'
+      gender: 'Male'
     )
   
     puts "Done!"

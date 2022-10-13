@@ -15,7 +15,15 @@ function Navigation() {
   const [errors, setErrors] = useState([]);
 
   let sessionLinks;
-
+  const handleDemo = (e) => {
+    e.preventDefault();
+    return dispatch(
+      sessionActions.login({
+        credential: "demo@demo.io",
+        password: "password",
+      })
+    );
+  };
   const handleClick = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -73,22 +81,26 @@ function Navigation() {
             <button className="loginButton" onClick={handleClick}>
               Log In
             </button>
-            <div className="line-break2"></div>
+            <div className="line-break0"></div>
+            <button className="demoUser" onClick={handleDemo}>
+              Demo
+            </button>
+            <div className="line-break"></div>
             <a
               href="https://thesecmaster.com/12-tips-to-never-forget-a-password/#:~:text=Jog%20Your%20Memory!&text=You%20can%20use%20the%20first,you%20seem%20to%20forget%20it."
               id="forget-password"
             >
               Forget password?
             </a>
-            <div className="line-break2"></div>
+            <div className="line-break0"></div>
             <hr className="borderline"></hr>
             <div style={{ textAlign: "center" }}>
-              <div className="line-break2"></div>
+              <div className="line-break0"></div>
               <SignupFormModal />
               <div className="line-break3"></div>
               <p>
                 <a href="https://www.facebook.com/" id="under-submit">
-                  Create a Page
+                  Create a Page &nbsp;
                 </a>{" "}
                 for a celebrity, brand or business
               </p>

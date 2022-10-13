@@ -210,6 +210,28 @@
   border-radius: 6px;
 }
 
+.signupButton:hover {
+  background-color: #367800;
+}
+
+.demoUser {
+  background-color: #1ecac1;
+  border: none;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  padding: 8px 32px;
+  border-radius: 6px;
+  height: 45px;
+  width: 364px;
+}
+
+.demoUser:hover {
+  background-color: #00a9a0;
+  color: white;
+}
+
 .line-break0 {
   height: 3.5px;
 }
@@ -225,11 +247,12 @@
 .line-break3 {
   height: 50px;
 }
+
 #forget-password {
   text-decoration: none;
 }
 
 #under-submit {
   text-decoration: none;
-  font-size: 15px;
+  font-size: 12px;
 }

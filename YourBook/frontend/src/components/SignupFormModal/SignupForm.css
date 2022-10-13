@@ -1,5 +1,5 @@
 form {
-  height: 537px;
+  height: 90vh;
   width: 431px;
 }
 
@@ -9,7 +9,6 @@ form {
   align-content: center;
   /* border: 1px solid black; */
   border-radius: 4px;
-  border: 1px solid lightgray;
 }
 
 .name-container {
@@ -111,7 +110,7 @@ input[type="radio"] {
   font-size: 32px;
   font-weight: 550;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 10px 10px 10pxl;
+  padding: 10px 10px 10px 10px;
 }
 
 #signup-info {
@@ -142,6 +141,7 @@ input[type="radio"] {
 }
 
 p {
+  display: flex;
   font-size: 12px;
   padding-left: 10px;
   padding-right: 10px;
@@ -160,7 +160,7 @@ p {
 }
 
 .line-break3 {
-  height: 10px;
+  height: 27px;
 }
 
 .submit-button {
@@ -170,13 +170,12 @@ p {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
   text-decoration: none;
-  display: inline-block;
   font-size: 18px;
   border-radius: 6px;
   height: 40px;
   width: 200px;
   margin-left: 115px;
-  margin-top: 80px;
+  margin-top: 5%;
 }
 
 .submit-button:hover {
