@@ -77,12 +77,10 @@ GEM
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
     builder (3.2.4)
+    byebug (11.1.3)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
-    debug (1.6.2)
-      irb (>= 1.3.6)
-      reline (>= 0.3.1)
     debug_inspector (1.1.0)
     erubi (1.11.0)
     faker (2.23.0)
@@ -91,9 +89,6 @@ GEM
       activesupport (>= 5.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    io-console (0.5.11)
-    irb (1.4.2)
-      reline (>= 0.3.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -116,6 +111,8 @@ GEM
       net-protocol
     nio4r (2.5.8)
     nokogiri (1.13.8-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     pg (1.4.3)
     pry (0.14.1)
@@ -156,8 +153,6 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
-    reline (0.3.1)
-      io-console (~> 0.5)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -176,13 +171,14 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   annotate
   bcrypt
   better_errors
   binding_of_caller
-  debug
+  byebug
   faker
   jbuilder
   pg (~> 1.1)

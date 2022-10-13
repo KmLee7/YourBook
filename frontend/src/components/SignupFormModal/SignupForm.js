@@ -126,7 +126,7 @@ function SignupForm() {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="  Comfirm Password"
+                placeholder="  Confirm Password"
                 required
               />
             </label>

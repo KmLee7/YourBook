@@ -1,5 +1,5 @@
 form {
-  height: 90vh;
+  min-height: 592px;
   width: 431px;
 }
 
@@ -175,7 +175,8 @@ p {
   height: 40px;
   width: 200px;
   margin-left: 115px;
-  margin-top: 5%;
+  margin-top: 8px;
+  margin-bottom: 25px;
 }
 
 .submit-button:hover {
