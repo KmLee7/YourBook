@@ -97,108 +97,139 @@
 } */
 
 .home-page {
-    display: flex;
-    background: #f0f2f5;
-    margin: 0 auto;
-    height: 100vh;
-    width: 100vw;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center; 
-    text-align: center;
-    padding: 0% 20% 30% 0%;
+  display: flex;
+  background: #f0f2f5;
+  margin: 0 auto;
+  height: 100vh;
+  width: 100vw;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  padding: 0% 20% 30% 0%;
 }
 
 .left-container {
-    /* display: flex; */
-    text-align: start;
-    flex-direction: column;
-    position: sticky;
-    height: 200px;
-    width: 390px;
-    padding: 10px 125px 10px 22px;
+  /* display: flex; */
+  text-align: start;
+  flex-direction: column;
+  position: sticky;
+  height: 200px;
+  width: 390px;
+  padding: 10px 125px 10px 22px;
 }
 
 .right-container {
-    /* display: flex; */
-    flex-flow: column;
-    border: 1px solid lightgray;
-    background: white;
-    border-radius: 6px;
-    margin-right: 7%;
-    padding: 10px 10px 10px 10px;
-    border-radius: 8px;
-    box-shadow: 1px 1px 2.5px 2.5px lightgray;
+  /* display: flex; */
+  flex-flow: column;
+  border: 1px solid lightgray;
+  background: white;
+  border-radius: 6px;
+  height: 330px;
+  width: 370px;
+  margin-right: 7%;
+  padding: 10px 10px 10px 10px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 2.5px 2.5px lightgray;
 }
 
 .borderline {
-    border: 1px solid lightgray;
-    position: sticky;
-    width: 262px;
+  border: 1px solid lightgray;
+  position: sticky;
+  width: 362px;
 }
 
 #facebook-logo {
-    color: #0165E1;
-    font-size: 65px;
-    padding: 5px 5px 5px 24px;
-    
+  font-family: "klavika";
+  font-weight: 600;
+  color: #3789ef;
+  font-size: 65px;
+  padding: 5px 5px 5px 24px;
 }
 
 #home-page-info {
-    font-size: 3.51vh;
-    padding: 0px 25px 24px 20px;
-    
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 3.51vh;
+  padding: 0px 25px 24px 20px;
 }
 
 .loginButton {
-    background-color: #0165E1;
-    border: none;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    padding: 8px 32px;
-    border-radius: 6px;
-    height: 5vh;
-    width: 259px;
+  background-color: #0165e1;
+  border: none;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  padding: 8px 32px;
+  border-radius: 6px;
+  height: 45px;
+  width: 364px;
 }
 
 .loginButton:hover {
-    background-color: #0152E1; 
-    color: white;
+  background-color: #0152e1;
+  color: white;
 }
 
 #login-email {
-    border: 1px solid lightgray;  
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    padding: 8px 32px;
-    border-radius: 6px;
+  border: 1px solid lightgray;
+  text-decoration: none;
+  text-align: start;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  width: 318px;
+  height: 25px;
+  padding: 8px 32px 8px 10px;
+  border-radius: 6px;
 }
 
 #login-password {
-    border: 1px solid lightgray;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    padding: 8px 32px;
-    border-radius: 6px;
+  border: 1px solid lightgray;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 318px;
+  height: 25px;
+  font-size: 16px;
+  padding: 8px 32px 8px 10px;
+  border-radius: 6px;
 }
 
 .signupButton {
-    background-color: #4EAE01;
-    border: none;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    padding: 8px 8px;
-    width: 25vh;
-    height: 5vh;
-    border-radius: 6px;
+  background-color: #4eae01;
+  border: none;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  padding: 8px 8px;
+  width: 200px;
+  height: 45px;
+  border-radius: 6px;
+}
+
+.line-break0 {
+  height: 3.5px;
 }
 
 .line-break {
-    height: 10px;
+  height: 15px;
+}
+
+.line-break2 {
+  height: 20px;
+}
+
+.line-break3 {
+  height: 50px;
+}
+#forget-password {
+  text-decoration: none;
+}
+
+#under-submit {
+  text-decoration: none;
+  font-size: 15px;
 }
