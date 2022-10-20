@@ -22,6 +22,7 @@ class User < ApplicationRecord
   #   format: { without: URI::MailTo::EMAIL_REGEXP, message:  "can't be an email" }
   validates :first_name, :last_name, :gender, :birthday, presence: true
   validates :first_name, :last_name, length: { in: 3..30 }
+  # validates :bio, :details, :hobbies
   validates :email, 
     uniqueness: true, 
     length: { in: 3..255 }, 

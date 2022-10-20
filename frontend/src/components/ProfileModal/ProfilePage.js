@@ -151,7 +151,13 @@ function ProfilePage() {
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                   />
-                  <button style={{width:}}></button>
+                  {/* <button
+                    style={{ width: 100, height: 30 }}
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setBio("");
+                    }}
+                  ></button> */}
                 </div>
               )}
             </div>
