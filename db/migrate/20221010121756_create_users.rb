@@ -8,6 +8,9 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :gender, null: false
       t.string :password_digest, null: false
       t.string :session_token, null: false
+      t.string :bio
+      t.string :details
+      t.string :hobbies
       t.timestamps
     end
 

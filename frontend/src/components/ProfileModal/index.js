@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import ProfileMenu from "./ProfileMenu";
-import "./ProfileModal.css";
+import "./Profile.css";
 
 function ProfileModal() {
   const [showModal, setShowModal] = useState(false);

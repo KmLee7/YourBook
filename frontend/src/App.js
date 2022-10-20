@@ -2,7 +2,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { Route, Switch } from "react-router-dom";
 import Home from "./components/HomePage";
 import Navigation from "./components/Navigation";
-// import ProfilePage from "./components/ProfilePage";
+import ProfilePage from "./components/ProfileModal/ProfilePage";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
           <Home />
         </Route>
         <Route exact path="/profilepage/:id">
-          {/* <ProfilePage /> */}
+          <ProfilePage />
         </Route>
       </Switch>
       {/* <Switch>

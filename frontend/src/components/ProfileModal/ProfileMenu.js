@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import "./ProfileModal.css";
+import "./Profile.css";
 
 function ProfileMenu() {
   const dispatch = useDispatch();

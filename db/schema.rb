@@ -64,10 +64,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_16_005621) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "email", null: false
-    t.date "birthday", null: false
+    t.string "birthday", null: false
     t.string "gender", null: false
     t.string "password_digest", null: false
     t.string "session_token", null: false
+    t.string "bio"
+    t.string "details"
+    t.string "hobbies"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

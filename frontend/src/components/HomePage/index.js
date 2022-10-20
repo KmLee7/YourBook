@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PostFormModal from "../PostFormModal/index";
 import { useEffect } from "react";
 import * as postActions from "../../store/posts";
-import searchLogo from "./images/icons8-search-48.png";
+import { CgSearch } from "react-icons/cg";
 import { FaUserCircle } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
 import { GrLinkedin } from "react-icons/gr";
@@ -12,7 +12,7 @@ import { FaHome } from "react-icons/fa";
 import { SiFacebook } from "react-icons/si";
 import { Route, Redirect } from "react-router-dom";
 import ProfileModal from "../ProfileModal/index";
-
+import ProfilePage from "../ProfileModal/ProfilePage";
 function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
@@ -44,7 +44,7 @@ function Home() {
           />
           <div className="line-break1h"></div>
           <div className="nav-search">
-            <img src={searchLogo} width="20px" alt="search-log" />
+            <CgSearch size={20} style={{ color: "black" }} />
             <input
               className="nav-search-bar"
               type="text"
@@ -84,9 +84,12 @@ function Home() {
           </a>
         </div>
         <div className="right-nav">
-          <button className="profilemenu-button">
-            <FaUserCircle className="user-logo" size={50} color="black" />
-          </button>
+          <FaUserCircle
+            className="user-logo"
+            size={50}
+            color="black"
+            onClick={ProfilePage}
+          />
         </div>
       </div>
       <div className="home-containers">

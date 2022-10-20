@@ -1,0 +1,94 @@
+.profile-menu-container {
+  border: 1px solid black;
+  width: 10px;
+  height: 10px;
+}
+
+.profilepage-container {
+  background: rgb(255, 255, 255);
+  height: 100vh;
+  width: 100vw;
+}
+.upper-container {
+  display: flex;
+  justify-content: center;
+  height: 460px;
+}
+.upper-container-top {
+  align-items: center;
+  padding-top: 40px;
+  /* padding-left: 20%;
+  padding-right: 20%; */
+  background: rgb(255, 255, 255);
+  height: 100px;
+}
+.upper-container-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255, 255, 255);
+  height: 100px;
+  /* padding-left: 20%;
+  padding-right: 20%; */
+}
+.under-upper-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 19%;
+  height: 50px;
+}
+.hi {
+  padding-top: 20px;
+  width: 1070px;
+  border: 1px solid black;
+  height: 300px;
+  border-radius: 12px;
+  background: lightgray;
+}
+.hello {
+  height: 95px;
+  width: 785px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  border: 1px solid black;
+  border-radius: 12px;
+  font-size: 42px;
+}
+.hey {
+  /* padding-left: 80px; */
+  /* padding-right: 80px; */
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 100px;
+  margin-left: 4%;
+  background-color: lightgray;
+  border: 5px solid white;
+}
+.lower-container {
+  background: rgb(240, 242, 245);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-right: 100px;
+
+  padding-top: 20px;
+}
+
+.intro {
+  border: 1px solid black;
+  height: 260px;
+  width: 320px;
+  padding-top: 15px;
+  padding-left: 10px;
+  margin-top: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  align-items: center;
+  border-radius: 12px;
+}
+.intro > div {
+  padding: 10px;
+}
