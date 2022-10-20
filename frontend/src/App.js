@@ -1,20 +1,31 @@
 import LoginFormPage from "./components/LoginFormPage";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
+import Home from "./components/HomePage";
 import Navigation from "./components/Navigation";
+// import ProfilePage from "./components/ProfilePage";
 
 function App() {
   return (
     <>
-      <Navigation />
-        <Switch>
-          <Route path="/login">
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
+      <Switch>
+        <Route exact path="/">
+          <Navigation />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/profilepage/:id">
+          {/* <ProfilePage /> */}
+        </Route>
       </Switch>
+      {/* <Switch>
+        <Route path="/login">
+          <Navigation />
+        </Route>
+        <Route path="/signup">
+          <Navigation />
+        </Route>
+      </Switch> */}
     </>
   );
 }

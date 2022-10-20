@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
+import { Redirect } from "react-router-dom";
 
 function SignupForm() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.currentUserId);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [day, setDay] = useState("");
@@ -15,14 +17,27 @@ function SignupForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [clicked, setClicked] = useState(false);
+
+  if (sessionUser) return <Redirect to="/" />;
+
+  let years = [];
+  for (let i = 1950; i < 2023; i++) {
+    years.push(i);
+  }
+  years = years.reverse();
+  let days = [];
+  for (let i = 1; i < 32; i++) {
+    days.push(i);
+  }
 
   let birthday;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
       birthday = month + "/" + day + "/" + year;
-
       return dispatch(
         sessionActions.signup({
           firstName,
@@ -49,15 +64,14 @@ function SignupForm() {
       "Confirm Password field must be the same as the Password field",
     ]);
   };
-
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="signup-modal" onSubmit={handleSubmit}>
         <ul>
-          {errors.map((error) => (
-            <li key={error}>{error}</li>
-          ))}
-          {/* {JSON.stringify(errors)} */}
+          {errors &&
+            errors.map((error) => {
+              return <li key={error}>{error}</li>;
+            })}
         </ul>
         <div className="line-break"></div>
         <div className="signup-modal">
@@ -74,9 +88,9 @@ function SignupForm() {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="  First Name"
-                style={
-                  { firstName }.length === 0 ? { border: "1px solid red" } : {}
-                }
+                // style={
+                //   { firstName }.length === 0 ? { border: "1px solid red" } : {}
+                // }
                 required
               />
             </label>
@@ -152,83 +166,15 @@ function SignupForm() {
             </select>
             <div className="line-break2"></div>
             <select id="day" onChange={(e) => setDay(e.target.value)}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
+              {days.map((dy) => {
+                return <option value={dy}>{dy}</option>;
+              })}
             </select>
             <div className="line-break2"></div>
             <select id="year" onChange={(e) => setYear(e.target.value)}>
-              <option value="2022">2022</option>
-              <option value="2021">2021</option>
-              <option value="2020">2020</option>
-              <option value="2019">2019</option>
-              <option value="2018">2018</option>
-              <option value="2017">2017</option>
-              <option value="2016">2016</option>
-              <option value="2015">2015</option>
-              <option value="2014">2014</option>
-              <option value="2013">2013</option>
-              <option value="2012">2012</option>
-              <option value="2011">2011</option>
-              <option value="2010">2010</option>
-              <option value="2009">2009</option>
-              <option value="2008">2008</option>
-              <option value="2007">2007</option>
-              <option value="2006">2006</option>
-              <option value="2005">2005</option>
-              <option value="2004">2004</option>
-              <option value="2003">2003</option>
-              <option value="2002">2002</option>
-              <option value="2001">2001</option>
-              <option value="2000">2000</option>
-              <option value="1999">1999</option>
-              <option value="1998">1998</option>
-              <option value="1997">1997</option>
-              <option value="1996">1996</option>
-              <option value="1995">1995</option>
-              <option value="1994">1994</option>
-              <option value="1993">1993</option>
-              <option value="1992">1992</option>
-              <option value="1991">1991</option>
-              <option value="1990">1990</option>
-              <option value="1989">1989</option>
-              <option value="1988">1988</option>
-              <option value="1987">1987</option>
-              <option value="1986">1986</option>
-              <option value="1985">1985</option>
-              <option value="1984">1984</option>
-              <option value="1983">1983</option>
-              <option value="1982">1982</option>
-              <option value="1981">1981</option>
-              <option value="1980">1980</option>
+              {years.map((yr) => {
+                return <option value={yr}>{yr}</option>;
+              })}
             </select>
           </div>
           <div className="line-break"></div>
@@ -237,53 +183,63 @@ function SignupForm() {
             <div className="gender-container">
               <div className="gender-container1">
                 <label htmlFor="gender">
-                  {" "}
-                  Male
+                  &nbsp;Male&nbsp;&nbsp;&nbsp;&nbsp;
                   <input
                     type="radio"
                     value="male"
                     id="male"
                     name="gender"
                     onChange={() => setGender("male")}
+                    onClick={() => setClicked(false)}
                   />
                 </label>
               </div>
               <div className="line-break2"></div>
               <div className="gender-container2">
                 <label htmlFor="gender">
-                  {" "}
-                  Female
+                  &nbsp;Female
                   <input
                     type="radio"
                     value="female"
                     id="female"
                     name="gender"
                     onChange={() => setGender("female")}
+                    onClick={() => setClicked(false)}
                   />
                 </label>
               </div>
               <div className="line-break2"></div>
               <div className="gender-container3">
                 <label htmlFor="gender">
-                  Custom
+                  &nbsp;Custom
                   <input
                     type="radio"
                     value="custom"
                     id="custom"
                     name="gender"
-                    onClick={(e) => {
-                      console.log("hi");
-                      return (
-                        <input
-                          type="box"
-                          value={gender}
-                          id="custom"
-                          onChange={(e) => setGender(e.target.value)}
-                          placeholder="  Gender (optional)"
-                        />
-                      );
-                    }}
+                    onClick={(e) => setClicked(true)}
                   />
+                  {clicked && (
+                    <div style={{ position: "absolute", top: 400, left: -130 }}>
+                      <select
+                        onChange={(e) => setClicked(false)}
+                        className="selectPronoun"
+                      >
+                        <option hidden value="">
+                          Select your pronoun
+                        </option>
+                        <option value="she">
+                          She: "Wish her a happy birthday!"
+                        </option>
+                        <option value="he">
+                          He: "Wish he a happy birthday!"
+                        </option>
+                        <option value="she">
+                          They: "Wish they a happy birthday!"
+                        </option>
+                      </select>
+                    </div>
+                  )}
                 </label>
               </div>
             </div>

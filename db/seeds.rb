@@ -21,7 +21,15 @@ ApplicationRecord.transaction do
       last_name: 'one', 
       email: 'demo@demo.io', 
       password: 'password',
-      birthday: '0000/01/02',
+      birthday: '01/02/2000',
+      gender: 'Male'
+    )
+    User.create!(
+      first_name: 'Demo5',
+      last_name: 'five', 
+      email: 'demo5@demo.io', 
+      password: 'password',
+      birthday: '01/02/2001',
       gender: 'Male'
     )
   
