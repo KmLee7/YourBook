@@ -43,9 +43,7 @@ export const fetchPost = (postId) => async (dispatch) => {
 };
 
 export const createPost = (post) => async (dispatch) => {
-  console.log("hit createPost");
   let newpost = { content: post.content };
-  console.log(newpost);
   const res = await csrfFetch("/api/posts", {
     method: "POST",
     body: JSON.stringify(newpost),
@@ -77,7 +75,6 @@ export const deletePost = (postId) => async (dispatch) => {
 };
 
 const postsReducer = (state = {}, action) => {
-  console.log("it hit reducers");
   const nextState = { ...state };
   switch (action.type) {
     case SET_CURRENT_USER:

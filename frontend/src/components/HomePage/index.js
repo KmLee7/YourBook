@@ -10,16 +10,18 @@ import { FiGithub } from "react-icons/fi";
 import { GrLinkedin } from "react-icons/gr";
 import { FaHome } from "react-icons/fa";
 import { SiFacebook } from "react-icons/si";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Link, Redirect } from "react-router-dom";
 import ProfileModal from "../ProfileModal/index";
 import ProfilePage from "../ProfileModal/ProfilePage";
 function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
+  // const sessionUserId = useSelector((state) => state.session.currentUserId);
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
   );
+
   let userName;
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;
@@ -37,11 +39,13 @@ function Home() {
     <>
       <div className="Navbar">
         <div className="left-nav">
-          <SiFacebook
-            className="face-logo"
-            size={50}
-            style={{ color: "black" }}
-          />
+          <a href="/">
+            <SiFacebook
+              className="face-logo"
+              size={50}
+              style={{ color: "black" }}
+            />
+          </a>
           <div className="line-break1h"></div>
           <div className="nav-search">
             <CgSearch size={20} style={{ color: "black" }} />
@@ -61,12 +65,7 @@ function Home() {
             />
           </a>
           <div className="line-break7h"></div>
-          <a target="./" href="https://github.com/KmLee7/YourBook">
-            {/* <img
-              src="https://img.icons8.com/plasticine/100/000000/github-squared.png"
-              width="50px"
-              alt="github-logo"
-            /> */}
+          <a target="_blank" href="https://github.com/KmLee7/YourBook">
             <FiGithub
               className="github-logo"
               size={50}
@@ -85,7 +84,7 @@ function Home() {
         </div>
         <div className="right-nav">
           <FaUserCircle
-            className="user-logo"
+            className="user-logo1"
             size={50}
             color="black"
             onClick={ProfilePage}
@@ -94,15 +93,18 @@ function Home() {
       </div>
       <div className="home-containers">
         <div className="left-container1">
+          {/* {sessionUserId && (
+            <a href={`/profilepage/${sessionUserId}`}> */}
           <div className="first-left-con">
             <FaUserCircle size={36} />
             <div style={{ width: "15" }}></div>
-            <div className="user-username">
+            <div className="user-username1">
               {currentUser &&
                 currentUser.first_name + " " + currentUser.last_name}
             </div>
           </div>
-          {/* <div>{userName}</div> */}
+          {/* </a> */}
+          {/* )} */}
           <div>Find friends</div>
           <div>Welcome</div>
           <div>Groups</div>

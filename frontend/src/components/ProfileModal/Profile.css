@@ -35,28 +35,28 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-left: 19%;
+  margin-left: 240px;
   height: 50px;
 }
-.hi {
+.background-photo {
   padding-top: 20px;
   width: 1070px;
-  border: 1px solid black;
+  border: 1px solid white;
   height: 300px;
   border-radius: 12px;
   background: lightgray;
 }
-.hello {
+.user-username {
   height: 95px;
-  width: 785px;
+  width: 780px;
   display: flex;
   align-items: center;
-  padding-left: 15px;
-  border: 1px solid black;
+  padding-left: 10px;
+  /* border: 1px solid white; */
   border-radius: 12px;
   font-size: 42px;
 }
-.hey {
+.profile-picture-spot {
   /* padding-left: 80px; */
   /* padding-right: 80px; */
   border-radius: 50%;
@@ -78,8 +78,9 @@
 }
 
 .intro {
-  border: 1px solid black;
-  height: 260px;
+  border: 1px solid lightgray;
+  /* height: 260px; */
+  height: 40%;
   width: 320px;
   padding-top: 15px;
   padding-left: 10px;
@@ -88,7 +89,57 @@
   margin-right: 5%;
   align-items: center;
   border-radius: 12px;
+  background-color: white;
+  box-shadow: 1px 1px 2.5px 2.5px lightgray;
 }
 .intro > div {
   padding: 10px;
+}
+.bio-content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  /* width: 250px; */
+  /* height: 30px; */
+  overflow-wrap: break-word;
+}
+.button-wrapper1 {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1.5%;
+}
+.save-bio-button {
+  border: 1px lightgray;
+  background-color: rgb(48, 144, 255);
+  border-radius: 6px;
+  color: white;
+}
+.cancel-bio-button {
+  border: 1px lightgray;
+  border-radius: 6px;
+}
+.details-list {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+.default-profile:hover {
+  fill: rgb(49, 107, 189);
+}
+
+.add-bio-button {
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.add-hobbies-button {
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.add-featured-button {
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  font-weight: 700;
 }

@@ -22,7 +22,13 @@ ApplicationRecord.transaction do
       email: 'demo@demo.io', 
       password: 'password',
       birthday: '01/02/2000',
-      gender: 'Male'
+      gender: 'Male',
+      work: "none",
+      highschool: "none",
+      college: "none",
+      city: "none",
+      hometown: "none",
+      relationship: "none"
     )
     User.create!(
       first_name: 'Demo5',
@@ -30,7 +36,13 @@ ApplicationRecord.transaction do
       email: 'demo5@demo.io', 
       password: 'password',
       birthday: '01/02/2001',
-      gender: 'Male'
+      gender: 'Male',
+      work: "none",
+      highschool: "none",
+      college: "none",
+      city: "none",
+      hometown: "none",
+      relationship: "none"
     )
   
     puts "Done!"

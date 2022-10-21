@@ -218,13 +218,13 @@
 .link-logo:hover {
   fill: rgb(12, 109, 195);
 }
-.user-logo {
+.user-logo1 {
   size: 25px;
 }
-.user-logo:hover {
+.user-logo1:hover {
   fill: rgb(12, 109, 195);
 }
-.user-username {
+.user-username1 {
   margin-left: 15px;
   padding-top: 6px;
 

@@ -14,6 +14,7 @@ export const getUser =
   (userId) =>
   ({ users }) =>
     users ? users[userId] : null;
+
 export const getUsers = ({ users }) => (users ? Object.values(users) : []);
 
 export const fetchUser = (userId) => async (dispatch) => {
@@ -22,8 +23,17 @@ export const fetchUser = (userId) => async (dispatch) => {
   dispatch(receiveUser(data.user));
 };
 
+export const updateUser = (user) => async (dispatch) => {
+  const res = await csrfFetch(`/api/users/${user.id}`, {
+    method: "PUT",
+    body: JSON.stringify({ user }),
+  });
+
+  const data = await res.json();
+  dispatch(receiveUser(data.user));
+};
+
 const userReducer = (state = {}, action) => {
-  console.log("in userReducer");
   let nextState = { ...state };
   switch (action.type) {
     case SET_CURRENT_USER:

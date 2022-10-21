@@ -1,0 +1,86 @@
+.detailsform-modal {
+  width: 700px;
+  height: 500px;
+}
+
+#edit-details {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.your-intro {
+  font-size: 15px;
+  font-weight: 700;
+  text-indent: 10px;
+}
+
+#will-not {
+  /* text-indent: 8px; */
+  font-size: 12px;
+}
+
+.details-containers {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.line-breakd {
+  height: 10px;
+}
+.details-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2%;
+  margin-right: 5%;
+}
+#work {
+  border: 0;
+  color: rgb(6, 113, 237);
+  width: 300px;
+}
+#highschool {
+  border: 0;
+  color: rgb(6, 113, 237);
+  width: 300px;
+}
+#college {
+  border: 0;
+  color: rgb(6, 113, 237);
+  width: 300px;
+}
+#city {
+  border: 0;
+  color: rgb(6, 113, 237);
+  width: 300px;
+}
+#hometown {
+  border: 0;
+  color: rgb(6, 113, 237);
+  width: 300px;
+}
+#relationship {
+  border: 0;
+  color: rgb(6, 113, 237);
+  width: 300px;
+}
+
+.cancel-edit-details {
+  border: 1px lightgray;
+  height: 30px;
+  background-color: rgb(228, 230, 234);
+  border-radius: 6px;
+}
+.submit-edit-details {
+  border: 1px lightgray;
+  background-color: rgb(48, 144, 255);
+  border-radius: 6px;
+  color: white;
+}
+
+.detailsformButton {
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  font-weight: 700;
+}

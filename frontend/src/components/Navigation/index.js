@@ -91,6 +91,7 @@ function Navigation() {
               </button>
               <div className="line-break"></div>
               <a
+                target="_blank"
                 href="https://thesecmaster.com/12-tips-to-never-forget-a-password/#:~:text=Jog%20Your%20Memory!&text=You%20can%20use%20the%20first,you%20seem%20to%20forget%20it."
                 id="forget-password"
               >
@@ -103,7 +104,11 @@ function Navigation() {
                 <SignupFormModal />
                 <div className="line-break3"></div>
                 <p>
-                  <a href="https://www.facebook.com/" id="under-submit">
+                  <a
+                    target="_blank"
+                    href="https://www.facebook.com/"
+                    id="under-submit"
+                  >
                     Create a Page &nbsp;
                   </a>
                   for a celebrity, brand or business
@@ -112,7 +117,7 @@ function Navigation() {
             </form>
           </div>
         </div>
-        <div className="footer">HEllo this is the footer</div>
+        <div className="footer"></div>
       </>
     ));
     // sessionLinks = (

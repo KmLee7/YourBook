@@ -11,7 +11,14 @@ class Api::UsersController < ApplicationController
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
-
+  def update
+    @user = User.find(params[:id])
+    if @user.update(update_params)
+      render :show
+    else
+      render json: @user.errors.full_messages, status: 422
+    end
+  end
   def show
     @user = User.find(params[:id])
     render :show
@@ -20,6 +27,10 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :password)
+    params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :password, :bio, :work, :highschool, :college, :city, :hometown, :relationship)
   end
+
+  def update_params 
+    params.require(:user).permit(:id, :email, :first_name, :last_name, :gender, :birthday, :password, :bio, :work, :highschool, :college, :city, :hometown, :relationship)
+  end 
 end
