@@ -1,24 +1,72 @@
-# README
+# Yourbook
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Yourbook](https://github.com/KmLee7/YourBook.git)
 
-Things you may want to cover:
+## Brief Overview
 
-- Ruby version
+Yourbook is clone of Facebook and has the functionality for profiles and posts for now. In the future, users will be able to like a post and comment/ reply on the post.
 
-- System dependencies
+## Technologies Used
 
-- Configuration
+- Ruby
+- Ruby on Rails
+- JavaScript
+- React
+- Redux
+- Heroku
 
-- Database creation
+## Two Feactures are Post and Profiles
 
-- Database initialization
+- Able to pull up all the posts that users have made
 
-- How to run the test suite
+```Js
+const PostIndexItem = ({ post }) => {
+ const user = useSelector(({ entities: { users } }) => users[post.user_id]);
+ let username;
+ if (user) {
+   username = user.first_name + " " + user.last_name;
+ }
 
-- Services (job queues, cache servers, search engines, etc.)
+ return (
+   <div className="one-post" key={post.id}>
+     <div className="user-logo-name">
+       <FaUserCircle size={25} />
+       <div className="line-break1h"></div>
+       {username}
+     </div>
+     <div className="line-break6h"></div>
+     <div>{post.content}</div>
+   </div>
+ );
+```
 
-- Deployment instructions
+- Able to pull up all the posts that specific user has made in the user's profile page.
 
-- ...
+```Js
+            <div className="upper">
+               <FaUserCircle size={33} className="default-profile" />
+               <div className="line-break1h"></div>
+               <div className="post-form-button">
+                 <PostFormModal />
+               </div>
+             </div>
+             <div className="line-break4h"></div>
+             <div className="border-line1h"></div>
+           </div>
+           <div className="line-break5h"></div>
+           <div className="all-posts">
+             <div>{PostList}</div>
+           </div>
+```
+
+## Challenges I have faced and is facing
+
+- Code is all of the place so it's hard to pinpoint where the bug is happening.
+- When I thought I was done with one feature and work on another feature, the prev feature causes error.
+
+## Future Implements
+
+- Have all the bugs debugged
+- Able to delete/ edit posts
+- Able to like and comment on posts
+- Keep the code dry.
