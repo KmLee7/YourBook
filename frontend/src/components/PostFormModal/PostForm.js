@@ -2,22 +2,22 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
 import "./PostForm.css";
+import { FaUserCircle } from "react-icons/fa";
 
 function PostForm({ setShowModal }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-  const posts = useSelector((state) => state.entities.posts);
   const userId = useSelector((state) => state.session.currentUserId);
+  const posts = useSelector((state) => state.entities.posts);
+  const currentUser = useSelector(
+    ({ entities: { users }, session: { currentUserId } }) =>
+      users[currentUserId]
+  );
 
-  // let listPosts = [];
-  // Object.values(posts).forEach((post) => {
-  //   listPosts.push(post.content);
-  // });
-  // listPosts.reverse();
-
-  // useEffect(() => {
-  //   dispatch(postActions.fetchPosts());
-  // }, []);
+  let userName;
+  if (currentUser) {
+    userName = currentUser.first_name + " " + currentUser.last_name;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,8 +35,11 @@ function PostForm({ setShowModal }) {
         <div className="create-post">Create post</div>
         <div className="border-line6"></div>
         <div className="user-box-container">
-          <div className="user-box"> User Profile</div>
-          <div className="user-box-name"> User Name</div>
+          <div className="user-box">
+            {" "}
+            <FaUserCircle size={25} />
+          </div>
+          <div className="user-box-name"> {userName}</div>
         </div>
         <label className="post-contents">
           <input

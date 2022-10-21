@@ -50,10 +50,9 @@ function SignupForm() {
       ).catch(async (res) => {
         let data;
         try {
-          // .clone() essentially allows you to read the response body twice
           data = await res.clone().json();
         } catch {
-          data = await res.text(); // Will hit this case if the server is down
+          data = await res.text();
         }
         if (data?.errors) setErrors(data.errors);
         else if (data) setErrors([data]);
@@ -66,7 +65,7 @@ function SignupForm() {
   };
   return (
     <>
-      <form className="signup-modal" onSubmit={handleSubmit}>
+      <form className="signup-modal-form" onSubmit={handleSubmit}>
         <ul>
           {errors &&
             errors.map((error) => {
@@ -88,9 +87,6 @@ function SignupForm() {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="  First Name"
-                // style={
-                //   { firstName }.length === 0 ? { border: "1px solid red" } : {}
-                // }
                 required
               />
             </label>
@@ -259,7 +255,7 @@ function SignupForm() {
             </p>
           </div>
         </div>
-        <button className="submit-button" type="submit">
+        <button className="submit-button2" type="submit">
           Sign Up
         </button>
       </form>

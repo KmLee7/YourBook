@@ -22,7 +22,6 @@ class User < ApplicationRecord
   #   format: { without: URI::MailTo::EMAIL_REGEXP, message:  "can't be an email" }
   validates :first_name, :last_name, :gender, :birthday, presence: true
   validates :first_name, :last_name, length: { in: 3..30 }
-  # validates :bio, :details, :hobbies
   validates :email, 
     uniqueness: true, 
     length: { in: 3..255 }, 
@@ -31,7 +30,7 @@ class User < ApplicationRecord
   validates :password, length: { in: 6..255 }, allow_nil: true
   
   before_validation :ensure_session_token
-
+  has_one_attached :photo
   has_many :posts,
   dependent: :destroy
 

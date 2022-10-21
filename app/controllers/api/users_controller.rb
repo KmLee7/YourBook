@@ -1,6 +1,11 @@
 class Api::UsersController < ApplicationController
   wrap_parameters include: User.attribute_names + ['password'] + ['first_name'] + ['last_name']
 
+  def index
+    @users = User.all
+    render :index
+  end
+
   def create
     @user = User.new(user_params)
 
@@ -8,7 +13,7 @@ class Api::UsersController < ApplicationController
       login!(@user)
       render :show
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages }
     end
   end
   def update
@@ -27,7 +32,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :password, :bio, :work, :highschool, :college, :city, :hometown, :relationship)
+    params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :password)
   end
 
   def update_params 

@@ -12,12 +12,12 @@ import * as postActions from "../../store/posts";
 import * as userActions from "../../store/user";
 import { updateUser } from "../../store/user";
 import DetailsFormModal from "./Details";
+import { Redirect } from "react-router-dom";
 
 function ProfilePage() {
   const [show, setShow] = useState(false);
   const [showBio, setShowBio] = useState(false);
   const [bio, setBio] = useState("");
-  //   const [detail, setDetail] = useState("");
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
   const currentUser = useSelector(
@@ -47,7 +47,6 @@ function ProfilePage() {
           {username}
         </div>
         <div className="line-break6h"></div>
-        {/* <img src={post.photo} width="50px" alt="dfs" /> */}
         <div>{post.content}</div>
       </div>
     );
@@ -70,7 +69,7 @@ function ProfilePage() {
     dispatch(updateUser(user));
     setShowBio(false);
   };
-  //   console.log(currentUser, " 2");
+
   return (
     <>
       <div className="Navbar">
@@ -102,11 +101,6 @@ function ProfilePage() {
           </a>
           <div className="line-break7h"></div>
           <a target="./" href="https://github.com/KmLee7/YourBook">
-            {/* <img
-          src="https://img.icons8.com/plasticine/100/000000/github-squared.png"
-          width="50px"
-          alt="github-logo"
-        /> */}
             <FiGithub
               className="github-logo"
               size={50}

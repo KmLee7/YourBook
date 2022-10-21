@@ -32,10 +32,9 @@ function Navigation() {
       async (res) => {
         let data;
         try {
-          // .clone() essentially allows you to read the response body twice
           data = await res.clone().json();
         } catch {
-          data = await res.text(); // Will hit this case if, e.g., server is down
+          data = await res.text();
         }
         if (data?.errors) setErrors(data.errors);
         else if (data) setErrors([data]);
@@ -91,7 +90,6 @@ function Navigation() {
               </button>
               <div className="line-break"></div>
               <a
-                target="_blank"
                 href="https://thesecmaster.com/12-tips-to-never-forget-a-password/#:~:text=Jog%20Your%20Memory!&text=You%20can%20use%20the%20first,you%20seem%20to%20forget%20it."
                 id="forget-password"
               >
@@ -104,11 +102,7 @@ function Navigation() {
                 <SignupFormModal />
                 <div className="line-break3"></div>
                 <p>
-                  <a
-                    target="_blank"
-                    href="https://www.facebook.com/"
-                    id="under-submit"
-                  >
+                  <a href="https://www.facebook.com/" id="under-submit">
                     Create a Page &nbsp;
                   </a>
                   for a celebrity, brand or business
@@ -120,9 +114,6 @@ function Navigation() {
         <div className="footer"></div>
       </>
     ));
-    // sessionLinks = (
-    //   <ProfileButton user={sessionUser} />
-    // );
   } else {
     return (sessionLinks = (
       <>

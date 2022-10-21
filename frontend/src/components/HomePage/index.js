@@ -16,7 +16,6 @@ import ProfilePage from "../ProfileModal/ProfilePage";
 function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
-  // const sessionUserId = useSelector((state) => state.session.currentUserId);
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
@@ -29,7 +28,6 @@ function Home() {
   useEffect(() => {
     dispatch(postActions.fetchPosts());
   }, []);
-
   const PostList = Object.values(posts)
     .reverse()
     .map((post) => {
@@ -83,18 +81,11 @@ function Home() {
           </a>
         </div>
         <div className="right-nav">
-          <FaUserCircle
-            className="user-logo1"
-            size={50}
-            color="black"
-            onClick={ProfilePage}
-          />
+          <FaUserCircle className="user-logo1" size={50} color="black" />
         </div>
       </div>
       <div className="home-containers">
         <div className="left-container1">
-          {/* {sessionUserId && (
-            <a href={`/profilepage/${sessionUserId}`}> */}
           <div className="first-left-con">
             <FaUserCircle size={36} />
             <div style={{ width: "15" }}></div>
@@ -103,8 +94,6 @@ function Home() {
                 currentUser.first_name + " " + currentUser.last_name}
             </div>
           </div>
-          {/* </a> */}
-          {/* )} */}
           <div>Find friends</div>
           <div>Welcome</div>
           <div>Groups</div>
@@ -151,7 +140,7 @@ function Home() {
           </div>
         </div>
         <div className="right-container1">
-          <div>this is the right container1</div>
+          <div></div>
           <button
             onClick={() => {
               dispatch(logout());
@@ -180,7 +169,6 @@ const PostIndexItem = ({ post }) => {
         {username}
       </div>
       <div className="line-break6h"></div>
-      {/* <img src={post.photo} width="50px" alt="dfs" /> */}
       <div>{post.content}</div>
     </div>
   );

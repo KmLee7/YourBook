@@ -17,7 +17,6 @@ function DetailsForm() {
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
   );
-  //   const details = [work, highschool, college, city, hometown, relationship];
   let user;
   const handleSubmit = (e) => {
     e.preventDefault();

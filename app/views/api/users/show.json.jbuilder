@@ -10,6 +10,7 @@ json.posts do
     end
 end
 
+
 # json.user do
 #     json.extract! @user.posts, :user_id, :content
 # end

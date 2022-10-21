@@ -18,8 +18,22 @@ ApplicationRecord.transaction do
     # Create one user with an easy to remember username, email, and password:
     User.create!(
       first_name: 'Demo',
-      last_name: 'one', 
+      last_name: 'One', 
       email: 'demo@demo.io', 
+      password: 'password',
+      birthday: '10/21/2022',
+      gender: 'Male',
+      work: "none",
+      highschool: "none",
+      college: "none",
+      city: "none",
+      hometown: "none",
+      relationship: "none"
+    )
+    User.create!(
+      first_name: 'Jacob',
+      last_name: 'Smith', 
+      email: 'jacob@demo.io', 
       password: 'password',
       birthday: '01/02/2000',
       gender: 'Male',
@@ -31,11 +45,25 @@ ApplicationRecord.transaction do
       relationship: "none"
     )
     User.create!(
-      first_name: 'Demo5',
-      last_name: 'five', 
-      email: 'demo5@demo.io', 
+      first_name: 'Jennifer',
+      last_name: 'Johnson', 
+      email: 'jennifer@demo.io', 
       password: 'password',
       birthday: '01/02/2001',
+      gender: 'Female',
+      work: "none",
+      highschool: "none",
+      college: "none",
+      city: "none",
+      hometown: "none",
+      relationship: "none"
+    )
+    User.create!(
+      first_name: 'Kevin',
+      last_name: 'Brown', 
+      email: 'kevin@demo.io', 
+      password: 'password',
+      birthday: '01/02/1999',
       gender: 'Male',
       work: "none",
       highschool: "none",
@@ -43,6 +71,74 @@ ApplicationRecord.transaction do
       city: "none",
       hometown: "none",
       relationship: "none"
+    )
+    User.create!(
+      first_name: 'James',
+      last_name: 'Jones', 
+      email: 'james@demo.io', 
+      password: 'password',
+      birthday: '01/02/1997',
+      gender: 'Male',
+      work: "none",
+      highschool: "none",
+      college: "none",
+      city: "none",
+      hometown: "none",
+      relationship: "none"
+    )
+    User.create!(
+      first_name: 'Lily',
+      last_name: 'Miller', 
+      email: 'lily@demo.io', 
+      password: 'password',
+      birthday: '01/02/1993',
+      gender: 'Female',
+      work: "none",
+      highschool: "none",
+      college: "none",
+      city: "none",
+      hometown: "none",
+      relationship: "none"
+    )
+    Post.create!(
+      content: "Hey",
+      user_id: 3
+    )
+    Post.create!(
+      content: "Hello!",
+      user_id: 2
+    )
+    Post.create!(
+      content: "It's getting cold outside",
+      user_id: 4
+    )
+    Post.create!(
+      content: "How's everybody doing?",
+      user_id: 5
+    )
+    Post.create!(
+      content: "I need some coffee",
+      user_id: 6
+    )
+    Post.create!(
+      content: "Help me with this problem..",
+      user_id: 2
+    )
+    Post.create!(
+      content: "It's almost winter",
+      user_id: 4
+    )
+    Post.create!(
+      content: "Mets lost, let's go Yankees",
+      user_id: 5
+    )
+    Post.create!(
+      content: "Forgot to bring my umbrella",
+      user_id: 6
+    )
+    Post.create!(
+      content: "I really need help",
+      user_id: 2
     )
   
     puts "Done!"

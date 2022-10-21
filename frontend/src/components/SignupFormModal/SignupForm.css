@@ -1,4 +1,4 @@
-.signup-modal {
+.signup-modal-form {
   min-height: 592px;
   width: 431px;
 }
@@ -166,7 +166,7 @@ p {
   height: 27px;
 }
 
-.submit-button {
+.submit-button2 {
   background-color: #4eae01;
   border: none;
   color: white;
