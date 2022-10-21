@@ -22,13 +22,13 @@ ApplicationRecord.transaction do
       email: 'demo@demo.io', 
       password: 'password',
       birthday: '10/21/2022',
-      gender: 'Male',
-      work: "none",
-      highschool: "none",
-      college: "none",
-      city: "none",
-      hometown: "none",
-      relationship: "none"
+      gender: 'Male'
+      # work: "none",
+      # highschool: "none",
+      # college: "none",
+      # city: "none",
+      # hometown: "none",
+      # relationship: "none"
     )
     User.create!(
       first_name: 'Jacob',
@@ -36,13 +36,13 @@ ApplicationRecord.transaction do
       email: 'jacob@demo.io', 
       password: 'password',
       birthday: '01/02/2000',
-      gender: 'Male',
-      work: "none",
-      highschool: "none",
-      college: "none",
-      city: "none",
-      hometown: "none",
-      relationship: "none"
+      gender: 'Male'
+      # work: "none",
+      # highschool: "none",
+      # college: "none",
+      # city: "none",
+      # hometown: "none",
+      # relationship: "none"
     )
     User.create!(
       first_name: 'Jennifer',
@@ -50,13 +50,13 @@ ApplicationRecord.transaction do
       email: 'jennifer@demo.io', 
       password: 'password',
       birthday: '01/02/2001',
-      gender: 'Female',
-      work: "none",
-      highschool: "none",
-      college: "none",
-      city: "none",
-      hometown: "none",
-      relationship: "none"
+      gender: 'Female'
+      # work: "none",
+      # highschool: "none",
+      # college: "none",
+      # city: "none",
+      # hometown: "none",
+      # relationship: "none"
     )
     User.create!(
       first_name: 'Kevin',
@@ -64,13 +64,13 @@ ApplicationRecord.transaction do
       email: 'kevin@demo.io', 
       password: 'password',
       birthday: '01/02/1999',
-      gender: 'Male',
-      work: "none",
-      highschool: "none",
-      college: "none",
-      city: "none",
-      hometown: "none",
-      relationship: "none"
+      gender: 'Male'
+      # work: "none",
+      # highschool: "none",
+      # college: "none",
+      # city: "none",
+      # hometown: "none",
+      # relationship: "none"
     )
     User.create!(
       first_name: 'James',
@@ -78,13 +78,13 @@ ApplicationRecord.transaction do
       email: 'james@demo.io', 
       password: 'password',
       birthday: '01/02/1997',
-      gender: 'Male',
-      work: "none",
-      highschool: "none",
-      college: "none",
-      city: "none",
-      hometown: "none",
-      relationship: "none"
+      gender: 'Male'
+      # work: "none",
+      # highschool: "none",
+      # college: "none",
+      # city: "none",
+      # hometown: "none",
+      # relationship: "none"
     )
     User.create!(
       first_name: 'Lily',
@@ -92,13 +92,13 @@ ApplicationRecord.transaction do
       email: 'lily@demo.io', 
       password: 'password',
       birthday: '01/02/1993',
-      gender: 'Female',
-      work: "none",
-      highschool: "none",
-      college: "none",
-      city: "none",
-      hometown: "none",
-      relationship: "none"
+      gender: 'Female'
+      # work: "none",
+      # highschool: "none",
+      # college: "none",
+      # city: "none",
+      # hometown: "none",
+      # relationship: "none"
     )
     Post.create!(
       content: "Hey",
