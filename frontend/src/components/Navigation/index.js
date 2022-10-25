@@ -25,7 +25,7 @@ function Navigation() {
       })
     );
   };
-  const handleSubmit = (e) => {
+  const handleSubmit1 = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password })).catch(
@@ -52,8 +52,8 @@ function Navigation() {
               Connect with friends and the world around you on Yourbook.
             </h2>
           </div>
-          <div>
-            <form className="right-container" onSubmit={handleSubmit}>
+          <div className="login-signup-form">
+            <form className="home-right-container" onSubmit={handleSubmit1}>
               <div className="line-break0"></div>
               <ul>
                 {errors &&
@@ -62,53 +62,58 @@ function Navigation() {
                   })}
               </ul>
               {/* {JSON.stringify(errors)} */}
-
-              <input
-                id="login-email"
-                placeholder="Email or phone number"
-                type="email"
-                value={credential}
-                onChange={(e) => setCredential(e.target.value)}
-                required
-              />
-              <div className="line-break"></div>
-              <input
-                id="login-password"
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <div className="line-break"></div>
-              <button className="loginButton" type="submit">
-                Log In
-              </button>
-              <div className="line-break"></div>
-              <button className="demoUser" onClick={handleDemo}>
-                Demo
-              </button>
-              <div className="line-break"></div>
-              <a
-                href="https://thesecmaster.com/12-tips-to-never-forget-a-password/#:~:text=Jog%20Your%20Memory!&text=You%20can%20use%20the%20first,you%20seem%20to%20forget%20it."
-                id="forget-password"
-              >
-                Forget password?
-              </a>
-              <div className="line-break0"></div>
-              <hr className="borderline"></hr>
-              <div style={{ textAlign: "center" }}>
+              <div className="loggingg-form">
+                <input
+                  id="login-email"
+                  placeholder="Email or phone number"
+                  type="email"
+                  value={credential}
+                  onChange={(e) => setCredential(e.target.value)}
+                  required
+                />
+                <div className="line-break"></div>
+                <input
+                  id="login-password"
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <div className="line-break"></div>
+                <button className="loginButton" type="submit">
+                  Log In
+                </button>
+                <div className="line-break"></div>
+                <button className="demoUser" onClick={handleDemo}>
+                  Demo
+                </button>
+                <div className="line-break"></div>
+                <a
+                  target="./"
+                  href="https://thesecmaster.com/12-tips-to-never-forget-a-password/#:~:text=Jog%20Your%20Memory!&text=You%20can%20use%20the%20first,you%20seem%20to%20forget%20it."
+                  id="forget-password"
+                >
+                  Forget password?
+                </a>
                 <div className="line-break0"></div>
-                <SignupFormModal />
-                <div className="line-break3"></div>
-                <p>
-                  <a href="https://www.facebook.com/" id="under-submit">
-                    Create a Page &nbsp;
-                  </a>
-                  for a celebrity, brand or business
-                </p>
+                <hr className="borderline"></hr>
+                <div style={{ textAlign: "center" }}>
+                  <div className="line-break0"></div>
+                </div>
+                {/* <SignupFormModal /> */}
               </div>
             </form>
+            <div className="right-container-signup-bottom">
+              <SignupFormModal />
+            </div>
+            <div className="line-break3"></div>
+            <p>
+              <a target="./" href="https://www.facebook.com/" id="under-submit">
+                Create a Page &nbsp;
+              </a>
+              for a celebrity, brand or business
+            </p>
           </div>
         </div>
         <div className="footer"></div>

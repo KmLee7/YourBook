@@ -32,12 +32,13 @@ function SignupForm() {
   }
 
   let birthday;
-
-  const handleSubmit = (e) => {
+  // let credential;
+  const handleSubmit2 = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
       birthday = month + "/" + day + "/" + year;
+      // credential = { firstName, lastName, email, birthday, gender };
       return dispatch(
         sessionActions.signup({
           firstName,
@@ -65,15 +66,15 @@ function SignupForm() {
   };
   return (
     <>
-      <form className="signup-modal-form" onSubmit={handleSubmit}>
-        <ul>
-          {errors &&
-            errors.map((error) => {
-              return <li key={error}>{error}</li>;
-            })}
-        </ul>
+      <form className="signup-modal-form" onSubmit={handleSubmit2}>
         <div className="line-break"></div>
         <div className="signup-modal">
+          <ul>
+            {errors &&
+              errors.map((error) => {
+                return <li key={error}>{error}</li>;
+              })}
+          </ul>
           <div>
             <p id="signup">Sign Up</p>
             <p id="signup-info">It's quick and easy.</p>
@@ -162,14 +163,22 @@ function SignupForm() {
             </select>
             <div className="line-break2"></div>
             <select id="day" onChange={(e) => setDay(e.target.value)}>
-              {days.map((dy) => {
-                return <option value={dy}>{dy}</option>;
+              {days.map((dy, i) => {
+                return (
+                  <option key={i} value={dy}>
+                    {dy}
+                  </option>
+                );
               })}
             </select>
             <div className="line-break2"></div>
             <select id="year" onChange={(e) => setYear(e.target.value)}>
-              {years.map((yr) => {
-                return <option value={yr}>{yr}</option>;
+              {years.map((yr, i) => {
+                return (
+                  <option key={i} value={yr}>
+                    {yr}
+                  </option>
+                );
               })}
             </select>
           </div>
@@ -241,13 +250,13 @@ function SignupForm() {
             </div>
           </div>
           <br />
-          <div className="line-break3">
+          <div className="line-break11">
             <p>
               People who use our service may have uploaded your contact
               information to Facebook. Learn more.
             </p>
           </div>
-          <div className="line-break3">
+          <div className="line-break11">
             <p>
               By clicking Sign Up, you agree to our Terms, Privacy Policy and
               Cookies Policy. You may receive SMS Notifications from us and can

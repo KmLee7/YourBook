@@ -10,7 +10,7 @@ class Api::SessionsController < ApplicationController
 
   def create
     @user = User.find_by_credentials(params[:credential], params[:password])
-
+    p 'stops that session controller'
     if @user
       login!(@user)
       render 'api/users/show'

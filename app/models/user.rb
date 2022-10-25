@@ -38,9 +38,12 @@ class User < ApplicationRecord
   dependent: :destroy
     
   def self.find_by_credentials(credential, password)
-    field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : null
-    user = User.find_by(field => credential) 
-    user&.authenticate(password)
+    p "hits user.rb"
+    # field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : nil
+    # user = User.find_by(field => credential) 
+    # user&.authenticate(password)
+      user = User.find_by(credential: email)
+      user&.authenticate(password) ? user : nil
   end
 
   def reset_session_token!
@@ -51,12 +54,16 @@ class User < ApplicationRecord
   private
 
   def generate_unique_session_token
-      token = SecureRandom::urlsafe_base64
+      # token = SecureRandom::urlsafe_base64
 
-      while User.exists?(session_token: token)
-          token = SecureRandom::urlsafe_base64
+      # while User.exists?(session_token: token)
+      #     token = SecureRandom::urlsafe_base64
+      # end
+      # token
+      loop do
+        token = SecureRandom.base64
+        break token unless User.exists?(session_token: token)
       end
-      token
   end
 
   def ensure_session_token

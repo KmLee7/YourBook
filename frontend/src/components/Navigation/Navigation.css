@@ -118,19 +118,33 @@
   width: 390px;
   padding: 10px 125px 10px 22px;
 }
-
-.right-container {
+.login-signup-form {
+  border-radius: 8px;
+  /* border: 1px solid lightgray; */
+  /* box-shadow: 1px 1px 2.5px 2.5px lightgray; */
+}
+.home-right-container {
   /* display: flex; */
   flex-flow: column;
-  border: 1px solid lightgray;
+  border-top: 1px solid lightgray;
   background: white;
-  border-radius: 6px;
-  height: 330px;
+  height: 260px;
   width: 370px;
   margin-right: 7%;
   padding: 10px 10px 10px 10px;
-  border-radius: 8px;
-  box-shadow: 1px 1px 2.5px 2.5px lightgray;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.right-container-signup-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+  width: 390px;
+  height: 60px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: white;
 }
 
 .borderline {
@@ -245,7 +259,7 @@
 }
 
 .line-break3 {
-  height: 50px;
+  height: 10px;
 }
 
 #forget-password {

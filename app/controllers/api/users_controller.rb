@@ -5,17 +5,18 @@ class Api::UsersController < ApplicationController
     @users = User.all
     render :index
   end
-
+  
   def create
     @user = User.new(user_params)
-
+    p @user
     if @user.save
       login!(@user)
       render :show
     else
-      render json: { errors: @user.errors.full_messages }
+      render json: { errors: @user.errors.full_messages }, status: 422
     end
   end
+
   def update
     @user = User.find(params[:id])
     if @user.update(update_params)

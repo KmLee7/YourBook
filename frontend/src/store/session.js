@@ -46,10 +46,19 @@ export const restoreSession = () => async (dispatch) => {
 };
 
 export const signup = (user) => async (dispatch) => {
+  console.log("hits singup session", user);
   // const { firstName, lastName, email, password, birthday, gender } = user;
   const response = await csrfFetch("/api/users", {
     method: "POST",
     body: JSON.stringify({
+      // user: {
+      //   firstName,
+      //   lastName,
+      //   email,
+      //   password,
+      //   birthday,
+      //   gender,
+      // }
       user,
     }),
   });

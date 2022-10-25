@@ -122,7 +122,7 @@ function ProfilePage() {
             className="user-logo"
             size={50}
             color="black"
-            onClick={ProfilePage}
+            // onClick={ProfilePage}
           />
         </div>
       </div>
