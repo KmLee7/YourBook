@@ -46,11 +46,11 @@ class User < ApplicationRecord
   dependent: :destroy
     
   def self.find_by_credentials(credential, password)
-    # field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : nil
-    # user = User.find_by(field => credential) 
-    # user&.authenticate(password)
-      user = User.find_by(credential: email)
-      user&.authenticate(password) ? user : nil
+    field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : nil
+    user = User.find_by(field => credential) 
+    user&.authenticate(password)
+      # user = User.find_by(credential: email)
+      # user&.authenticate(password) ? user : nil
   end
 
   def reset_session_token!
