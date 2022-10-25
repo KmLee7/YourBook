@@ -22,7 +22,8 @@ class Api::PostsController < ApplicationController
     end
 
     def update
-        if @post.update(post_params)
+        @post = Post.find(params[:id])
+        if @post.update(update_params)
             render :show
         else
             render json: @post.errors.full_messages, status: 422
@@ -30,12 +31,18 @@ class Api::PostsController < ApplicationController
     end
 
     def destroy
-        @post.destroy
+        @post = Post.find(params[:id])
+        if @post
+            @post.destroy
+        end
         head :no_content
     end
 
     private
     def post_params
-        params.require(:post).permit(:content)
+        params.require(:post).permit(:content, :id)
+    end
+    def update_params
+        params.require(:post).permit(:content, :id)
     end
 end

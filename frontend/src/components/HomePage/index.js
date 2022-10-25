@@ -13,6 +13,8 @@ import { SiFacebook } from "react-icons/si";
 import { Route, Link, Redirect } from "react-router-dom";
 import ProfileModal from "../ProfileModal/index";
 import ProfilePage from "../ProfileModal/ProfilePage";
+import { deletePost, updatePost } from "../../store/posts";
+
 function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
@@ -155,12 +157,26 @@ function Home() {
 }
 
 const PostIndexItem = ({ post }) => {
+  const dispatch = useDispatch();
   const user = useSelector(({ entities: { users } }) => users[post.user_id]);
+  const currentUser = useSelector(
+    ({ entities: { users }, session: { currentUserId } }) =>
+      users[currentUserId]
+  );
   let username;
   if (user) {
     username = user.first_name + " " + user.last_name;
   }
-
+  const handleDelete = (postId) => {
+    if (post.user_id === currentUser.id) {
+      return dispatch(deletePost(postId));
+    }
+  };
+  const handleEdit = (post) => {
+    if (post.user_id === currentUser.id) {
+      return dispatch(updatePost(post));
+    }
+  };
   return (
     <div className="one-post" key={post.id}>
       <div className="user-logo-name">
@@ -170,6 +186,18 @@ const PostIndexItem = ({ post }) => {
       </div>
       <div className="line-break6h"></div>
       <div>{post.content}</div>
+      <div className="edit-delete-buttonss">
+        <button className="editPost-button" onClick={() => handleEdit(post)}>
+          Edit
+        </button>
+        <div className="line-break9h"></div>
+        <button
+          className="deletePost-button"
+          onClick={() => handleDelete(post.id)}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

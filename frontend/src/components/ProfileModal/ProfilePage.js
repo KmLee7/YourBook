@@ -12,7 +12,9 @@ import * as postActions from "../../store/posts";
 import * as userActions from "../../store/user";
 import { updateUser } from "../../store/user";
 import DetailsFormModal from "./Details";
-import { Redirect } from "react-router-dom";
+import { deletePost, updatePost } from "../../store/posts";
+// import { Redirect } from "react-router-dom";
+// import { Route } from "react-router-dom";
 
 function ProfilePage() {
   const [show, setShow] = useState(false);
@@ -38,16 +40,37 @@ function ProfilePage() {
     if (user) {
       username = user.first_name + " " + user.last_name;
     }
-
+    const handleDelete = (postId) => {
+      if (post.user_id === currentUser.id) {
+        return dispatch(deletePost(postId));
+      }
+    };
+    const handleEdit = (post) => {
+      if (post.user_id === currentUser.id) {
+        return dispatch(updatePost(post));
+      }
+    };
     return (
       <div className="one-post" key={post.id}>
         <div className="user-logo-name">
-          <FaUserCircle size={25} className="default-profile" />
+          <FaUserCircle size={25} />
           <div className="line-break1h"></div>
           {username}
         </div>
         <div className="line-break6h"></div>
         <div>{post.content}</div>
+        <div className="edit-delete-buttonss">
+          <button className="editPost-button" onClick={() => handleEdit(post)}>
+            Edit
+          </button>
+          <div className="line-break9h"></div>
+          <button
+            className="deletePost-button"
+            onClick={() => handleDelete(post.id)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     );
   };
@@ -118,12 +141,7 @@ function ProfilePage() {
           </a>
         </div>
         <div className="right-nav">
-          <FaUserCircle
-            className="user-logo"
-            size={50}
-            color="black"
-            // onClick={ProfilePage}
-          />
+          <FaUserCircle className="user-logo" size={50} color="black" />
         </div>
       </div>
       <div className="profilepage-container">

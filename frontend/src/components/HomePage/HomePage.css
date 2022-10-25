@@ -234,3 +234,41 @@
   border: none;
   background-color: white;
 }
+
+.edit-delete-buttonss {
+  display: flex;
+  justify-content: flex-end;
+  width: 520px;
+}
+.line-break9h {
+  width: 15px;
+}
+.editPost-button {
+  justify-content: flex-end;
+  height: 20px;
+  width: 80px;
+  background-color: #000000;
+  border: none;
+  border-color: white;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+.deletePost-button {
+  justify-content: flex-end;
+  height: 20px;
+  width: 80px;
+  background-color: #000000;
+  border: none;
+  border-color: white;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.editPost-button:hover {
+  background-color: #12c7be;
+}
+.deletePost-button:hover {
+  background-color: #52b500;
+}
