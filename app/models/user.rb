@@ -6,10 +6,18 @@
 #  first_name      :string           not null
 #  last_name       :string           not null
 #  email           :string           not null
-#  birthday        :date             not null
+#  birthday        :string           not null
 #  gender          :string           not null
 #  password_digest :string           not null
 #  session_token   :string           not null
+#  bio             :string
+#  work            :string
+#  highschool      :string
+#  college         :string
+#  city            :string
+#  hometown        :string
+#  relationship    :string
+#  hobbies         :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -38,7 +46,6 @@ class User < ApplicationRecord
   dependent: :destroy
     
   def self.find_by_credentials(credential, password)
-    p "hits user.rb"
     # field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : nil
     # user = User.find_by(field => credential) 
     # user&.authenticate(password)
@@ -47,7 +54,8 @@ class User < ApplicationRecord
   end
 
   def reset_session_token!
-    self.update!(session_token: generate_unique_session_token)
+    self.session_token = generate_unique_session_token
+    save!
     self.session_token
   end
 

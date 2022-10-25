@@ -25,7 +25,7 @@ function Navigation() {
       })
     );
   };
-  const handleSubmit1 = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password })).catch(
@@ -53,7 +53,7 @@ function Navigation() {
             </h2>
           </div>
           <div className="login-signup-form">
-            <form className="home-right-container" onSubmit={handleSubmit1}>
+            <form className="home-right-container" onSubmit={handleSubmit}>
               <div className="line-break0"></div>
               <ul>
                 {errors &&

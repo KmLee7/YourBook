@@ -30,6 +30,7 @@ export const login =
       method: "POST",
       body: JSON.stringify({ credential, password }),
     });
+    storeCSRFToken(response);
     const data = await response.json();
     storeCurrentUser(data.user);
     dispatch(setCurrentUser(data));

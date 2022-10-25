@@ -33,7 +33,7 @@ function SignupForm() {
 
   let birthday;
   // let credential;
-  const handleSubmit2 = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
@@ -66,7 +66,7 @@ function SignupForm() {
   };
   return (
     <>
-      <form className="signup-modal-form" onSubmit={handleSubmit2}>
+      <form className="signup-modal-form" onSubmit={handleSubmit}>
         <div className="line-break"></div>
         <div className="signup-modal">
           <ul>
