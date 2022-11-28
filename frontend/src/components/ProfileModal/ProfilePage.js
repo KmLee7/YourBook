@@ -13,6 +13,7 @@ import * as userActions from "../../store/user";
 import { updateUser } from "../../store/user";
 import DetailsFormModal from "./Details";
 import { deletePost, updatePost } from "../../store/posts";
+import { useHistory } from "react-router-dom";
 // import { Redirect } from "react-router-dom";
 // import { Route } from "react-router-dom";
 
@@ -22,6 +23,7 @@ function ProfilePage() {
   const [bio, setBio] = useState("");
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
+  const history = useHistory();
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
@@ -92,18 +94,23 @@ function ProfilePage() {
     dispatch(updateUser(user));
     setShowBio(false);
   };
+  const handleHomeClick = (e) => {
+    e.preventDefault();
+    history.push("/");
+  };
 
   return (
     <>
       <div className="Navbar">
         <div className="left-nav">
-          <a href="/">
+          <button onClick={handleHomeClick}>
             <SiFacebook
               className="face-logo"
               size={50}
               style={{ color: "black" }}
             />
-          </a>
+          </button>
+
           <div className="line-break1h"></div>
           <div className="nav-search">
             <CgSearch size={20} style={{ color: "black" }} />
@@ -115,13 +122,14 @@ function ProfilePage() {
           </div>
         </div>
         <div className="mid-nav">
-          <a href="/">
+          <button onClick={handleHomeClick}>
             <FaHome
               className="home-logo"
               size={55}
               style={{ color: "black" }}
             />
-          </a>
+          </button>
+
           <div className="line-break7h"></div>
           <a target="./" href="https://github.com/KmLee7/YourBook">
             <FiGithub

@@ -10,7 +10,7 @@ import { FiGithub } from "react-icons/fi";
 import { GrLinkedin } from "react-icons/gr";
 import { FaHome } from "react-icons/fa";
 import { SiFacebook } from "react-icons/si";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Route, Link, Redirect, useHistory } from "react-router-dom";
 import ProfileModal from "../ProfileModal/index";
 import ProfilePage from "../ProfileModal/ProfilePage";
 import { deletePost, updatePost } from "../../store/posts";
@@ -18,6 +18,7 @@ import { deletePost, updatePost } from "../../store/posts";
 function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
+  const history = useHistory();
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
@@ -27,6 +28,8 @@ function Home() {
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;
   }
+  console.log(currentUser, "thistststist current user");
+
   useEffect(() => {
     dispatch(postActions.fetchPosts());
   }, []);
@@ -35,17 +38,26 @@ function Home() {
     .map((post) => {
       return <PostIndexItem key={post.id} post={post} />;
     });
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.push(`/ProfilePage/${currentUser.id}`);
+  };
+  const handleHomeClick = (e) => {
+    e.preventDefault();
+    history.push("/");
+  };
   return (
     <>
       <div className="Navbar">
         <div className="left-nav">
-          <a href="/">
+          <button onClick={handleHomeClick}>
             <SiFacebook
               className="face-logo"
               size={50}
               style={{ color: "black" }}
             />
-          </a>
+          </button>
+
           <div className="line-break1h"></div>
           <div className="nav-search">
             <CgSearch size={20} style={{ color: "black" }} />
@@ -57,13 +69,13 @@ function Home() {
           </div>
         </div>
         <div className="mid-nav">
-          <a href="/">
+          <button onClick={handleHomeClick}>
             <FaHome
               className="home-logo"
               size={55}
               style={{ color: "black" }}
             />
-          </a>
+          </button>
           <div className="line-break7h"></div>
           <a target="_blank" href="https://github.com/KmLee7/YourBook">
             <FiGithub
@@ -88,15 +100,17 @@ function Home() {
       </div>
       <div className="home-containers">
         <div className="left-container1">
-          <div className="first-left-con">
-            <FaUserCircle size={36} />
-            <div style={{ width: "15" }}></div>
-            <div className="user-username1">
-              {currentUser &&
-                currentUser.first_name + " " + currentUser.last_name}
+          <button className="left-profile-button" onClick={handleClick}>
+            <div className="first-left-con">
+              <FaUserCircle size={36} />
+              <div style={{ width: "15" }}></div>
+              <div className="user-username1">
+                {currentUser &&
+                  currentUser.first_name + " " + currentUser.last_name}
+              </div>
             </div>
-          </div>
-          <div>Find friends</div>
+          </button>
+          {/* <div>Find friends</div>
           <div>Welcome</div>
           <div>Groups</div>
           <div>Marketplace</div>
@@ -106,7 +120,7 @@ function Home() {
           <div>Pages</div>
           <div>News</div>
           <div>Events</div>
-          <div>See more drop down</div>
+          <div>See more drop down</div> */}
         </div>
         <div className="mid-container1">
           {/* <div className="feed-top">
