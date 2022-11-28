@@ -86,7 +86,10 @@ function Home() {
             />
           </a>
           <div className="line-break7h"></div>
-          <a target="" href="">
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/in/kyungmin-lee-1767a6255/"
+          >
             <GrLinkedin
               className="link-logo"
               size={48}
