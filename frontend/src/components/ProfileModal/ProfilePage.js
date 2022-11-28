@@ -13,7 +13,7 @@ import * as userActions from "../../store/user";
 import { updateUser } from "../../store/user";
 import DetailsFormModal from "./Details";
 import { deletePost, updatePost } from "../../store/posts";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 // import { Redirect } from "react-router-dom";
 // import { Route } from "react-router-dom";
 
@@ -22,12 +22,17 @@ function ProfilePage() {
   const [showBio, setShowBio] = useState(false);
   const [bio, setBio] = useState("");
   const dispatch = useDispatch();
+  const { id } = useParams();
   const posts = useSelector((state) => state.entities.posts);
   const history = useHistory();
-  const currentUser = useSelector(
-    ({ entities: { users }, session: { currentUserId } }) =>
-      users[currentUserId]
-  );
+  // const currentUser = useSelector(
+  //   ({ entities: { users }, session: { currentUserId } }) =>
+  //     users[currentUserId]
+  // );
+  let currentUser = useSelector((state) => {
+    return state.entities.users[id];
+  });
+  // console.log(, "THists temp");
   let userName;
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;

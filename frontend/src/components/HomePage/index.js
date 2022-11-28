@@ -219,11 +219,13 @@ const PostIndexItem = ({ post }) => {
   };
   return (
     <div className="one-post" key={post.id}>
-      <div className="user-logo-name">
+      {/* <div className="user-logo-name"> */}
+      <Link to={`/ProfilePage/${post.user_id}`}>
         <FaUserCircle size={25} />
         <div className="line-break1h"></div>
         {username}
-      </div>
+      </Link>
+      {/* </div> */}
       <div className="line-break6h"></div>
       <div>{post.content}</div>
       <div className="edit-delete-buttonss">

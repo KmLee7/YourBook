@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ModalOne } from "./ModalOne";
+import { Modal } from "../../context/Modal";
 import RightProfile from "./RightProfile";
 import { FaUserCircle } from "react-icons/fa";
 import "./RightProfile.css";
@@ -13,9 +13,9 @@ function RightProfileModal() {
         <FaUserCircle size={33} />
       </button>
       {showModal && (
-        <ModalOne onClose={() => setShowModal(false)}>
+        <Modal onClose={() => setShowModal(false)}>
           <RightProfile />
-        </ModalOne>
+        </Modal>
       )}
     </div>
   );
