@@ -198,6 +198,7 @@ function Home() {
 
 const PostIndexItem = ({ post }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(({ entities: { users } }) => users[post.user_id]);
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
@@ -220,11 +221,25 @@ const PostIndexItem = ({ post }) => {
   return (
     <div className="one-post" key={post.id}>
       {/* <div className="user-logo-name"> */}
-      <Link to={`/ProfilePage/${post.user_id}`}>
-        <FaUserCircle size={25} />
-        <div className="line-break1h"></div>
-        {username}
-      </Link>
+      <button
+        style={{
+          width: "520px",
+          border: "1px solid white",
+          background: "white",
+          display: "flex",
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          history.push(`/ProfilePage/${post.user_id}`);
+        }}
+      >
+        <div className="user-logo-name">
+          <FaUserCircle size={25} />
+          <div className="line-break1h"></div>
+          {username}
+          <div style={{ width: "10px" }}></div>
+        </div>
+      </button>
       {/* </div> */}
       <div className="line-break6h"></div>
       <div>{post.content}</div>

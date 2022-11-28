@@ -281,3 +281,7 @@
 .left-profile-button:hover {
   background-color: lightgray;
 }
+.user-logo-name:hover {
+  background-color: rgb(228, 228, 228);
+  border-radius: 8px;
+}
