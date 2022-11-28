@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import ProfileButton from "../ProfilePageModal/ProfileButton";
 import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
 
 import * as sessionActions from "../../store/session";
-import Home from "../HomePage/index";
+import HomePage from "../HomePage/index";
 
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.currentUserId);
@@ -16,6 +16,7 @@ function Navigation() {
   const [errors, setErrors] = useState([]);
 
   let sessionLinks;
+
   const handleDemo = (e) => {
     e.preventDefault();
     return dispatch(
@@ -43,7 +44,7 @@ function Navigation() {
     );
   };
   if (!sessionUser) {
-    return (sessionLinks = (
+    return (
       <>
         <div className="home-page">
           <div className="left-container">
@@ -118,13 +119,15 @@ function Navigation() {
         </div>
         <div className="footer"></div>
       </>
-    ));
+    );
   } else {
-    return (sessionLinks = (
+    return (
       <>
-        <Home />
+        <Redirect to="/">
+          <HomePage />
+        </Redirect>
       </>
-    ));
+    );
   }
 }
 

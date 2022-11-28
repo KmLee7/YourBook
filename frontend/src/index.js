@@ -10,6 +10,7 @@ import csrfFetch from "./store/csrf";
 import * as sessionActions from "./store/session";
 import * as postsActions from "./store/posts";
 import * as userActions from "./store/user";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const store = configureStore();
 

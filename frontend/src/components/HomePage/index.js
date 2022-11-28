@@ -14,6 +14,8 @@ import { Route, Link, Redirect, useHistory } from "react-router-dom";
 import ProfileModal from "../ProfileModal/index";
 import ProfilePage from "../ProfileModal/ProfilePage";
 import { deletePost, updatePost } from "../../store/posts";
+import RightProfile from "../RightProfileModal/RightProfile";
+import RightProfileModal from "../RightProfileModal";
 
 function Home() {
   const dispatch = useDispatch();
@@ -46,6 +48,7 @@ function Home() {
     e.preventDefault();
     history.push("/");
   };
+
   return (
     <>
       <div className="Navbar">
@@ -98,7 +101,14 @@ function Home() {
           </a>
         </div>
         <div className="right-nav">
-          <FaUserCircle className="user-logo1" size={50} color="black" />
+          {/* <button
+            onClick={() => {
+              <RightProfileModal />;
+            }}
+          >
+            <FaUserCircle className="user-logo1" size={50} color="black" />
+          </button> */}
+          <RightProfileModal />
         </div>
       </div>
       <div className="home-containers">
@@ -139,7 +149,20 @@ function Home() {
           <div className="line-break2h"></div>
           <div className="post-form">
             <div className="upper">
-              <FaUserCircle size={33} />
+              <button>
+                <FaUserCircle size={33} />
+              </button>
+              {/* <button
+                className="rightProfileButton"
+                onClick={() => setShowModal(true)}
+              >
+                <FaUserCircle size={33} />
+              </button>
+              {showModal && (
+                <Modal onClose={() => setShowModal(false)}>
+                  <RightProfileButton />
+                </Modal>
+              )} */}
               <div className="line-break1h"></div>
               <div className="post-form-button">
                 <PostFormModal />
