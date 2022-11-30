@@ -67,6 +67,7 @@ function ProfilePage() {
         if (!menuRef.current.contains(e.target)) {
           setOpen(false);
         }
+        return;
       };
       document.addEventListener("mousedown", handler);
     });

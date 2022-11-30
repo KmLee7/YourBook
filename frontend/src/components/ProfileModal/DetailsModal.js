@@ -18,6 +18,7 @@ function DetailsForm() {
       users[currentUserId]
   );
   let user;
+  console.log(currentUser, "from DetailsModal");
   const handleSubmit = (e) => {
     e.preventDefault();
     user = {
@@ -52,7 +53,7 @@ function DetailsForm() {
                 <input
                   id="work"
                   type="text"
-                  value={work}
+                  value={currentUser.work}
                   onChange={(e) => setWork(e.target.value)}
                   placeholder="  Add a workplace"
                 />
