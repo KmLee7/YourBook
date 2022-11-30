@@ -14,10 +14,15 @@ import { updateUser } from "../../store/user";
 import DetailsFormModal from "./Details";
 import { deletePost, updatePost } from "../../store/posts";
 import { useHistory, useParams } from "react-router-dom";
+import { logout } from "../../store/session";
+import { useRef } from "react";
+
 // import { Redirect } from "react-router-dom";
 // import { Route } from "react-router-dom";
 
 function ProfilePage() {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef();
   const [show, setShow] = useState(false);
   const [showBio, setShowBio] = useState(false);
   const [bio, setBio] = useState("");
@@ -25,10 +30,10 @@ function ProfilePage() {
   const { id } = useParams();
   const posts = useSelector((state) => state.entities.posts);
   const history = useHistory();
-  // const currentUser = useSelector(
-  //   ({ entities: { users }, session: { currentUserId } }) =>
-  //     users[currentUserId]
-  // );
+  const tempcurrentUser = useSelector(
+    ({ entities: { users }, session: { currentUserId } }) =>
+      users[currentUserId]
+  );
   let currentUser = useSelector((state) => {
     return state.entities.users[id];
   });
@@ -57,6 +62,14 @@ function ProfilePage() {
         return dispatch(updatePost(post));
       }
     };
+    useEffect(() => {
+      let handler = (e) => {
+        if (!menuRef.current.contains(e.target)) {
+          setOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handler);
+    });
     return (
       <div className="one-post" key={post.id}>
         <div className="user-logo-name">
@@ -108,7 +121,10 @@ function ProfilePage() {
     <>
       <div className="Navbar">
         <div className="left-nav">
-          <button onClick={handleHomeClick}>
+          <button
+            style={{ border: "1px solid white", backgroundColor: "white" }}
+            onClick={handleHomeClick}
+          >
             <SiFacebook
               className="face-logo"
               size={50}
@@ -127,7 +143,10 @@ function ProfilePage() {
           </div>
         </div>
         <div className="mid-nav">
-          <button onClick={handleHomeClick}>
+          <button
+            style={{ border: "1px solid white", backgroundColor: "white" }}
+            onClick={handleHomeClick}
+          >
             <FaHome
               className="home-logo"
               size={55}
@@ -153,8 +172,57 @@ function ProfilePage() {
             />
           </a>
         </div>
-        <div className="right-nav">
+        {/* <div className="right-nav">
           <FaUserCircle className="user-logo" size={50} color="black" />
+        </div> */}
+        <div className="menu-container" ref={menuRef}>
+          <div
+            className="menu-trigger"
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            <FaUserCircle className="user-logo1" size={50} color="black" />
+          </div>
+          <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
+            <div>
+              <button
+                className="left-profile-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.push(`/ProfilePage/${tempcurrentUser.id}`);
+                }}
+              >
+                <div className="first-left-con">
+                  <FaUserCircle size={36} />
+                  <div style={{ width: "15" }}></div>
+                  <div className="user-username1">
+                    {tempcurrentUser &&
+                      tempcurrentUser.first_name +
+                        " " +
+                        tempcurrentUser.last_name}
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div style={{ height: "20px" }}></div>
+            <div>
+              <button
+                style={{
+                  width: "220px",
+                  height: "40px",
+                  border: "1px solid lightgray",
+                  borderRadius: "8px",
+                }}
+                className="logout-button"
+                onClick={(e) => {
+                  dispatch(logout());
+                }}
+              >
+                Logout
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="profilepage-container">

@@ -2,7 +2,7 @@ import "./HomePage.css";
 import { logout } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import PostFormModal from "../PostFormModal/index";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as postActions from "../../store/posts";
 import { CgSearch } from "react-icons/cg";
 import { FaUserCircle } from "react-icons/fa";
@@ -21,6 +21,8 @@ function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
   const history = useHistory();
+  const [open, setOpen] = useState(false);
+  let menuRef = useRef();
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
@@ -44,16 +46,32 @@ function Home() {
     e.preventDefault();
     history.push(`/ProfilePage/${currentUser.id}`);
   };
+  // const handleClick2 = (e) => {
+  //   e.preventDefault();
+  //   history.push(`/ProfilePage/${currentUser.id}`);
+  // };
   const handleHomeClick = (e) => {
     e.preventDefault();
     history.push("/");
   };
+  // dropdown code here
+  useEffect(() => {
+    let handler = (e) => {
+      if (!menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+  });
 
   return (
     <>
       <div className="Navbar">
         <div className="left-nav">
-          <button onClick={handleHomeClick}>
+          <button
+            style={{ border: "1px solid white", backgroundColor: "white" }}
+            onClick={handleHomeClick}
+          >
             <SiFacebook
               className="face-logo"
               size={50}
@@ -72,7 +90,10 @@ function Home() {
           </div>
         </div>
         <div className="mid-nav">
-          <button onClick={handleHomeClick}>
+          <button
+            style={{ border: "1px solid white", backgroundColor: "white" }}
+            onClick={handleHomeClick}
+          >
             <FaHome
               className="home-logo"
               size={55}
@@ -108,7 +129,53 @@ function Home() {
           >
             <FaUserCircle className="user-logo1" size={50} color="black" />
           </button> */}
-          <RightProfileModal />
+          <div className="menu-container" ref={menuRef}>
+            <div
+              className="menu-trigger"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <FaUserCircle className="user-logo1" size={50} color="black" />
+            </div>
+            <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
+              <div>
+                <button
+                  className="left-profile-button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.push(`/ProfilePage/${currentUser.id}`);
+                  }}
+                >
+                  <div className="first-left-con">
+                    <FaUserCircle size={36} />
+                    <div style={{ width: "15" }}></div>
+                    <div className="user-username1">
+                      {currentUser &&
+                        currentUser.first_name + " " + currentUser.last_name}
+                    </div>
+                  </div>
+                </button>
+              </div>
+              <div style={{ height: "20px" }}></div>
+              <div>
+                <button
+                  style={{
+                    width: "220px",
+                    height: "40px",
+                    border: "1px solid lightgray",
+                    borderRadius: "8px",
+                  }}
+                  className="logout-button"
+                  onClick={(e) => {
+                    dispatch(logout());
+                  }}
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="home-containers">
@@ -149,7 +216,9 @@ function Home() {
           <div className="line-break2h"></div>
           <div className="post-form">
             <div className="upper">
-              <button>
+              <button
+                style={{ border: "1px solid white", backgroundColor: "white" }}
+              >
                 <FaUserCircle size={33} />
               </button>
               {/* <button
@@ -181,16 +250,7 @@ function Home() {
             <div>{PostList}</div>
           </div>
         </div>
-        <div className="right-container1">
-          <div></div>
-          <button
-            onClick={() => {
-              dispatch(logout());
-            }}
-          >
-            Logout
-          </button>
-        </div>
+        <div className="right-container1"></div>
       </div>
     </>
   );
@@ -242,7 +302,7 @@ const PostIndexItem = ({ post }) => {
       </button>
       {/* </div> */}
       <div className="line-break6h"></div>
-      <div>{post.content}</div>
+      <div style={{ paddingLeft: "10px" }}>{post.content}</div>
       <div className="edit-delete-buttonss">
         <button className="editPost-button" onClick={() => handleEdit(post)}>
           Edit

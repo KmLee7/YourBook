@@ -173,7 +173,8 @@
   padding-top: 16px;
 }
 .one-post {
-  height: 90px;
+  height: 100px;
+  max-height: auto;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -238,6 +239,10 @@
 .edit-delete-buttonss {
   display: flex;
   justify-content: flex-end;
+  margin-top: auto;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: auto;
   width: 520px;
 }
 .line-break9h {
@@ -284,4 +289,40 @@
 .user-logo-name:hover {
   background-color: rgb(228, 228, 228);
   border-radius: 8px;
+}
+.logout-button:hover {
+  background-color: #f0a639;
+}
+/* dropdown stuff */
+
+.dropdown {
+  position: relative;
+}
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.25rem);
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* .dropdown > .right-profile-pic:focus + .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+} */
+
+.dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: var(--speed) ease;
+}
+.dropdown-menu.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: var(--speed) ease;
 }
