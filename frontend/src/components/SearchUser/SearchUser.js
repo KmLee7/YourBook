@@ -1,17 +1,13 @@
 import { useState } from "react";
-import { useEffect } from "react";
-import { CgSearch } from "react-icons/cg";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 // import { getUsers } from "../../store/user";
 import "./SearchUser.css";
 
 // const SearchUser = () => {
 function SearchBar({ placeholder, data }) {
-  const location = useLocation();
   const history = useHistory();
   const [filter, setFilter] = useState([]);
-  const dispatch = useDispatch();
   const [serachInput, setSearchInput] = useState("");
 
   const users = useSelector((state) => state.entities.users);
@@ -50,7 +46,7 @@ function SearchBar({ placeholder, data }) {
           />
         </div>
         {/* <div style={{ height: "50px" }}></div> */}
-        {filter.length != 0 && (
+        {filter.length !== 0 && (
           <div className="dataResult">
             {filter.slice(0, 10).map((user) => {
               return (
