@@ -10,12 +10,20 @@ import { FiGithub } from "react-icons/fi";
 import { GrLinkedin } from "react-icons/gr";
 import { FaHome } from "react-icons/fa";
 import { SiFacebook } from "react-icons/si";
-import { Route, Link, Redirect, useHistory } from "react-router-dom";
+import {
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import ProfileModal from "../ProfileModal/index";
 import ProfilePage from "../ProfileModal/ProfilePage";
 import { deletePost, updatePost } from "../../store/posts";
 import RightProfile from "../RightProfileModal/RightProfile";
 import RightProfileModal from "../RightProfileModal";
+// import SearchUser from "../SearchUser/SearchUser";
+import SearchBar from "../SearchUser/SearchUser";
 
 function Home() {
   const dispatch = useDispatch();
@@ -32,7 +40,16 @@ function Home() {
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;
   }
-  console.log(currentUser, "thistststist current user");
+  // console.log(currentUser, "thistststist current user");
+  ///Search function
+  const users = useSelector((state) => state.entities.users);
+  let tempUsers = Object.values(users);
+  console.log(tempUsers);
+  let names = [];
+  for (let i = 0; i < tempUsers.length; i++) {
+    names.push(tempUsers[i].first_name);
+  }
+  ///
 
   useEffect(() => {
     dispatch(postActions.fetchPosts());
@@ -64,6 +81,7 @@ function Home() {
     };
     document.addEventListener("mousedown", handler);
   });
+  //search functionality
 
   return (
     <>
@@ -81,14 +99,17 @@ function Home() {
           </button>
 
           <div className="line-break1h"></div>
-          <div className="nav-search">
-            <CgSearch size={20} style={{ color: "black" }} />
-            <input
+          {/* <div className="nav-search"> */}
+          <CgSearch size={20} style={{ color: "black" }} />
+          {/* <input
               className="nav-search-bar"
-              type="text"
+              type="search"
               placeholder="Search Yourbook"
-            />
-          </div>
+            /> */}
+          {/* <Route path="/search"> */}
+          {/* </Route> */}
+          <SearchBar placeholder="Search yourbook" data={tempUsers} />
+          {/* </div> */}
         </div>
         <div className="mid-nav">
           <button
