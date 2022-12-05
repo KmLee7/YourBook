@@ -297,7 +297,8 @@ const PostIndexItem = ({ post }) => {
   };
   const handleEdit = (post) => {
     if (post.user_id === currentUser.id) {
-      return dispatch(updatePost(post));
+      return <PostFormModal />;
+      // return dispatch(updatePost(post.id));
     }
   };
   return (
