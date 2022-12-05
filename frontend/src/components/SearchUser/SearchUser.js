@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CgSearch } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import { getUsers } from "../../store/user";
@@ -39,13 +40,13 @@ function SearchBar({ placeholder, data }) {
     <>
       <div className="search">
         <div className="searchInputs">
+          <CgSearch size={20} style={{ color: "black" }} />
           <input
             type="search"
             placeholder={placeholder}
             onChange={handleFilter}
           />
         </div>
-        {/* <div style={{ height: "50px" }}></div> */}
         {filter.length !== 0 && (
           <div className="dataResult">
             {filter.slice(0, 10).map((user) => {
@@ -61,6 +62,7 @@ function SearchBar({ placeholder, data }) {
                 </button>
               );
             })}
+            <div style={{ height: "10px" }}></div>
           </div>
         )}
       </div>

@@ -100,7 +100,7 @@ function Home() {
 
           <div className="line-break1h"></div>
           {/* <div className="nav-search"> */}
-          <CgSearch size={20} style={{ color: "black" }} />
+          {/* <CgSearch size={20} style={{ color: "black" }} /> */}
           {/* <input
               className="nav-search-bar"
               type="search"
