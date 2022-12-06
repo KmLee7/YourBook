@@ -24,6 +24,8 @@ import RightProfile from "../RightProfileModal/RightProfile";
 import RightProfileModal from "../RightProfileModal";
 // import SearchUser from "../SearchUser/SearchUser";
 import SearchBar from "../SearchUser/SearchUser";
+import PostForm from "../PostFormModal/PostForm";
+import "../PostFormModal/PostForm.css";
 
 function Home() {
   const dispatch = useDispatch();
@@ -256,7 +258,7 @@ function Home() {
               )} */}
               <div className="line-break1h"></div>
               <div className="post-form-button">
-                <PostFormModal />
+                <PostFormModal header="create" />
               </div>
             </div>
             <div className="line-break4h"></div>
@@ -286,6 +288,7 @@ const PostIndexItem = ({ post }) => {
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
   );
+  const [toggleEdit, setToggleEdit] = useState(false);
   let username;
   if (user) {
     username = user.first_name + " " + user.last_name;
@@ -299,53 +302,62 @@ const PostIndexItem = ({ post }) => {
     console.log(post.content, "hello");
     if (post.user_id === currentUser.id) {
       console.log("its true");
-
       // return dispatch(updatePost(post));
     }
   };
   return (
-    <div className="one-post" key={post.id}>
-      {/* <div className="user-logo-name"> */}
-      <button
-        style={{
-          width: "520px",
-          border: "1px solid white",
-          background: "white",
-          display: "flex",
-        }}
-        onClick={(e) => {
-          e.preventDefault();
-          history.push(`/ProfilePage/${post.user_id}`);
-        }}
-      >
-        <div className="user-logo-name">
-          <FaUserCircle size={25} />
-          <div className="line-break1h"></div>
-          {username}
-          <div style={{ width: "10px" }}></div>
-        </div>
-      </button>
-      {/* </div> */}
-      <div className="line-break6h"></div>
-      <div style={{ paddingLeft: "10px" }}>{post.content}</div>
-      <div className="edit-delete-buttonss">
+    <>
+      <div className="one-post" key={post.id}>
+        {/* <div className="user-logo-name"> */}
         <button
-          className="editPost-button"
-          onClick={() => {
-            handleEdit(post);
+          style={{
+            width: "520px",
+            border: "1px solid white",
+            background: "white",
+            display: "flex",
+          }}
+          onClick={(e) => {
+            e.preventDefault();
+            history.push(`/ProfilePage/${post.user_id}`);
           }}
         >
-          Edit
+          <div className="user-logo-name">
+            <FaUserCircle size={25} />
+            <div className="line-break1h"></div>
+            {username}
+            <div style={{ width: "10px" }}></div>
+          </div>
         </button>
-        <div className="line-break9h"></div>
+        {/* </div> */}
+        <div className="line-break6h"></div>
+        <div style={{ paddingLeft: "10px" }}>{post.content}</div>
+        {currentUser.id === post.user_id && (
+          <div className="edit-delete-buttonss">
+            <button
+              className="editPost-button"
+              onClick={() => {
+                setToggleEdit(post);
+              }}
+            >
+              Edit
+            </button>
+            <div className="line-break9h"></div>
+            <button
+              className="deletePost-button"
+              onClick={() => handleDelete(post.id)}
+            >
+              Delete
+            </button>
+          </div>
+        )}
         <button
-          className="deletePost-button"
-          onClick={() => handleDelete(post.id)}
-        >
-          Delete
-        </button>
+          onClick={() => {
+            setToggleEdit(null);
+          }}
+        ></button>
       </div>
-    </div>
+      {toggleEdit && <PostForm post={toggleEdit} />}
+    </>
   );
 };
 

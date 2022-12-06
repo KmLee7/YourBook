@@ -4,7 +4,7 @@ import * as postActions from "../../store/posts";
 import "./PostForm.css";
 import { FaUserCircle } from "react-icons/fa";
 
-function PostForm({ setShowModal }) {
+function PostForm({ setShowModal, post }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const userId = useSelector((state) => state.session.currentUserId);
@@ -29,9 +29,26 @@ function PostForm({ setShowModal }) {
       setShowModal(false);
     });
   };
+  const handleEditForm = (e) => {
+    e.preventDefault();
+    const newpost = {
+      id: post.id,
+      content: content,
+    };
+    dispatch(postActions.updatePost(newpost)).then(() => {
+      setContent("");
+      setShowModal(false);
+    });
+  };
+  let header;
+  if (post) {
+    header = handleEditForm;
+  } else {
+    header = handleSubmit;
+  }
   return (
     <>
-      <form className="post-form-modal" onSubmit={handleSubmit}>
+      <form className="post-form-modal" onSubmit={header}>
         <div className="create-post">Create post</div>
         <div className="border-line6"></div>
         <div className="user-box-container">
