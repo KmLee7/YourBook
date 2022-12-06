@@ -296,9 +296,11 @@ const PostIndexItem = ({ post }) => {
     }
   };
   const handleEdit = (post) => {
+    console.log(post.content, "hello");
     if (post.user_id === currentUser.id) {
-      return <PostFormModal />;
-      // return dispatch(updatePost(post.id));
+      console.log("its true");
+
+      // return dispatch(updatePost(post));
     }
   };
   return (
@@ -327,7 +329,12 @@ const PostIndexItem = ({ post }) => {
       <div className="line-break6h"></div>
       <div style={{ paddingLeft: "10px" }}>{post.content}</div>
       <div className="edit-delete-buttonss">
-        <button className="editPost-button" onClick={() => handleEdit(post)}>
+        <button
+          className="editPost-button"
+          onClick={() => {
+            handleEdit(post);
+          }}
+        >
           Edit
         </button>
         <div className="line-break9h"></div>

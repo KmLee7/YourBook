@@ -66,6 +66,22 @@ export const updatePost = (post) => async (dispatch) => {
   const data = await res.json();
   dispatch(receivePost(data));
 };
+// export const updatePost = (params) => async (dispatch) => {
+//   let { postId, post } = params;
+//   const res = await csrfFetch(`/api/posts/${postId}`, {
+//     method: "PUT",
+//     body: JSON.stringify({
+//       post: post,
+//     }),
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+//   const data2 = await res.clone();
+//   const data = await res.json();
+//   dispatch(getPosts());
+//   dispatch(receivePost(postId));
+// };
 
 export const deletePost = (postId) => async (dispatch) => {
   const res = await csrfFetch(`/api/posts/${postId}`, {

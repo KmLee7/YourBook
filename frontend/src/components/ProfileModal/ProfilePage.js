@@ -29,6 +29,7 @@ function ProfilePage() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const posts = useSelector((state) => state.entities.posts);
+  const tmpCurrentUserId = useSelector((state) => state.session.currentUserId);
   const history = useHistory();
   const tempcurrentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
@@ -53,12 +54,13 @@ function ProfilePage() {
       username = user.first_name + " " + user.last_name;
     }
     const handleDelete = (postId) => {
-      if (post.user_id === currentUser.id) {
+      if (post.user_id === tmpCurrentUserId) {
         return dispatch(deletePost(postId));
       }
     };
     const handleEdit = (post) => {
-      if (post.user_id === currentUser.id) {
+      console.log(tmpCurrentUserId, post.user_id);
+      if (post.user_id === tmpCurrentUserId) {
         return dispatch(updatePost(post));
       }
     };

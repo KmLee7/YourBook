@@ -259,6 +259,17 @@
   text-decoration: none;
   border-radius: 6px;
 }
+.edit-post-button {
+  justify-content: flex-end;
+  height: 20px;
+  width: 80px;
+  background-color: #000000;
+  border: none;
+  border-color: white;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
 .deletePost-button {
   justify-content: flex-end;
   height: 20px;
