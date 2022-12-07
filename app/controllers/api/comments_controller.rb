@@ -42,4 +42,5 @@ class Api::CommentsController < ApplicationController
     end
     def update_comment_params
         params.require(:comment).permit(:content,:id)
+    end
 end
