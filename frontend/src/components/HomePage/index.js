@@ -289,12 +289,15 @@ const PostIndexItem = ({ post }) => {
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
   );
+  const currentUserId = useSelector((state) => state.session.currentUserId);
+  console.log(currentUserId);
   const [toggleEdit, setToggleEdit] = useState(false);
   const [tempBoo, setTempBoo] = useState(false);
   let username;
   if (user) {
     username = user.first_name + " " + user.last_name;
   }
+
   const handleDelete = (postId) => {
     if (post.user_id === currentUser.id) {
       return dispatch(deletePost(postId));
@@ -365,9 +368,10 @@ const PostIndexItem = ({ post }) => {
         >
           Edit
         </button> */}
-        <div className="edit-delete-buttonss">
-          {/* {toggleEdit && <EditPostFormModal />} */}
-          {/* <div
+        {currentUserId === post.user_id && (
+          <div className="edit-delete-buttonss">
+            {/* {toggleEdit && <EditPostFormModal />} */}
+            {/* <div
             className="editPost-button"
             onClick={() => {
               setToggleEdit(true);
@@ -375,19 +379,19 @@ const PostIndexItem = ({ post }) => {
           >
             Edit
           </div> */}
-          <div>
-            {post.user_id === currentUser.id && (
+            <div>
+              {/* {currentUser.id === post.user_id && ( */}
               <EditPostFormModal post={post} />
-            )}
+            </div>
+            <div className="line-break9h"></div>
+            <button
+              className="deletePost-button"
+              onClick={() => handleDelete(post.id)}
+            >
+              Delete
+            </button>
           </div>
-          <div className="line-break9h"></div>
-          <button
-            className="deletePost-button"
-            onClick={() => handleDelete(post.id)}
-          >
-            Delete
-          </button>
-        </div>
+        )}
         {/* <button
           onClick={() => {
             setToggleEdit(false);
