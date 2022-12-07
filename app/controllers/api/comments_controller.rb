@@ -1,15 +1,23 @@
 class Api::CommentsController < ApplicationController
     # before_action :require_logged_in, only: [:new, :create]
 
-    def new
-        @comment = Comment.new(post_id: params[:post_id])
+
+    def show 
+        @comment = Comment.find(params[:id])
+        render :show
+    end
+    def index
+        @comments = Comment.all
+        render :index
     end
 
     def create
-        @comment = current_user.comments.new(comment_params)
-
+        # @post = Post.find(params[:post_id])
+        # @comment = @post.comments.create(comment_params)
+        @comment = Comment.new(comment_params)
+        
         if @comment.save!
-            render 'api/posts/show/comments/show'
+            render 'api/comments/show'
         else
             render json: @comment.errors.full_messages, status: 422
         end
@@ -20,8 +28,8 @@ class Api::CommentsController < ApplicationController
     end
 
     def update
-        @comment = Post.find(update_comment_params[:id])
-        if @comment.update(update_comment_params)
+        @comment = Post.find(params[:id])
+        if @comment.update(comment_params)
             render :show
         else
             render json: @comment.errors.full_messages, status: 422
@@ -38,9 +46,6 @@ class Api::CommentsController < ApplicationController
 
     private
     def comment_params
-        params.require(:comment).permit(:content, :id)
-    end
-    def update_comment_params
-        params.require(:comment).permit(:content,:id)
+        params.require(:comment).permit(:body, :post_id, :user_id)
     end
 end

@@ -11,7 +11,9 @@
 class Post < ApplicationRecord
     validates :content, presence: true
     has_one_attached :photo
-    has_many :comments, inverse_of: :post
+    has_many :comments,
+        foreign_key: :post_id,
+        dependent: :destroy
 
     belongs_to :user
 end

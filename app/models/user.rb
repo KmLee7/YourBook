@@ -40,9 +40,11 @@ class User < ApplicationRecord
   before_validation :ensure_session_token
   has_one_attached :photo
   has_many :posts,
-  dependent: :destroy
+    foreign_key: :user_id,
+    dependent: :destroy
   has_many :comments, 
-  dependent: :destroy
+    foreign_key: :user_id,
+    dependent: :destroy
   has_many :likes,
   dependent: :destroy
     

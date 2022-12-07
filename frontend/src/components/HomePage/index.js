@@ -27,6 +27,7 @@ import SearchBar from "../SearchUser/SearchUser";
 import PostForm from "../PostFormModal/PostForm";
 import "../PostFormModal/PostForm.css";
 import EditPostFormModal from "../EditPost";
+import Comments from "../Comments";
 
 function Home() {
   const dispatch = useDispatch();
@@ -275,7 +276,12 @@ function Home() {
             <div>{PostList}</div>
           </div>
         </div>
-        <div className="right-container1"></div>
+        <div className="right-container1">
+          {/* Comments testing here */}
+          <div>
+            <Comments />
+          </div>
+        </div>
       </div>
     </>
   );

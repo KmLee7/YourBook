@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
+import commentsReducer from "./comments";
 import postsReducer from "./posts";
 import sessionReducer from "./session";
 import userReducer from "./user";
@@ -7,6 +8,7 @@ import userReducer from "./user";
 const entityReducer = combineReducers({
   users: userReducer,
   posts: postsReducer,
+  comments: commentsReducer,
 });
 
 const rootReducer = combineReducers({
