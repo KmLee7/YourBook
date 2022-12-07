@@ -1,12 +1,24 @@
-.postButton {
-  width: 424px;
-  height: 30px;
-  border-radius: 20px;
+.editButton {
+  /* width: 80px;
+  height: 20px;
+  border-radius: 6px;
   border: 1px solid lightgray;
   text-align: left;
   text-indent: 10px;
   font-size: 16px;
-  color: rgba(75, 75, 75, 0.797);
+  color: rgba(255, 255, 255, 0.797); */
+  justify-content: flex-end;
+  height: 20px;
+  width: 80px;
+  background-color: #000000;
+  border: none;
+  border-color: white;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+.editButton:hover {
+  background-color: #12c7be;
 }
 
 .post-form-modal {
