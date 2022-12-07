@@ -41,13 +41,6 @@ export const fetchComment = (commentId) => async (dispatch) => {
 
   dispatch(receiveComment(data));
 };
-export const getPostComments = (postId) => (state) =>
-  Object.values(state.entities.comments)
-    .filter((comment) => comment.postId === postId)
-    .map((comment) => ({
-      ...comment,
-      author: state.users[comment.authorId]?.username,
-    }));
 
 export const createComment = (comment) => async (dispatch) => {
   // let newComment = { body: comment.body };
@@ -91,10 +84,8 @@ const commentsReducer = (state = {}, action) => {
     case RECEIVE_COMMENTS:
       return { ...nextState, ...action.comments };
     case RECEIVE_COMMENT:
-      // const comment = action.comment;
       nextState[action.comment.id] = action.comment;
       return nextState;
-    // return { ...state, [comment.id]: comment };
     case REMOVE_COMMENT:
       delete nextState[action.commentId];
       return nextState;

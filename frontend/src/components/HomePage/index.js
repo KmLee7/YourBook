@@ -32,6 +32,7 @@ import Comments from "../Comments";
 function Home() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.entities.posts);
+  const comments = useSelector((state) => state.entities.comments);
   const history = useHistory();
   const [open, setOpen] = useState(false);
   let menuRef = useRef();
@@ -63,6 +64,7 @@ function Home() {
     .map((post) => {
       return <PostIndexItem key={post.id} post={post} />;
     });
+
   const handleClick = (e) => {
     e.preventDefault();
     history.push(`/ProfilePage/${currentUser.id}`);
@@ -299,6 +301,8 @@ const PostIndexItem = ({ post }) => {
   console.log(currentUserId);
   const [toggleEdit, setToggleEdit] = useState(false);
   const [tempBoo, setTempBoo] = useState(false);
+  const comments = useSelector((state) => state.entities.comments);
+  console.log(comments, "These are the comments from postIndexItem");
   let username;
   if (user) {
     username = user.first_name + " " + user.last_name;
@@ -309,6 +313,9 @@ const PostIndexItem = ({ post }) => {
       return dispatch(deletePost(postId));
     }
   };
+  const CommentList = Object.values(comments).map((comment) => {
+    return <CommentIndexItem key={comment.id} comment={comment} />;
+  });
   // if (post.user_id !== currentUser.id) {
   //   //   tempBoo = true;
   //   // } else {
@@ -350,6 +357,7 @@ const PostIndexItem = ({ post }) => {
         {/* </div> */}
         <div className="line-break6h"></div>
         <div style={{ paddingLeft: "10px" }}>{post.content}</div>
+        <div>{CommentList}</div>
         {/* <div className="edit-delete-buttonss">
           <button
             className="editPost-button"
@@ -374,6 +382,10 @@ const PostIndexItem = ({ post }) => {
         >
           Edit
         </button> */}
+        {/* Comments testing here */}
+        <div>
+          <Comments />
+        </div>
         {currentUserId === post.user_id && (
           <div className="edit-delete-buttonss">
             {/* {toggleEdit && <EditPostFormModal />} */}
@@ -407,6 +419,27 @@ const PostIndexItem = ({ post }) => {
         </button> */}
       </div>
       {/* {toggleEdit && <PostForm post={toggleEdit} />} */}
+    </>
+  );
+};
+const CommentIndexItem = ({ comment }) => {
+  const history = useHistory();
+  const currentUser = useSelector(
+    ({ entities: { users }, session: { currentUserId } }) =>
+      users[currentUserId]
+  );
+  const currentUserId = useSelector((state) => state.session.currentUserId);
+  console.log(currentUserId);
+
+  const comments = useSelector((state) => state.entities.comments);
+
+  let username;
+  // if (user) {
+  //   username = user.first_name + " " + user.last_name;
+  // }
+  return (
+    <>
+      <div>{comment.body}</div>
     </>
   );
 };
