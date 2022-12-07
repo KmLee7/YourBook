@@ -26,6 +26,7 @@ import RightProfileModal from "../RightProfileModal";
 import SearchBar from "../SearchUser/SearchUser";
 import PostForm from "../PostFormModal/PostForm";
 import "../PostFormModal/PostForm.css";
+import EditPostFormModal from "../EditPost";
 
 function Home() {
   const dispatch = useDispatch();
@@ -258,7 +259,7 @@ function Home() {
               )} */}
               <div className="line-break1h"></div>
               <div className="post-form-button">
-                <PostFormModal header="create" />
+                <PostFormModal />
               </div>
             </div>
             <div className="line-break4h"></div>
@@ -289,6 +290,7 @@ const PostIndexItem = ({ post }) => {
       users[currentUserId]
   );
   const [toggleEdit, setToggleEdit] = useState(false);
+  const [tempBoo, setTempBoo] = useState(false);
   let username;
   if (user) {
     username = user.first_name + " " + user.last_name;
@@ -298,13 +300,21 @@ const PostIndexItem = ({ post }) => {
       return dispatch(deletePost(postId));
     }
   };
-  const handleEdit = (post) => {
-    console.log(post.content, "hello");
-    if (post.user_id === currentUser.id) {
-      console.log("its true");
-      // return dispatch(updatePost(post));
-    }
-  };
+  // if (post.user_id !== currentUser.id) {
+  //   //   tempBoo = true;
+  //   // } else {
+  //   //   tempBoo = false;
+  //   setTempBoo(false);
+  // } else {
+  //   setTempBoo(true);
+  // }
+  // const handleEdit = (post) => {
+  //   console.log(post.content, "hello");
+  //   if (post.user_id === currentUser.id) {
+  //     console.log("its true");
+  //     // return dispatch(updatePost(post));
+  //   }
+  // };
   return (
     <>
       <div className="one-post" key={post.id}>
@@ -331,32 +341,62 @@ const PostIndexItem = ({ post }) => {
         {/* </div> */}
         <div className="line-break6h"></div>
         <div style={{ paddingLeft: "10px" }}>{post.content}</div>
-        {currentUser.id === post.user_id && (
-          <div className="edit-delete-buttonss">
-            <button
-              className="editPost-button"
-              onClick={() => {
-                setToggleEdit(post);
-              }}
-            >
-              Edit
-            </button>
-            <div className="line-break9h"></div>
-            <button
-              className="deletePost-button"
-              onClick={() => handleDelete(post.id)}
-            >
-              Delete
-            </button>
-          </div>
-        )}
+        {/* <div className="edit-delete-buttonss">
+          <button
+            className="editPost-button"
+            onClick={() => {
+              setToggleEdit(true);
+            }}
+          >
+            Edit
+          </button>
+          <div className="line-break9h"></div>
+          <button
+            className="deletePost-button"
+            onClick={() => handleDelete(post.id)}
+          >
+            Delete
+          </button>
+        </div>
         <button
           onClick={() => {
-            setToggleEdit(null);
+            setToggleEdit(false);
           }}
-        ></button>
+        >
+          Edit
+        </button> */}
+        <div className="edit-delete-buttonss">
+          {/* {toggleEdit && <EditPostFormModal />} */}
+          {/* <div
+            className="editPost-button"
+            onClick={() => {
+              setToggleEdit(true);
+            }}
+          >
+            Edit
+          </div> */}
+          <div>
+            {post.user_id === currentUser.id && (
+              <EditPostFormModal post={post} />
+            )}
+          </div>
+          <div className="line-break9h"></div>
+          <button
+            className="deletePost-button"
+            onClick={() => handleDelete(post.id)}
+          >
+            Delete
+          </button>
+        </div>
+        {/* <button
+          onClick={() => {
+            setToggleEdit(false);
+          }}
+        >
+          Edit
+        </button> */}
       </div>
-      {toggleEdit && <PostForm post={toggleEdit} />}
+      {/* {toggleEdit && <PostForm post={toggleEdit} />} */}
     </>
   );
 };

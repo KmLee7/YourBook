@@ -1,56 +1,64 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
-import "./PostForm.css";
+import "./EditPost.css";
 import { FaUserCircle } from "react-icons/fa";
 
-function PostForm({ setShowModal }) {
+function EditPostForm({ setShowModal, post }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const userId = useSelector((state) => state.session.currentUserId);
   const posts = useSelector((state) => state.entities.posts);
+  console.log(post);
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
   );
+  //   let postArr = Object.values(posts);
+  //   //   console.log(postArr[0]);
+  //   for (let i = 0; i < postArr.length; i++) {
+  //     let post = postArr[i];
+  //     //     if (post.user_id === userId) {
+  //     //       console.log(post.content);
+  //   }
+  console.log(post);
 
   let userName;
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;
   }
 
-  const handleSubmit = (e) => {
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     const newpost = {
+  //       content: content,
+  //     };
+  //     dispatch(postActions.createPost(newpost)).then(() => {
+  //       setContent("");
+  //       setShowModal(false);
+  //     });
+  //   };
+  const handleEditForm = (e) => {
     e.preventDefault();
     const newpost = {
+      id: post.id,
       content: content,
     };
-    dispatch(postActions.createPost(newpost)).then(() => {
+    dispatch(postActions.updatePost(newpost)).then(() => {
       setContent("");
       setShowModal(false);
     });
   };
-  // const handleEditForm = (e) => {
-  //   e.preventDefault();
-  //   const newpost = {
-  //     id: post.id,
-  //     content: content,
-  //   };
-  //   dispatch(postActions.updatePost(newpost)).then(() => {
-  //     setContent("");
-  //     setShowModal(false);
-  //   });
-  // };
-  // let handler;
-  // if (post) {
-  //   handler = handleEditForm;
-  // } else {
-  //   handler = handleSubmit;
-  // }
+  //   let handler;
+  //   if (post) {
+  //     handler = handleEditForm;
+  //   } else {
+  //     handler = handleSubmit;
+  //   }
   return (
     <>
-      {/* <form className="post-form-modal" onSubmit={handler}> */}
-      <form className="post-form-modal" onSubmit={handleSubmit}>
-        <div className="create-post">Create post</div>
+      <form className="post-form-modal" onSubmit={handleEditForm}>
+        <div className="create-post">Edit post</div>
         <div className="border-line6"></div>
         <div className="user-box-container">
           <div className="user-box">
@@ -77,4 +85,4 @@ function PostForm({ setShowModal }) {
   );
 }
 
-export default PostForm;
+export default EditPostForm;
