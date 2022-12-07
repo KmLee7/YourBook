@@ -16,6 +16,7 @@ import { deletePost, updatePost } from "../../store/posts";
 import { useHistory, useParams } from "react-router-dom";
 import { logout } from "../../store/session";
 import { useRef } from "react";
+import EditPostFormModal from "../EditPost";
 
 // import { Redirect } from "react-router-dom";
 // import { Route } from "react-router-dom";
@@ -49,6 +50,7 @@ function ProfilePage() {
 
   const PostIndexItem = ({ post }) => {
     const user = useSelector(({ entities: { users } }) => users[post.user_id]);
+    const currentUserId = useSelector((state) => state.session.currentUserId);
     let username;
     if (user) {
       username = user.first_name + " " + user.last_name;
@@ -82,18 +84,30 @@ function ProfilePage() {
         </div>
         <div className="line-break6h"></div>
         <div>{post.content}</div>
-        <div className="edit-delete-buttonss">
-          <button className="editPost-button" onClick={() => handleEdit(post)}>
-            Edit
-          </button>
-          <div className="line-break9h"></div>
-          <button
-            className="deletePost-button"
-            onClick={() => handleDelete(post.id)}
+        {currentUserId === post.user_id && (
+          <div className="edit-delete-buttonss">
+            {/* {toggleEdit && <EditPostFormModal />} */}
+            {/* <div
+            className="editPost-button"
+            onClick={() => {
+              setToggleEdit(true);
+            }}
           >
-            Delete
-          </button>
-        </div>
+            Edit
+          </div> */}
+            <div>
+              {/* {currentUser.id === post.user_id && ( */}
+              <EditPostFormModal post={post} />
+            </div>
+            <div className="line-break9h"></div>
+            <button
+              className="deletePost-button"
+              onClick={() => handleDelete(post.id)}
+            >
+              Delete
+            </button>
+          </div>
+        )}
       </div>
     );
   };
