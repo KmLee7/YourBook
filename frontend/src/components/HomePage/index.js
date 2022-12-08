@@ -49,7 +49,7 @@ function Home() {
   ///Search function
   const users = useSelector((state) => state.entities.users);
   let tempUsers = Object.values(users);
-  console.log(tempUsers);
+  // console.log(tempUsers);
   let names = [];
   for (let i = 0; i < tempUsers.length; i++) {
     names.push(tempUsers[i].first_name);
@@ -298,11 +298,11 @@ const PostIndexItem = ({ post }) => {
       users[currentUserId]
   );
   const currentUserId = useSelector((state) => state.session.currentUserId);
-  console.log(currentUserId);
+  // console.log(currentUser.first_name, "this is the usereresrserse");
   const [toggleEdit, setToggleEdit] = useState(false);
   const [tempBoo, setTempBoo] = useState(false);
   const comments = useSelector((state) => state.entities.comments);
-  console.log(comments, "These are the comments from postIndexItem");
+  // console.log(comments, "These are the comments from postIndexItem");
   let username;
   if (user) {
     username = user.first_name + " " + user.last_name;
@@ -429,7 +429,7 @@ const CommentIndexItem = ({ comment }) => {
       users[currentUserId]
   );
   const currentUserId = useSelector((state) => state.session.currentUserId);
-  console.log(currentUserId);
+  // console.log(currentUserId);
 
   const comments = useSelector((state) => state.entities.comments);
 

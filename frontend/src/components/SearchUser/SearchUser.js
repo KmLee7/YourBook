@@ -13,12 +13,12 @@ function SearchBar({ placeholder, data }) {
 
   const users = useSelector((state) => state.entities.users);
   let tempUsers = Object.values(users);
-  console.log(tempUsers);
+  // console.log(tempUsers);
   let names = [];
   for (let i = 0; i < tempUsers.length; i++) {
     names.push(tempUsers[i].first_name);
   }
-  console.log(names);
+  // console.log(names);
   const handleFilter = (e) => {
     e.preventDefault();
     const searchInput = e.target.value;

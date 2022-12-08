@@ -61,7 +61,7 @@ function ProfilePage() {
       }
     };
     const handleEdit = (post) => {
-      console.log(tmpCurrentUserId, post.user_id);
+      // console.log(tmpCurrentUserId, post.user_id);
       if (post.user_id === tmpCurrentUserId) {
         return dispatch(updatePost(post));
       }

@@ -13,7 +13,7 @@ function EditPostFormModal({ post }) {
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;
   }
-  console.log(post);
+  // console.log(post);
 
   return (
     <>

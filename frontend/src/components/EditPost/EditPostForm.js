@@ -9,7 +9,7 @@ function EditPostForm({ setShowModal, post }) {
   const [content, setContent] = useState("");
   const userId = useSelector((state) => state.session.currentUserId);
   const posts = useSelector((state) => state.entities.posts);
-  console.log(post);
+  // console.log(post);
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
@@ -21,7 +21,7 @@ function EditPostForm({ setShowModal, post }) {
   //     //     if (post.user_id === userId) {
   //     //       console.log(post.content);
   //   }
-  console.log(post);
+  // console.log(post);
 
   let userName;
   if (currentUser) {

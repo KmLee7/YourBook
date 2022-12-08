@@ -14,12 +14,12 @@ function Comments() {
       users[currentUserId]
   );
   const posts = useSelector((state) => state.entities.posts);
-  console.log(posts);
+  // console.log(posts);
   let currentUser = useSelector((state) => {
     return state.entities.users[id];
   });
-  console.log(comments, "this comment");
-  console.log(tempcurrentUser, "this current user");
+  // console.log(comments, "this comment");
+  // console.log(tempcurrentUser, "this current user");
   const postList = Object.values(posts);
 
   const handleSubmit = (e) => {
