@@ -17,7 +17,7 @@ class Api::CommentsController < ApplicationController
         # @comment = @post.comments.create(comment_params)
         @comment = Comment.new(comment_params)
         
-        if @comment.save!
+        if @comment.save
             render 'api/comments/show'
         else
             render json: @comment.errors.full_messages, status: 422

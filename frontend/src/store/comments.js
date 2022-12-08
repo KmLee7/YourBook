@@ -52,7 +52,7 @@ export const createComment = (comment) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   });
-  console.log("helleooejoeo");
+
   const data = await res.json();
   dispatch(receiveComment(data));
 };
