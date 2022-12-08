@@ -434,9 +434,6 @@ const CommentIndexItem = ({ comment }) => {
   const comments = useSelector((state) => state.entities.comments);
 
   let username;
-  // if (user) {
-  //   username = user.first_name + " " + user.last_name;
-  // }
   return (
     <>
       <div>{comment.body}</div>
