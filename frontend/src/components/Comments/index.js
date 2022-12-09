@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as commentActions from "../../store/comments";
 
-function Comments() {
+function Comments({ postId }) {
   const dispatch = useDispatch();
   const [body, setBody] = useState("");
   const { id } = useParams();
@@ -21,13 +21,16 @@ function Comments() {
   // console.log(comments, "this comment");
   // console.log(tempcurrentUser, "this current user");
   const postList = Object.values(posts);
+  // console.log(postList);
+  // console.log(currentUserId);
+  // console.log(postId, "wish");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newcomment = {
       body: body,
-      post_id: 68,
-      user_id: 1,
+      post_id: postId,
+      user_id: currentUserId,
     };
     dispatch(commentActions.createComment(newcomment)).then(() => {
       setBody("");

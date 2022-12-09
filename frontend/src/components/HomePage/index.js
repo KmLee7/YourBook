@@ -306,7 +306,7 @@ const PostIndexItem = ({ post }) => {
   const [tempBoo, setTempBoo] = useState(false);
   const comments = useSelector((state) => state.entities.comments);
   // console.log(comments, "These are the comments from postIndexItem");
-  console.log(comments, "this is the comments");
+  // console.log(comments, "this is the comments");
   let username;
   if (user) {
     username = user.first_name + " " + user.last_name;
@@ -315,6 +315,7 @@ const PostIndexItem = ({ post }) => {
   useEffect(() => {
     dispatch(commentActions.fetchComments());
   }, []);
+
   const handleDelete = (postId) => {
     if (post.user_id === currentUser.id) {
       return dispatch(deletePost(postId));
@@ -322,7 +323,7 @@ const PostIndexItem = ({ post }) => {
   };
 
   const CommentList = Object.values(comments).map((comment) => {
-    return <CommentIndexItem key={comment.id} comment={comment} />;
+    return <CommentIndexItem key={comment.id} comment={comment} post={post} />;
   });
   // if (post.user_id !== currentUser.id) {
   //   //   tempBoo = true;
@@ -339,6 +340,7 @@ const PostIndexItem = ({ post }) => {
   //     // return dispatch(updatePost(post));
   //   }
   // };
+
   return (
     <>
       <div className="one-post" key={post.id}>
@@ -392,7 +394,7 @@ const PostIndexItem = ({ post }) => {
         </button> */}
         {/* Comments testing here */}
         <div>
-          <Comments />
+          <Comments postId={post.id} />
         </div>
         {currentUserId === post.user_id && (
           <div className="edit-delete-buttonss">
@@ -448,21 +450,21 @@ const PostIndexItem = ({ post }) => {
 //     </>
 //   );
 // };
-const CommentIndexItem = ({ comment }) => {
+const CommentIndexItem = ({ comment, post }) => {
   const history = useHistory();
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
   );
+  const posts = useSelector((state) => state.entities.posts);
+  console.log(Object.values(posts)[0].id);
+  // console.log(onePost.id, "this is the id");
+  // console.log(comment, postsArr, "from Comment Index Item");
   const currentUserId = useSelector((state) => state.session.currentUserId);
   // console.log(currentUserId);
   const comments = useSelector((state) => state.entities.comments);
-
+  console.log(post.id);
   let username;
-  return (
-    <>
-      <div>{comment.body}</div>
-    </>
-  );
+  return <>{post.id === comment.post_id && <div>{comment.body}</div>}</>;
 };
 export default Home;
