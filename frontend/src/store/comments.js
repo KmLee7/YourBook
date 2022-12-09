@@ -6,7 +6,7 @@ export const RECEIVE_COMMENTS = "comments/RECEIVE_COMMENTS";
 export const RECEIVE_COMMENT = "comments/RECEIVE_COMMENT";
 export const REMOVE_COMMENT = "comments/REMOVE_COMMENT";
 
-export const receiveComments = ({ comments }) => ({
+export const receiveComments = (comments) => ({
   type: RECEIVE_COMMENTS,
   comments,
 });
@@ -32,7 +32,6 @@ export const fetchComments = () => async (dispatch) => {
   const data = await res.json();
 
   dispatch(receiveComments(data));
-  return data;
 };
 
 export const fetchComment = (commentId) => async (dispatch) => {
@@ -44,7 +43,7 @@ export const fetchComment = (commentId) => async (dispatch) => {
 
 export const createComment = (comment) => async (dispatch) => {
   // let newComment = { body: comment.body };
-  console.log("helllor hits here");
+  // console.log("helllor hits here");
   const res = await csrfFetch("/api/comments/", {
     method: "POST",
     body: JSON.stringify(comment),

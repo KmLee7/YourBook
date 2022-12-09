@@ -1,14 +1,23 @@
 users = Hash.new
 
-json.comments do
+# json.comments do
     @comments.each do |comment|
-        posts[comment.post.id] = comment.post
-        users[comment.user.id] = comment.user
+        # posts[comment.post.id] = comment.post
+        # users[comment.user.id] = comment.user
         json.set! comment.id do
             json.partial! 'comment', comment: comment
         end
     end
-end
+# end
+
+# json.comments do |comment|
+#         # posts[comment.post.id] = comment.post
+#         # users[comment.user.id] = comment.user
+#         json.set! comment.id do
+#             json.partial! 'comment', comment: comment
+#         # end
+#     end
+# end
 
 # json.comments do
 #     @comments.each do |comment|

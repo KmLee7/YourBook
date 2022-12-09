@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PostFormModal from "../PostFormModal/index";
 import { useEffect, useRef, useState } from "react";
 import * as postActions from "../../store/posts";
+import * as commentActions from "../../store/comments";
 import { CgSearch } from "react-icons/cg";
 import { FaUserCircle } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
@@ -28,6 +29,7 @@ import PostForm from "../PostFormModal/PostForm";
 import "../PostFormModal/PostForm.css";
 import EditPostFormModal from "../EditPost";
 import Comments from "../Comments";
+import { fetchComments, getComments } from "../../store/comments";
 
 function Home() {
   const dispatch = useDispatch();
@@ -59,6 +61,7 @@ function Home() {
   useEffect(() => {
     dispatch(postActions.fetchPosts());
   }, []);
+
   const PostList = Object.values(posts)
     .reverse()
     .map((post) => {
@@ -303,16 +306,21 @@ const PostIndexItem = ({ post }) => {
   const [tempBoo, setTempBoo] = useState(false);
   const comments = useSelector((state) => state.entities.comments);
   // console.log(comments, "These are the comments from postIndexItem");
+  console.log(comments, "this is the comments");
   let username;
   if (user) {
     username = user.first_name + " " + user.last_name;
   }
-
+  // For comments
+  useEffect(() => {
+    dispatch(commentActions.fetchComments());
+  }, []);
   const handleDelete = (postId) => {
     if (post.user_id === currentUser.id) {
       return dispatch(deletePost(postId));
     }
   };
+
   const CommentList = Object.values(comments).map((comment) => {
     return <CommentIndexItem key={comment.id} comment={comment} />;
   });
@@ -422,6 +430,24 @@ const PostIndexItem = ({ post }) => {
     </>
   );
 };
+// const CommentIndexItem = ({ comment }) => {
+//   const history = useHistory();
+//   const currentUser = useSelector(
+//     ({ entities: { users }, session: { currentUserId } }) =>
+//       users[currentUserId]
+//   );
+//   const currentUserId = useSelector((state) => state.session.currentUserId);
+//   // console.log(currentUserId);
+
+//   const comments = useSelector((state) => state.entities.comments);
+
+//   let username;
+//   return (
+//     <>
+//       <div>{comment.body}</div>
+//     </>
+//   );
+// };
 const CommentIndexItem = ({ comment }) => {
   const history = useHistory();
   const currentUser = useSelector(
@@ -430,7 +456,6 @@ const CommentIndexItem = ({ comment }) => {
   );
   const currentUserId = useSelector((state) => state.session.currentUserId);
   // console.log(currentUserId);
-
   const comments = useSelector((state) => state.entities.comments);
 
   let username;
@@ -440,5 +465,4 @@ const CommentIndexItem = ({ comment }) => {
     </>
   );
 };
-
 export default Home;
