@@ -11,6 +11,7 @@ import { FiGithub } from "react-icons/fi";
 import { GrLinkedin } from "react-icons/gr";
 import { FaHome } from "react-icons/fa";
 import { SiFacebook } from "react-icons/si";
+import { HiDotsHorizontal } from "react-icons/hi";
 import {
   Route,
   Link,
@@ -303,7 +304,8 @@ const PostIndexItem = ({ post }) => {
   const currentUserId = useSelector((state) => state.session.currentUserId);
   // console.log(currentUser.first_name, "this is the usereresrserse");
   const [toggleEdit, setToggleEdit] = useState(false);
-  const [tempBoo, setTempBoo] = useState(false);
+  const [open, setOpen] = useState(false);
+  let menuRef = useRef();
   const comments = useSelector((state) => state.entities.comments);
   // console.log(comments, "These are the comments from postIndexItem");
   // console.log(comments, "this is the comments");
@@ -321,6 +323,15 @@ const PostIndexItem = ({ post }) => {
       return dispatch(deletePost(postId));
     }
   };
+  useEffect(() => {
+    let handler = (e) => {
+      if (!menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+      return;
+    };
+    document.addEventListener("mousedown", handler);
+  });
 
   const CommentList = Object.values(comments).map((comment) => {
     return <CommentIndexItem key={comment.id} comment={comment} post={post} />;
@@ -345,28 +356,63 @@ const PostIndexItem = ({ post }) => {
     <>
       <div className="one-post" key={post.id}>
         {/* <div className="user-logo-name"> */}
-        <button
-          style={{
-            width: "520px",
-            border: "1px solid white",
-            background: "white",
-            display: "flex",
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            history.push(`/ProfilePage/${post.user_id}`);
-          }}
-        >
-          <div className="user-logo-name">
-            <FaUserCircle size={25} />
-            <div className="line-break1h"></div>
-            {username}
-            <div style={{ width: "10px" }}></div>
+        <div className="one-post-top">
+          <button
+            style={{
+              width: "280px",
+              border: "1px solid white",
+              background: "white",
+              display: "flex",
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              history.push(`/ProfilePage/${post.user_id}`);
+            }}
+          >
+            <div className="user-logo-name">
+              <FaUserCircle size={25} />
+              <div className="line-break1h"></div>
+              {username}
+              <div style={{ width: "10px" }}></div>
+            </div>
+          </button>
+          {/* <div style={{ width: "50px" }}></div> */}
+          <div className="edit-delete-container" ref={menuRef}>
+            <button
+              className="drop-down-edit-delete-trigger"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <HiDotsHorizontal style={{ width: "50px" }} />
+            </button>
+            {/* <div style={{ width: "600px" }}></div> */}
+            {currentUserId === post.user_id && (
+              <div
+                className={`edit-delete-buttonss ${
+                  open ? "active" : "inactive"
+                }`}
+              >
+                <div className="edit-delete-post-container">
+                  <div>
+                    <EditPostFormModal post={post} />
+                  </div>
+                  <div style={{ height: "5px" }}></div>
+                  <button
+                    className="deletePost-button"
+                    onClick={() => handleDelete(post.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-        </button>
-        {/* </div> */}
+        </div>
         <div className="line-break6h"></div>
-        <div style={{ paddingLeft: "10px" }}>{post.content}</div>
+        <div className="one-post-bottom" style={{ paddingLeft: "10px" }}>
+          {post.content}
+        </div>
         <div>{CommentList}</div>
         {/* <div className="edit-delete-buttonss">
           <button
@@ -396,19 +442,9 @@ const PostIndexItem = ({ post }) => {
         <div>
           <Comments postId={post.id} />
         </div>
-        {currentUserId === post.user_id && (
+        {/* {currentUserId === post.user_id && (
           <div className="edit-delete-buttonss">
-            {/* {toggleEdit && <EditPostFormModal />} */}
-            {/* <div
-            className="editPost-button"
-            onClick={() => {
-              setToggleEdit(true);
-            }}
-          >
-            Edit
-          </div> */}
             <div>
-              {/* {currentUser.id === post.user_id && ( */}
               <EditPostFormModal post={post} />
             </div>
             <div className="line-break9h"></div>
@@ -419,7 +455,7 @@ const PostIndexItem = ({ post }) => {
               Delete
             </button>
           </div>
-        )}
+        )} */}
         {/* <button
           onClick={() => {
             setToggleEdit(false);
