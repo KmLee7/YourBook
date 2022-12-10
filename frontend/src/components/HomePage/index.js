@@ -359,7 +359,7 @@ const PostIndexItem = ({ post }) => {
         <div className="one-post-top">
           <button
             style={{
-              width: "280px",
+              width: "40%",
               border: "1px solid white",
               background: "white",
               display: "flex",
@@ -413,79 +413,59 @@ const PostIndexItem = ({ post }) => {
         <div className="one-post-bottom" style={{ paddingLeft: "10px" }}>
           {post.content}
         </div>
-        <div>{CommentList}</div>
+        <div
+          style={{
+            width: "515px",
+            border: "1px solid lightgray",
+            marginTop: "10px",
+          }}
+        ></div>
+        <div className="under-post-above-comment">
+          <div className="post-likes">Like</div>
+          {/* <div style={{ height: "14px", border: "1px solid lightgray" }}></div> */}
+          <div className="post-comment">Comment</div>
+        </div>
+        <div
+          style={{
+            width: "515px",
+            border: "1px solid lightgray",
+            marginBottom: "10px",
+          }}
+        ></div>
         {/* <div className="edit-delete-buttonss">
           <button
-            className="editPost-button"
-            onClick={() => {
-              setToggleEdit(true);
-            }}
+          className="editPost-button"
+          onClick={() => {
+            setToggleEdit(true);
+          }}
           >
-            Edit
+          Edit
           </button>
           <div className="line-break9h"></div>
           <button
-            className="deletePost-button"
-            onClick={() => handleDelete(post.id)}
+          className="deletePost-button"
+          onClick={() => handleDelete(post.id)}
           >
-            Delete
+          Delete
           </button>
-        </div>
-        <button
+          </div>
+          <button
           onClick={() => {
             setToggleEdit(false);
           }}
-        >
+          >
           Edit
         </button> */}
         {/* Comments testing here */}
         <div>
           <Comments postId={post.id} />
         </div>
-        {/* {currentUserId === post.user_id && (
-          <div className="edit-delete-buttonss">
-            <div>
-              <EditPostFormModal post={post} />
-            </div>
-            <div className="line-break9h"></div>
-            <button
-              className="deletePost-button"
-              onClick={() => handleDelete(post.id)}
-            >
-              Delete
-            </button>
-          </div>
-        )} */}
-        {/* <button
-          onClick={() => {
-            setToggleEdit(false);
-          }}
-        >
-          Edit
-        </button> */}
+        <div>{CommentList}</div>
       </div>
-      {/* {toggleEdit && <PostForm post={toggleEdit} />} */}
     </>
   );
 };
-// const CommentIndexItem = ({ comment }) => {
-//   const history = useHistory();
-//   const currentUser = useSelector(
-//     ({ entities: { users }, session: { currentUserId } }) =>
-//       users[currentUserId]
-//   );
-//   const currentUserId = useSelector((state) => state.session.currentUserId);
-//   // console.log(currentUserId);
 
-//   const comments = useSelector((state) => state.entities.comments);
-
-//   let username;
-//   return (
-//     <>
-//       <div>{comment.body}</div>
-//     </>
-//   );
-// };
 const CommentIndexItem = ({ comment, post }) => {
   const history = useHistory();
   const currentUser = useSelector(
@@ -501,6 +481,12 @@ const CommentIndexItem = ({ comment, post }) => {
   const comments = useSelector((state) => state.entities.comments);
   console.log(post.id);
   let username;
-  return <>{post.id === comment.post_id && <div>{comment.body}</div>}</>;
+  return (
+    <>
+      {post.id === comment.post_id && (
+        <div style={{ textIndent: "20px" }}>{comment.body}</div>
+      )}
+    </>
+  );
 };
 export default Home;
