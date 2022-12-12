@@ -297,6 +297,7 @@ const PostIndexItem = ({ post }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(({ entities: { users } }) => users[post.user_id]);
+
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
@@ -473,18 +474,43 @@ const CommentIndexItem = ({ comment, post }) => {
       users[currentUserId]
   );
   const posts = useSelector((state) => state.entities.posts);
-  console.log(Object.values(posts)[0].id);
+  // console.log(Object.values(posts)[0].id);
   // console.log(onePost.id, "this is the id");
   // console.log(comment, postsArr, "from Comment Index Item");
   const currentUserId = useSelector((state) => state.session.currentUserId);
   // console.log(currentUserId);
   const comments = useSelector((state) => state.entities.comments);
-  console.log(post.id);
+  // console.log(post.id);
   let username;
+  const user = useSelector(({ entities: { users } }) => users[comment.user_id]);
+
   return (
     <>
       {post.id === comment.post_id && (
-        <div style={{ textIndent: "20px" }}>{comment.body}</div>
+        <div
+          style={{
+            textIndent: "7px",
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            marginBottom: "5px",
+          }}
+        >
+          <FaUserCircle size={30} /> &nbsp;
+          <div className="comment-username">
+            <div
+              style={{
+                marginBottom: "5px",
+                marginTop: "13px",
+                fontSize: "14px",
+                fontWeight: "700",
+              }}
+            >
+              {user.first_name + " " + user.last_name}
+            </div>
+            <div style={{ fontSize: "14px" }}>{comment.body}</div>
+          </div>
+        </div>
       )}
     </>
   );

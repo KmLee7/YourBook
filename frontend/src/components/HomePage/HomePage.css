@@ -421,3 +421,8 @@
   background-color: rgb(226, 225, 225);
   border-radius: 8px;
 }
+
+.comment-username {
+  display: flex;
+  flex-direction: column;
+}
