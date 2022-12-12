@@ -5,9 +5,10 @@
 }
 
 .search input {
-  background-color: white;
+  /* background-color: lightgray; */
+  background-color: rgb(226, 225, 225);
   border: 0;
-  border-radius: 8px;
+  border-radius: 15px;
   /* border-top-right-radius: 0px;
   border-bottom-right-radius: 0px; */
   font-size: 14px;

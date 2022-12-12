@@ -54,7 +54,7 @@ function Comments({ postId }) {
             border: "none",
             borderRadius: "20px",
             backgroundColor: "rgb(244, 242, 242)",
-            textIndent: "5px",
+            textIndent: "15px",
             fontSize: "18px",
             marginBottom: "10px",
           }}

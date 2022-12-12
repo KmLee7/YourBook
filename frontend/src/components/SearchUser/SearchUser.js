@@ -27,7 +27,7 @@ function SearchBar({ placeholder, data }) {
         user.first_name.toLowerCase() +
         " " +
         user.last_name.toLowerCase()
-      ).includes(searchInput.toLowerCase());
+      ).startsWith(searchInput.toLowerCase());
     });
     if (searchInput === "") {
       setFilter([]);
@@ -42,7 +42,7 @@ function SearchBar({ placeholder, data }) {
         <div className="searchInputs">
           <CgSearch size={20} style={{ color: "black" }} />
           <input
-            type="search"
+            type="text"
             placeholder={placeholder}
             onChange={handleFilter}
           />
