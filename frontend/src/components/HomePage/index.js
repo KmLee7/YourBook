@@ -30,7 +30,12 @@ import PostForm from "../PostFormModal/PostForm";
 import "../PostFormModal/PostForm.css";
 import EditPostFormModal from "../EditPost";
 import Comments from "../Comments";
-import { fetchComments, getComments } from "../../store/comments";
+import {
+  fetchComments,
+  getComments,
+  deleteComment,
+} from "../../store/comments";
+import EditCommentModal from "../EditComment";
 
 function Home() {
   const dispatch = useDispatch();
@@ -329,9 +334,12 @@ const PostIndexItem = ({ post }) => {
       if (!menuRef.current.contains(e.target)) {
         setOpen(false);
       }
-      return;
     };
     document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   });
 
   const CommentList = Object.values(comments).map((comment) => {
@@ -469,11 +477,14 @@ const PostIndexItem = ({ post }) => {
 
 const CommentIndexItem = ({ comment, post }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
   );
   const posts = useSelector((state) => state.entities.posts);
+  const [open, setOpen] = useState(false);
+  let menuRef2 = useRef();
   // console.log(Object.values(posts)[0].id);
   // console.log(onePost.id, "this is the id");
   // console.log(comment, postsArr, "from Comment Index Item");
@@ -483,6 +494,23 @@ const CommentIndexItem = ({ comment, post }) => {
   // console.log(post.id);
   let username;
   const user = useSelector(({ entities: { users } }) => users[comment.user_id]);
+
+  const handleCommentDelete = (commentId) => {
+    if (comment.user_id === currentUser.id) {
+      return dispatch(deleteComment(commentId));
+    }
+  };
+  useEffect(() => {
+    let handler = (e) => {
+      if (!menuRef2.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
 
   return (
     <>
@@ -497,11 +525,18 @@ const CommentIndexItem = ({ comment, post }) => {
           }}
         >
           <FaUserCircle size={30} /> &nbsp;
-          <div className="comment-username">
+          <div
+            className="comment-username"
+            style={{
+              backgroundColor: "rgb(244, 242, 242)",
+              marginTop: "31",
+              borderRadius: "18px",
+            }}
+          >
             <div
               style={{
                 marginBottom: "5px",
-                marginTop: "13px",
+                // marginTop: "13px",
                 fontSize: "14px",
                 fontWeight: "700",
               }}
@@ -509,6 +544,37 @@ const CommentIndexItem = ({ comment, post }) => {
               {user.first_name + " " + user.last_name}
             </div>
             <div style={{ fontSize: "14px" }}>{comment.body}</div>
+          </div>
+          <div className="edit-delete-comment-container" ref={menuRef2}>
+            <button
+              className="drop-down-edit-delete-comment-trigger"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <HiDotsHorizontal style={{ width: "50px" }} />
+            </button>
+            {currentUserId === comment.user_id && (
+              <div
+                className={`edit-delete-comment-buttonss ${
+                  open ? "active" : "inactive"
+                }`}
+              >
+                <div className="edit-delete-comments-container">
+                  <div>
+                    {" "}
+                    <EditCommentModal comment={comment} />
+                  </div>
+                  <div style={{ height: "5px" }}></div>
+                  <button
+                    className="deleteComment-button"
+                    onClick={() => handleCommentDelete(comment.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
