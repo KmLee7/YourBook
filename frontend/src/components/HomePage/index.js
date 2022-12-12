@@ -36,6 +36,8 @@ import {
   deleteComment,
 } from "../../store/comments";
 import EditCommentModal from "../EditComment";
+import Navigation from "../Navigation";
+import * as sessionActions from "../../store/session";
 
 function Home() {
   const dispatch = useDispatch();
@@ -44,6 +46,8 @@ function Home() {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   let menuRef = useRef();
+  // const sessionUser = useSelector((state) => state.session.currentUserId);
+  const sessionUser = sessionStorage.getItem("currentUser");
   const currentUser = useSelector(
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
@@ -97,6 +101,7 @@ function Home() {
     document.addEventListener("mousedown", handler);
   });
   //search functionality
+  // console.log(!!sessionStorage.getItem("currentUser"));
 
   return (
     <>
@@ -204,7 +209,7 @@ function Home() {
                     borderRadius: "8px",
                   }}
                   className="logout-button"
-                  onClick={(e) => {
+                  onClick={() => {
                     dispatch(logout());
                   }}
                 >
@@ -254,7 +259,10 @@ function Home() {
           <div className="post-form">
             <div className="upper">
               <button
-                style={{ border: "1px solid white", backgroundColor: "white" }}
+                style={{
+                  border: "1px solid white",
+                  backgroundColor: "white",
+                }}
               >
                 <FaUserCircle size={33} />
               </button>
@@ -297,6 +305,8 @@ function Home() {
     </>
   );
 }
+
+// }
 
 const PostIndexItem = ({ post }) => {
   const dispatch = useDispatch();

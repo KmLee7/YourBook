@@ -18,7 +18,7 @@ function DetailsForm() {
       users[currentUserId]
   );
   let user;
-  console.log(currentUser, "from DetailsModal");
+  // console.log(currentUser, "from DetailsModal");
   const handleSubmit = (e) => {
     e.preventDefault();
     user = {

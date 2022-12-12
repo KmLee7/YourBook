@@ -24,7 +24,7 @@ function Comments({ postId }) {
   const currentUser = allUsers.map((user) =>
     user.id === currentUserId ? user.first_name + " " + user.last_name : ""
   );
-  console.log(currentUser);
+  // console.log(currentUser);
   // console.log(comments, "this comment");
   // console.log(tempcurrentUser, "this current user");
   const postList = Object.values(posts);

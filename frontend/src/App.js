@@ -18,7 +18,7 @@ function App() {
   return (
     <div>
       <>
-        {!hasUser && (
+        {!sessionStorage.getItem("currentUser") && (
           <Redirect to="/login">
             <Navigation />
           </Redirect>

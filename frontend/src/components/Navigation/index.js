@@ -10,6 +10,7 @@ import HomePage from "../HomePage/index";
 
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.currentUserId);
+  // const sessionUser = sessionStorage.getItem("currentUser");
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
