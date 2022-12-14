@@ -99,7 +99,7 @@ function Home() {
       return;
     };
     document.addEventListener("mousedown", handler);
-  });
+  }, []);
   //search functionality
   // console.log(!!sessionStorage.getItem("currentUser"));
 
@@ -321,7 +321,8 @@ const PostIndexItem = ({ post }) => {
   // console.log(currentUser.first_name, "this is the usereresrserse");
   const [toggleEdit, setToggleEdit] = useState(false);
   const [open, setOpen] = useState(false);
-  let menuRef = useRef();
+  let menuRef = useRef(null);
+
   const comments = useSelector((state) => state.entities.comments);
   // console.log(comments, "These are the comments from postIndexItem");
   // console.log(comments, "this is the comments");
@@ -350,8 +351,11 @@ const PostIndexItem = ({ post }) => {
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  });
-
+  }, []);
+  const handleFocus = () => {
+    document.getElementById("comment-content").focus();
+    console.log();
+  };
   const CommentList = Object.values(comments).map((comment) => {
     return <CommentIndexItem key={comment.id} comment={comment} post={post} />;
   });
@@ -442,7 +446,9 @@ const PostIndexItem = ({ post }) => {
         <div className="under-post-above-comment">
           <div className="post-likes">Like</div>
           {/* <div style={{ height: "14px", border: "1px solid lightgray" }}></div> */}
-          <div className="post-comment">Comment</div>
+          <div className="post-comment" key={post.id} onClick={handleFocus}>
+            Comment
+          </div>
         </div>
         <div
           style={{
@@ -476,7 +482,7 @@ const PostIndexItem = ({ post }) => {
           Edit
         </button> */}
         {/* Comments testing here */}
-        <div>
+        <div className="write-a-commment-component">
           <Comments postId={post.id} />
         </div>
         <div>{CommentList}</div>
@@ -494,7 +500,7 @@ const CommentIndexItem = ({ comment, post }) => {
   );
   const posts = useSelector((state) => state.entities.posts);
   const [open, setOpen] = useState(false);
-  let menuRef2 = useRef();
+  let menuRef2 = useRef(null);
   // console.log(Object.values(posts)[0].id);
   // console.log(onePost.id, "this is the id");
   // console.log(comment, postsArr, "from Comment Index Item");
@@ -564,7 +570,7 @@ const CommentIndexItem = ({ comment, post }) => {
             >
               <HiDotsHorizontal style={{ width: "50px" }} />
             </button>
-            {currentUserId === comment.user_id && (
+            {currentUserId === comment.user_id ? (
               <div
                 className={`edit-delete-comment-buttonss ${
                   open ? "active" : "inactive"
@@ -583,6 +589,10 @@ const CommentIndexItem = ({ comment, post }) => {
                     Delete
                   </button>
                 </div>
+              </div>
+            ) : (
+              <div className="edit-delete-comment-buttonss">
+                <div style={{ height: "48px" }}></div>
               </div>
             )}
           </div>

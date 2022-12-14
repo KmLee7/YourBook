@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as commentActions from "../../store/comments";
 
-function Comments({ postId }) {
+function Comments({ inputRef, postId }) {
   const dispatch = useDispatch();
   const [body, setBody] = useState("");
   const { id } = useParams();
