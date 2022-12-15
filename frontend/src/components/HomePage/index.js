@@ -38,6 +38,7 @@ import {
 import EditCommentModal from "../EditComment";
 import Navigation from "../Navigation";
 import * as sessionActions from "../../store/session";
+import PostIndexItem from "../PostIndexItem/PostIndexItem";
 
 function Home() {
   const dispatch = useDispatch();
@@ -92,13 +93,15 @@ function Home() {
   };
   // dropdown code here
   useEffect(() => {
-    let handler = (e) => {
+    let handlerOne = (e) => {
       if (!menuRef.current.contains(e.target)) {
         setOpen(false);
       }
-      return;
     };
-    document.addEventListener("mousedown", handler);
+    document.addEventListener("mousedown", handlerOne);
+    return () => {
+      document.removeEventListener("mousedown", handlerOne);
+    };
   }, []);
   //search functionality
   // console.log(!!sessionStorage.getItem("currentUser"));
@@ -297,9 +300,7 @@ function Home() {
         </div>
         <div className="right-container1">
           {/* Comments testing here */}
-          <div>
-            <Comments />
-          </div>
+          <div>{/* <Comments />s */}</div>
         </div>
       </div>
     </>
@@ -308,297 +309,280 @@ function Home() {
 
 // }
 
-const PostIndexItem = ({ post }) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const user = useSelector(({ entities: { users } }) => users[post.user_id]);
+// const PostIndexItem = ({ post }) => {
+//   const dispatch = useDispatch();
+//   const history = useHistory();
+//   const user = useSelector(({ entities: { users } }) => users[post.user_id]);
 
-  const currentUser = useSelector(
-    ({ entities: { users }, session: { currentUserId } }) =>
-      users[currentUserId]
-  );
-  const currentUserId = useSelector((state) => state.session.currentUserId);
-  // console.log(currentUser.first_name, "this is the usereresrserse");
-  const [toggleEdit, setToggleEdit] = useState(false);
-  const [open, setOpen] = useState(false);
-  let menuRef = useRef(null);
+//   const currentUser = useSelector(
+//     ({ entities: { users }, session: { currentUserId } }) =>
+//       users[currentUserId]
+//   );
+//   const currentUserId = useSelector((state) => state.session.currentUserId);
+//   // console.log(currentUser.first_name, "this is the usereresrserse");
+//   const [toggleEdit, setToggleEdit] = useState(false);
+//   const [open, setOpen] = useState(false);
+//   let menuRef = useRef(null);
 
-  const comments = useSelector((state) => state.entities.comments);
-  // console.log(comments, "These are the comments from postIndexItem");
-  // console.log(comments, "this is the comments");
-  let username;
-  if (user) {
-    username = user.first_name + " " + user.last_name;
-  }
-  // For comments
-  useEffect(() => {
-    dispatch(commentActions.fetchComments());
-  }, []);
+//   const comments = useSelector((state) => state.entities.comments);
+//   // console.log(comments, "These are the comments from postIndexItem");
+//   // console.log(comments, "this is the comments");
+//   let username;
+//   if (user) {
+//     username = user.first_name + " " + user.last_name;
+//   }
+//   // For comments
+//   useEffect(() => {
+//     dispatch(commentActions.fetchComments());
+//   }, []);
 
-  const handleDelete = (postId) => {
-    if (post.user_id === currentUser.id) {
-      return dispatch(deletePost(postId));
-    }
-  };
-  useEffect(() => {
-    let handler = (e) => {
-      if (!menuRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
+//   const handleDelete = (postId) => {
+//     if (post.user_id === currentUser.id) {
+//       return dispatch(deletePost(postId));
+//     }
+//   };
+//   useEffect(() => {
+//     let handler = (e) => {
+//       if (!menuRef.current.contains(e.target)) {
+//         setOpen(false);
+//       }
+//     };
+//     document.addEventListener("mousedown", handler);
 
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  }, []);
-  const handleFocus = () => {
-    document.getElementById("comment-content").focus();
-    console.log();
-  };
-  const CommentList = Object.values(comments).map((comment) => {
-    return <CommentIndexItem key={comment.id} comment={comment} post={post} />;
-  });
-  // if (post.user_id !== currentUser.id) {
-  //   //   tempBoo = true;
-  //   // } else {
-  //   //   tempBoo = false;
-  //   setTempBoo(false);
-  // } else {
-  //   setTempBoo(true);
-  // }
-  // const handleEdit = (post) => {
-  //   console.log(post.content, "hello");
-  //   if (post.user_id === currentUser.id) {
-  //     console.log("its true");
-  //     // return dispatch(updatePost(post));
-  //   }
-  // };
+//     return () => {
+//       document.removeEventListener("mousedown", handler);
+//     };
+//   }, []);
+//   const handleFocus = () => {
+//     document.getElementById("comment-content").focus();
+//     // document.getElementsByClassName("comment-form").focus();
+//   };
+//   const CommentList = Object.values(comments).map((comment) => {
+//     return <CommentIndexItem key={comment.id} comment={comment} post={post} />;
+//   });
+//   // if (post.user_id !== currentUser.id) {
+//   //   //   tempBoo = true;
+//   //   // } else {
+//   //   //   tempBoo = false;
+//   //   setTempBoo(false);
+//   // } else {
+//   //   setTempBoo(true);
+//   // }
+//   // const handleEdit = (post) => {
+//   //   console.log(post.content, "hello");
+//   //   if (post.user_id === currentUser.id) {
+//   //     console.log("its true");
+//   //     // return dispatch(updatePost(post));
+//   //   }
+//   // };
 
-  return (
-    <>
-      <div className="one-post" key={post.id}>
-        {/* <div className="user-logo-name"> */}
-        <div className="one-post-top">
-          <button
-            style={{
-              width: "40%",
-              border: "1px solid white",
-              background: "white",
-              display: "flex",
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              history.push(`/ProfilePage/${post.user_id}`);
-            }}
-          >
-            <div className="user-logo-name">
-              <FaUserCircle size={25} />
-              <div className="line-break1h"></div>
-              {username}
-              <div style={{ width: "10px" }}></div>
-            </div>
-          </button>
-          {/* <div style={{ width: "50px" }}></div> */}
-          <div className="edit-delete-container" ref={menuRef}>
-            <button
-              className="drop-down-edit-delete-trigger"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              <HiDotsHorizontal style={{ width: "50px" }} />
-            </button>
-            {/* <div style={{ width: "600px" }}></div> */}
-            {currentUserId === post.user_id && (
-              <div
-                className={`edit-delete-buttonss ${
-                  open ? "active" : "inactive"
-                }`}
-              >
-                <div className="edit-delete-post-container">
-                  <div>
-                    <EditPostFormModal post={post} />
-                  </div>
-                  <div style={{ height: "5px" }}></div>
-                  <button
-                    className="deletePost-button"
-                    onClick={() => handleDelete(post.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="line-break6h"></div>
-        <div className="one-post-bottom" style={{ paddingLeft: "10px" }}>
-          {post.content}
-        </div>
-        <div
-          style={{
-            width: "515px",
-            border: "1px solid lightgray",
-            marginTop: "10px",
-          }}
-        ></div>
-        <div className="under-post-above-comment">
-          <div className="post-likes">Like</div>
-          {/* <div style={{ height: "14px", border: "1px solid lightgray" }}></div> */}
-          <div className="post-comment" key={post.id} onClick={handleFocus}>
-            Comment
-          </div>
-        </div>
-        <div
-          style={{
-            width: "515px",
-            border: "1px solid lightgray",
-            marginBottom: "10px",
-          }}
-        ></div>
-        {/* <div className="edit-delete-buttonss">
-          <button
-          className="editPost-button"
-          onClick={() => {
-            setToggleEdit(true);
-          }}
-          >
-          Edit
-          </button>
-          <div className="line-break9h"></div>
-          <button
-          className="deletePost-button"
-          onClick={() => handleDelete(post.id)}
-          >
-          Delete
-          </button>
-          </div>
-          <button
-          onClick={() => {
-            setToggleEdit(false);
-          }}
-          >
-          Edit
-        </button> */}
-        {/* Comments testing here */}
-        <div className="write-a-commment-component">
-          <Comments postId={post.id} />
-        </div>
-        <div>{CommentList}</div>
-      </div>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <div className="one-post" key={post.id}>
+//         <div className="one-post-top">
+//           <button
+//             style={{
+//               width: "40%",
+//               border: "1px solid white",
+//               background: "white",
+//               display: "flex",
+//             }}
+//             onClick={(e) => {
+//               e.preventDefault();
+//               history.push(`/ProfilePage/${post.user_id}`);
+//             }}
+//           >
+//             <div className="user-logo-name">
+//               <FaUserCircle size={25} />
+//               <div className="line-break1h"></div>
+//               {username}
+//               <div style={{ width: "10px" }}></div>
+//             </div>
+//           </button>
 
-const CommentIndexItem = ({ comment, post }) => {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const currentUser = useSelector(
-    ({ entities: { users }, session: { currentUserId } }) =>
-      users[currentUserId]
-  );
-  const posts = useSelector((state) => state.entities.posts);
-  const [open, setOpen] = useState(false);
-  let menuRef2 = useRef(null);
-  // console.log(Object.values(posts)[0].id);
-  // console.log(onePost.id, "this is the id");
-  // console.log(comment, postsArr, "from Comment Index Item");
-  const currentUserId = useSelector((state) => state.session.currentUserId);
-  // console.log(currentUserId);
-  const comments = useSelector((state) => state.entities.comments);
-  // console.log(post.id);
-  let username;
-  const user = useSelector(({ entities: { users } }) => users[comment.user_id]);
+//           <div className="edit-delete-container" ref={menuRef}>
+//             <button
+//               className="drop-down-edit-delete-trigger"
+//               onClick={() => {
+//                 setOpen(!open);
+//               }}
+//             >
+//               <HiDotsHorizontal style={{ width: "50px" }} />
+//             </button>
 
-  const handleCommentDelete = (commentId) => {
-    if (comment.user_id === currentUser.id) {
-      return dispatch(deleteComment(commentId));
-    }
-  };
-  useEffect(() => {
-    let handler = (e) => {
-      if (!menuRef2.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  });
+//             {currentUserId === post.user_id && (
+//               <div
+//                 className={`edit-delete-buttonss ${
+//                   open ? "active" : "inactive"
+//                 }`}
+//               >
+//                 <div className="edit-delete-post-container">
+//                   <div>
+//                     <EditPostFormModal post={post} />
+//                   </div>
+//                   <div style={{ height: "5px" }}></div>
+//                   <button
+//                     className="deletePost-button"
+//                     onClick={() => handleDelete(post.id)}
+//                   >
+//                     Delete
+//                   </button>
+//                 </div>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//         <div className="line-break6h"></div>
+//         <div className="one-post-bottom" style={{ paddingLeft: "10px" }}>
+//           {post.content}
+//         </div>
+//         <div
+//           style={{
+//             width: "515px",
+//             border: "1px solid lightgray",
+//             marginTop: "10px",
+//           }}
+//         ></div>
+//         <div className="under-post-above-comment">
+//           <div className="post-likes">Like</div>
 
-  return (
-    <>
-      {post.id === comment.post_id && (
-        <div
-          style={{
-            textIndent: "7px",
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            marginBottom: "5px",
-          }}
-        >
-          <FaUserCircle size={30} /> &nbsp;
-          <div
-            className="comment-username"
-            style={{
-              backgroundColor: "rgb(244, 242, 242)",
-              marginTop: "31",
-              borderRadius: "18px",
-            }}
-          >
-            <div
-              style={{
-                marginBottom: "5px",
-                // marginTop: "13px",
-                fontSize: "14px",
-                fontWeight: "700",
-              }}
-            >
-              {user.first_name + " " + user.last_name}
-            </div>
-            <div style={{ fontSize: "14px" }}>{comment.body}</div>
-          </div>
-          <div className="edit-delete-comment-container" ref={menuRef2}>
-            <button
-              className="drop-down-edit-delete-comment-trigger"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              <HiDotsHorizontal style={{ width: "50px" }} />
-            </button>
-            {currentUserId === comment.user_id ? (
-              <div
-                className={`edit-delete-comment-buttonss ${
-                  open ? "active" : "inactive"
-                }`}
-              >
-                <div className="edit-delete-comments-container">
-                  <div>
-                    {" "}
-                    <EditCommentModal comment={comment} />
-                  </div>
-                  <div style={{ height: "5px" }}></div>
-                  <button
-                    className="deleteComment-button"
-                    onClick={() => handleCommentDelete(comment.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="edit-delete-comment-buttonss">
-                <div style={{ height: "48px" }}></div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
+//           <div
+//             className="post-comment"
+//             key={post.id}
+//             onClick={(e) => {
+//               e.preventDefault();
+//               // document.getElementById("comment-content").focus();
+//               // console.log(post.id);
+//             }}
+//           >
+//             Comment
+//           </div>
+//         </div>
+//         <div
+//           style={{
+//             width: "515px",
+//             border: "1px solid lightgray",
+//             marginBottom: "10px",
+//           }}
+//         ></div>
+
+//         <div className="write-a-commment-component">
+//           <Comments postId={post.id} />
+//         </div>
+//         <div>{CommentList}</div>
+//       </div>
+//     </>
+//   );
+// };
+
+// const CommentIndexItem = ({ comment, post }) => {
+//   const history = useHistory();
+//   const dispatch = useDispatch();
+//   const currentUser = useSelector(
+//     ({ entities: { users }, session: { currentUserId } }) =>
+//       users[currentUserId]
+//   );
+//   const posts = useSelector((state) => state.entities.posts);
+//   const [open, setOpen] = useState(false);
+//   let menuRef2 = useRef(null);
+//   // console.log(Object.values(posts)[0].id);
+//   // console.log(onePost.id, "this is the id");
+//   // console.log(comment, postsArr, "from Comment Index Item");
+//   const currentUserId = useSelector((state) => state.session.currentUserId);
+//   // console.log(currentUserId);
+//   const comments = useSelector((state) => state.entities.comments);
+//   // console.log(post.id);
+//   let username;
+//   const user = useSelector(({ entities: { users } }) => users[comment.user_id]);
+
+//   const handleCommentDelete = (commentId) => {
+//     if (comment.user_id === currentUser.id) {
+//       return dispatch(deleteComment(commentId));
+//     }
+//   };
+//   useEffect(() => {
+//     let handler = (e) => {
+//       if (!menuRef2.current.contains(e.target)) {
+//         setOpen(false);
+//       }
+//     };
+//     document.addEventListener("mousedown", handler);
+//     return () => {
+//       document.removeEventListener("mousedown", handler);
+//     };
+//   });
+
+//   return (
+//     <>
+//       {post.id === comment.post_id && (
+//         <div
+//           style={{
+//             textIndent: "7px",
+//             display: "flex",
+//             justifyContent: "flex-start",
+//             alignItems: "center",
+//             marginBottom: "5px",
+//           }}
+//         >
+//           <FaUserCircle size={30} /> &nbsp;
+//           <div
+//             className="comment-username"
+//             style={{
+//               backgroundColor: "rgb(244, 242, 242)",
+//               marginTop: "31",
+//               borderRadius: "18px",
+//             }}
+//           >
+//             <div
+//               style={{
+//                 marginBottom: "5px",
+//                 // marginTop: "13px",
+//                 fontSize: "14px",
+//                 fontWeight: "700",
+//               }}
+//             >
+//               {user.first_name + " " + user.last_name}
+//             </div>
+//             <div style={{ fontSize: "14px" }}>{comment.body}</div>
+//           </div>
+//           <div className="edit-delete-comment-container" ref={menuRef2}>
+//             <button
+//               className="drop-down-edit-delete-comment-trigger"
+//               onClick={() => {
+//                 setOpen(!open);
+//               }}
+//             >
+//               <HiDotsHorizontal style={{ width: "50px" }} />
+//             </button>
+//             {currentUserId === comment.user_id ? (
+//               <div
+//                 className={`edit-delete-comment-buttonss ${
+//                   open ? "active" : "inactive"
+//                 }`}
+//               >
+//                 <div className="edit-delete-comments-container">
+//                   <div>
+//                     {" "}
+//                     <EditCommentModal comment={comment} />
+//                   </div>
+//                   <div style={{ height: "5px" }}></div>
+//                   <button
+//                     className="deleteComment-button"
+//                     onClick={() => handleCommentDelete(comment.id)}
+//                   >
+//                     Delete
+//                   </button>
+//                 </div>
+//               </div>
+//             ) : (
+//               <div className="edit-delete-comment-buttonss">
+//                 <div style={{ height: "48px" }}></div>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// };
 export default Home;

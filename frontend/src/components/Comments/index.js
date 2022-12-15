@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as commentActions from "../../store/comments";
 
-function Comments({ inputRef, postId }) {
+function Comments({ postId }) {
   const dispatch = useDispatch();
   const [body, setBody] = useState("");
   const { id } = useParams();
@@ -44,9 +44,13 @@ function Comments({ inputRef, postId }) {
     });
   };
 
+  // if (any.id !== postId) {
+  //   setAny(false);
+  // }
+
   return (
     <>
-      <form className="comment-form" onSubmit={handleSubmit}>
+      <form className="comment-form" key={postId} onSubmit={handleSubmit}>
         <input
           style={{
             width: "97%",
@@ -59,10 +63,13 @@ function Comments({ inputRef, postId }) {
             marginBottom: "10px",
           }}
           id="comment-content"
+          // id= {`comment-content ${postId}`}
           type="text"
           placeholder="Write a comment..."
           value={body}
-          onChange={(e) => setBody(e.target.value)}
+          onChange={(e) => {
+            setBody(e.target.value);
+          }}
         />
         {/* <button type="submit">Comment</button> */}
       </form>
