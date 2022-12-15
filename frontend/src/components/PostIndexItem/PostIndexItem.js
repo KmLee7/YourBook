@@ -54,10 +54,11 @@ function PostIndexItem({ post }) {
       document.removeEventListener("mousedown", handlerTwo);
     };
   }, []);
-  const handleFocus = () => {
-    document.getElementById("comment-content").focus();
-    // document.getElementsByClassName("comment-form").focus();
-  };
+  // const handleFocus = () => {
+  //   let inputs = document.getElementsByClassName("comment-context");
+  //   console.log(inputs);
+  //   // document.getElementsByClassName("comment-form").focus();
+  // };
   const CommentList = Object.values(comments).map((comment) => {
     return <CommentIndexItem key={comment.id} comment={comment} post={post} />;
   });
@@ -141,10 +142,15 @@ function PostIndexItem({ post }) {
           <div
             className="post-comment"
             key={post.id}
-            onClick={
-              () => document.getElementById("comment-content").focus()
-              // console.log(post.id);
-            }
+            onClick={() => {
+              let inputs = document.getElementsByClassName("comment-content");
+              Object.values(inputs).map((input) => {
+                let commentPostId = input.id.split("comment-content ")[1];
+                if (commentPostId === `${post.id}`) {
+                  input.focus();
+                }
+              });
+            }}
           >
             Comment
           </div>

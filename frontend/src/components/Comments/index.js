@@ -62,8 +62,9 @@ function Comments({ postId }) {
             fontSize: "18px",
             marginBottom: "10px",
           }}
-          id="comment-content"
-          // id= {`comment-content ${postId}`}
+          // id="comment-content"
+          className="comment-content"
+          id={`comment-content ${postId}`}
           type="text"
           placeholder="Write a comment..."
           value={body}
