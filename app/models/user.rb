@@ -45,8 +45,7 @@ class User < ApplicationRecord
   has_many :comments, 
     foreign_key: :user_id,
     dependent: :destroy
-  has_many :likes,
-  dependent: :destroy
+
     
   def self.find_by_credentials(credential, password)
     field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : nil

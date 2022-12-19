@@ -54,6 +54,7 @@ function PostIndexItem({ post }) {
       document.removeEventListener("mousedown", handlerTwo);
     };
   }, []);
+  // console.log(Object.values(comments[73]).length);
   // const handleFocus = () => {
   //   let inputs = document.getElementsByClassName("comment-context");
   //   console.log(inputs);

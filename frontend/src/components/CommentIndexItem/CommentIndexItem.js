@@ -71,7 +71,6 @@ function CommentIndexItem({ comment, post, any }) {
             <div
               style={{
                 marginBottom: "5px",
-                // marginTop: "13px",
                 fontSize: "14px",
                 fontWeight: "700",
               }}

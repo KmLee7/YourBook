@@ -18,9 +18,6 @@ import { logout } from "../../store/session";
 import { useRef } from "react";
 import EditPostFormModal from "../EditPost";
 
-// import { Redirect } from "react-router-dom";
-// import { Route } from "react-router-dom";
-
 function ProfilePage() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
@@ -39,7 +36,6 @@ function ProfilePage() {
   let currentUser = useSelector((state) => {
     return state.entities.users[id];
   });
-  // console.log(, "THists temp");
   let userName;
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;
@@ -61,7 +57,6 @@ function ProfilePage() {
       }
     };
     const handleEdit = (post) => {
-      // console.log(tmpCurrentUserId, post.user_id);
       if (post.user_id === tmpCurrentUserId) {
         return dispatch(updatePost(post));
       }
@@ -86,17 +81,7 @@ function ProfilePage() {
         <div>{post.content}</div>
         {currentUserId === post.user_id && (
           <div className="edit-delete-buttonss">
-            {/* {toggleEdit && <EditPostFormModal />} */}
-            {/* <div
-            className="editPost-button"
-            onClick={() => {
-              setToggleEdit(true);
-            }}
-          >
-            Edit
-          </div> */}
             <div>
-              {/* {currentUser.id === post.user_id && ( */}
               <EditPostFormModal post={post} />
             </div>
             <div className="line-break9h"></div>
@@ -189,9 +174,6 @@ function ProfilePage() {
             />
           </a>
         </div>
-        {/* <div className="right-nav">
-          <FaUserCircle className="user-logo" size={50} color="black" />
-        </div> */}
         <div className="menu-container" ref={menuRef}>
           <div
             className="menu-trigger"
