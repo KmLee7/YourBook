@@ -10,6 +10,7 @@ import EditPostFormModal from "../EditPost";
 import * as commentActions from "../../store/comments";
 import CommentIndexItem from "../CommentIndexItem/CommentIndexItem";
 import { deletePost } from "../../store/posts";
+import Likes from "../Likes";
 
 function PostIndexItem({ post }) {
   const dispatch = useDispatch();
@@ -138,7 +139,9 @@ function PostIndexItem({ post }) {
           }}
         ></div>
         <div className="under-post-above-comment">
-          <div className="post-likes">Like</div>
+          <div className="post-likes">
+            <Likes postId={post.id} />
+          </div>
           {/* <div style={{ height: "14px", border: "1px solid lightgray" }}></div> */}
           <div
             className="post-comment"

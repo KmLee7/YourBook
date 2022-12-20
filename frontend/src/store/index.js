@@ -4,11 +4,13 @@ import commentsReducer from "./comments";
 import postsReducer from "./posts";
 import sessionReducer from "./session";
 import userReducer from "./user";
+import likesReducer from "./likes";
 
 const entityReducer = combineReducers({
   users: userReducer,
   posts: postsReducer,
   comments: commentsReducer,
+  likes: likesReducer,
 });
 
 const rootReducer = combineReducers({
