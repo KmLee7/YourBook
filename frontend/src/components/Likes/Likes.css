@@ -17,3 +17,6 @@
   color: #006cfa;
   /* fill: #006cfa; */
 }
+.post-likes-button.inactive {
+  color: black;
+}

@@ -10,40 +10,41 @@ function Likes({ postId }) {
   const dispatch = useDispatch();
   const [bool, setBool] = useState(false);
   const [check, setCheck] = useState(false);
-  const [checkCurrent, setCheckCurrent] = useState(false);
+  // const [checkCurrent, setCheckCurrent] = useState(false);
+  const [show, setShow] = useState(false);
 
   const currentUserId = useSelector((state) => state.session.currentUserId);
   const allLikes = useSelector((state) => state.entities.likes);
-  const allLikeLiked = Object.values(allLikes).map((like) => like.liked);
-  const likeLiked = allLikeLiked.map((liked) => liked);
-  console.log(
-    allLikes,
-    "ALL THE LIKES",
-    currentUserId,
-    "THIS THE CURRENT USER ID",
-    allLikeLiked.map((likeLiked) => likeLiked),
-    "THIS IS THE ALL LIKE LIKED"
-  );
+  // const allLikeLiked = Object.values(allLikes).map((like) => like.liked);
+  // const likeLiked = allLikeLiked.map((liked) => liked);
+  // console.log(
+  //   allLikes,
+  //   "ALL THE LIKES",
+  //   currentUserId,
+  //   "THIS THE CURRENT USER ID",
+  //   allLikeLiked.map((likeLiked) => likeLiked),
+  //   "THIS IS THE ALL LIKE LIKED"
+  // );
+  console.log(allLikes, "ALL THE LIKES");
   useEffect(() => {
     dispatch(likeActions.fetchLikes());
   }, []);
   useEffect(() => {
-    Object.values(allLikes).map((like) => {
-      if (
-        like.user_id === currentUserId &&
-        like.post_id === postId &&
-        like.liked
-      ) {
+    Object.values(allLikes)?.map((like) => {
+      if (like.user_id === currentUserId && like.post_id === postId) {
         setCheck(true);
-        return true;
+        if (like.liked === true) {
+          setShow(true);
+        } else {
+          setShow(false);
+        }
       }
     });
   }, [allLikes]);
-  console.log(checkCurrent, "THIS THE CHECK CURRENT VAR");
+  // console.log(checkCurrent, "THIS THE CHECK CURRENT VAR");
   const handleClick = (e) => {
     e.preventDefault();
     setBool(!bool);
-
     const newlike = {
       liked: bool,
       post_id: postId,
@@ -51,32 +52,41 @@ function Likes({ postId }) {
     };
     if (check === false) {
       dispatch(likeActions.createLike(newlike));
+      if (newlike.liked === true) {
+        setShow(true);
+      } else {
+        setShow(false);
+      }
       setCheck(true);
-      console.log("hitting first one");
     } else {
       let oldLike;
-      console.log(postId);
+
+      console.log(bool, "BOOL IF CHECK IS TRUE");
       Object.values(allLikes).map((like) => {
         if (like.user_id === currentUserId && like.post_id === postId) {
-          console.log(like.id);
           oldLike = like;
           oldLike.liked = bool;
+          if (oldLike.liked === true) {
+            setShow(true);
+          } else {
+            setShow(false);
+          }
         }
       });
       dispatch(likeActions.updateLike(oldLike));
 
-      console.log(oldLike, "oldlike");
-      console.log("hitting second one");
+      // console.log(oldLike, "oldlike");
+      // console.log("hitting second one");
     }
   };
 
   return (
     <>
       <button
-        className={`post-likes-button ${bool ? "active" : "inactive"}`}
+        className={`post-likes-button ${show ? "active" : "inactive"}`}
         onClick={handleClick}
       >
-        {bool ? (
+        {show ? (
           <FiThumbsUp size={22} style={{ fill: "#006cfa" }} />
         ) : (
           <FiThumbsUp size={22} />
