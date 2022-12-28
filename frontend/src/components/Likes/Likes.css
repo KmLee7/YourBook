@@ -1,0 +1,19 @@
+.post-likes-button {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: white;
+}
+
+.post-likes-button:hover {
+  background-color: rgb(226, 225, 225);
+  border-radius: 8px;
+}
+
+.post-likes-button.active {
+  color: #006cfa;
+  /* fill: #006cfa; */
+}

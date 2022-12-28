@@ -11,6 +11,7 @@ import * as commentActions from "../../store/comments";
 import CommentIndexItem from "../CommentIndexItem/CommentIndexItem";
 import { deletePost } from "../../store/posts";
 import Likes from "../Likes";
+import { VscComment } from "react-icons/vsc";
 
 function PostIndexItem({ post }) {
   const dispatch = useDispatch();
@@ -156,7 +157,8 @@ function PostIndexItem({ post }) {
               });
             }}
           >
-            Comment
+            <VscComment size={22} /> <div style={{ width: "10px" }}></div>
+            <div style={{ fontSize: "20px" }}>Comment</div>
           </div>
         </div>
         <div
