@@ -25,10 +25,11 @@ function Likes({ postId }) {
   //   allLikeLiked.map((likeLiked) => likeLiked),
   //   "THIS IS THE ALL LIKE LIKED"
   // );
-  console.log(allLikes, "ALL THE LIKES");
+
   useEffect(() => {
     dispatch(likeActions.fetchLikes());
   }, []);
+
   useEffect(() => {
     Object.values(allLikes)?.map((like) => {
       if (like.user_id === currentUserId && like.post_id === postId) {
@@ -46,17 +47,13 @@ function Likes({ postId }) {
     e.preventDefault();
     setBool(!bool);
     const newlike = {
-      liked: bool,
+      liked: !bool,
       post_id: postId,
       user_id: currentUserId,
     };
     if (check === false) {
       dispatch(likeActions.createLike(newlike));
-      if (newlike.liked === true) {
-        setShow(true);
-      } else {
-        setShow(false);
-      }
+      console.log("hits here, in the like section");
       setCheck(true);
     } else {
       let oldLike;
@@ -65,7 +62,7 @@ function Likes({ postId }) {
       Object.values(allLikes).map((like) => {
         if (like.user_id === currentUserId && like.post_id === postId) {
           oldLike = like;
-          oldLike.liked = bool;
+          oldLike.liked = !bool;
           if (oldLike.liked === true) {
             setShow(true);
           } else {
