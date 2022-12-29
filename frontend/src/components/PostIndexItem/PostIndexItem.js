@@ -12,6 +12,7 @@ import CommentIndexItem from "../CommentIndexItem/CommentIndexItem";
 import { deletePost } from "../../store/posts";
 import Likes from "../Likes";
 import { VscComment } from "react-icons/vsc";
+import { FcLike } from "react-icons/fc";
 
 function PostIndexItem({ post }) {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function PostIndexItem({ post }) {
       users[currentUserId]
   );
   const currentUserId = useSelector((state) => state.session.currentUserId);
+  const allLikes = useSelector((state) => state.entities.likes);
   const [toggleEdit, setToggleEdit] = useState(false);
   const [open, setOpen] = useState(false);
   let menuRef = useRef(null);
@@ -56,12 +58,16 @@ function PostIndexItem({ post }) {
       document.removeEventListener("mousedown", handlerTwo);
     };
   }, []);
-  // console.log(Object.values(comments[73]).length);
-  // const handleFocus = () => {
-  //   let inputs = document.getElementsByClassName("comment-context");
-  //   console.log(inputs);
-  //   // document.getElementsByClassName("comment-form").focus();
-  // };
+  // For Likes count
+  let count = 0;
+  let oneLikeCount = Object.values(allLikes).map((like) => {
+    if (like.liked && like.post_id === post.id) {
+      count += 1;
+    }
+    return count;
+  });
+  console.log(count);
+
   const CommentList = Object.values(comments).map((comment) => {
     return <CommentIndexItem key={comment.id} comment={comment} post={post} />;
   });
@@ -132,6 +138,22 @@ function PostIndexItem({ post }) {
         <div className="one-post-bottom" style={{ paddingLeft: "10px" }}>
           {post.content}
         </div>
+        {count === 0
+          ? null
+          : count === 1 && (
+              <div className="one-post-likes">
+                <FcLike size={16} />
+                <div style={{ width: "5px" }}></div>
+                {count} Like
+              </div>
+            )}
+        {count > 1 && (
+          <div className="one-post-likes">
+            <FcLike size={16} />
+            <div style={{ width: "5px" }}></div>
+            {count} Likes
+          </div>
+        )}
         <div
           style={{
             width: "515px",

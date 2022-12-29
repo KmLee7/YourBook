@@ -478,3 +478,12 @@
 .deleteComment-button:hover {
   background-color: red;
 }
+
+.one-post-likes {
+  display: flex;
+  margin-top: 7px;
+  margin-left: 10px;
+  font-size: 12px;
+  justify-content: flex-start;
+  align-items: center;
+}
