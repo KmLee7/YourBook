@@ -41,7 +41,7 @@ export const fetchLike = (likeId) => async (dispatch) => {
 };
 
 export const createLike = (like) => async (dispatch) => {
-  console.log("hello");
+  console.log(like, "HERERERE");
   const res = await csrfFetch("/api/likes", {
     method: "POST",
     body: JSON.stringify(like),
@@ -53,7 +53,6 @@ export const createLike = (like) => async (dispatch) => {
   dispatch(receiveLike(data));
 };
 export const updateLike = (like) => async (dispatch) => {
-  console.log("something");
   const res = await csrfFetch(`/api/likes/${like.id}`, {
     method: "PUT",
     body: JSON.stringify(like),

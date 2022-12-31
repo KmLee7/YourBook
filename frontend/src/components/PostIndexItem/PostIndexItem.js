@@ -66,7 +66,6 @@ function PostIndexItem({ post }) {
     }
     return count;
   });
-  console.log(count);
 
   const CommentList = Object.values(comments).map((comment) => {
     return <CommentIndexItem key={comment.id} comment={comment} post={post} />;

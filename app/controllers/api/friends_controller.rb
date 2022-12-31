@@ -1,6 +1,7 @@
 class Api::FriendsController < ApplicationController
-
+   
     def create
+        
         @friend = Friend.new(friend_params)
         if @friend.save
             render "api/friends/show"
@@ -29,8 +30,8 @@ class Api::FriendsController < ApplicationController
     end
     
     def destroy
-        @friend_one = Friend.find(params[:friend][:sender_id])
-        @friend_two = Friend.find(params[:friend][:receiver_id])
+        @friend_one = Friend.find(params[:id][:sender_id])
+        @friend_two = Friend.find(params[:id][:receiver_id])
         if @friend_one || @friend_two
             @friend_one.destroy || @friend_two.destroy
         end
@@ -39,7 +40,7 @@ class Api::FriendsController < ApplicationController
 
     private
     def friend_params
-        params.require(:friend).permit(:sender_id, :receiver_id, :accept, :decline)
+        params.require(:friend).permit(:sender_id, :receiver_id, :accept)
     end
 
 end

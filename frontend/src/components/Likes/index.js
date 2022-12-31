@@ -53,12 +53,12 @@ function Likes({ postId }) {
     };
     if (check === false) {
       dispatch(likeActions.createLike(newlike));
-      console.log("hits here, in the like section");
+      // console.log("hits here, in the like section");
       setCheck(true);
     } else {
       let oldLike;
 
-      console.log(bool, "BOOL IF CHECK IS TRUE");
+      // console.log(bool, "BOOL IF CHECK IS TRUE");
       Object.values(allLikes).map((like) => {
         if (like.user_id === currentUserId && like.post_id === postId) {
           oldLike = like;

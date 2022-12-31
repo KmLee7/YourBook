@@ -5,12 +5,14 @@ import postsReducer from "./posts";
 import sessionReducer from "./session";
 import userReducer from "./user";
 import likesReducer from "./likes";
+import friendsReducer from "./friends";
 
 const entityReducer = combineReducers({
   users: userReducer,
   posts: postsReducer,
   comments: commentsReducer,
   likes: likesReducer,
+  friends: friendsReducer,
 });
 
 const rootReducer = combineReducers({

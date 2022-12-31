@@ -17,6 +17,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { logout } from "../../store/session";
 import { useRef } from "react";
 import EditPostFormModal from "../EditPost";
+import Friends from "../Friends";
 
 function ProfilePage() {
   const [open, setOpen] = useState(false);
@@ -236,7 +237,12 @@ function ProfilePage() {
           </div>
           <div className="user-username">{userName}</div>
         </div>
-        <div className="under-upper-container">Posts</div>
+        <div className="under-upper-container">
+          Posts
+          <div style={{ width: "15px" }}></div>
+          <Friends currentUser={currentUser} />
+        </div>
+
         <div className="lower-container">
           <div className="intro">
             Intro
