@@ -12,11 +12,22 @@ function Friends({ currentUser }) {
   const [boolTwo, setBoolTwo] = useState(false);
   const [check, setCheck] = useState(false);
   const [selfCheck, setSelfCheck] = useState(false);
-  const [friendRequest, setFriendRequest] = useState(false);
+  const [friendAccept, setFriendAccept] = useState(false);
   const [show, setShow] = useState(false);
+  const [showTwo, setShowTwo] = useState(false);
   const tempId = currentUser?.id ? currentUser.id : null;
-  // localStorage.setItem("profileId", tempId);
-  // console.log(localStorage.getItem("profileId") === `${currentUser.id}`);
+
+  //tempId is the profile id
+  //currentUserId is the session user id
+
+  //receiver_id is the profile id
+  //sender_id is the session user id
+
+  //Friend
+  //needs to show Friend if either sender_id is equal to session user id or
+  //receiver_id is equal to profile_id
+  //Or if either sender_id is equal to profile_id or
+  //receiver_id is equal to session user id
 
   useEffect(() => {
     dispatch(friendActions.fetchFriends());
@@ -24,28 +35,39 @@ function Friends({ currentUser }) {
 
   useEffect(() => {
     Object.values(allFriends)?.map((friend) => {
+      // Pending // Check
+      // Check is boolean for if pending is true
+      // and if receiver id is equal to receiver id is equal to profile id
+      // check = (pending and receiver id = profile id)
       if (friend.pending && friend.receiver_id === tempId) {
-        console.log(
-          friend.pending && friend.receiver_id === tempId,
-          "hello sadfijo"
-        );
         setCheck(true);
       } else {
-        console.log(friend.pending && friend.receiver_id === tempId, "bye");
         setCheck(false);
       }
+      // SelfCheck
+      // boolean to check if session user id is equal to profile id
+      // if true then dont show the friends functionality
       if (currentUserId === tempId) {
-        console.log(currentUserId === tempId, "this is sthete");
         setSelfCheck(true);
-      }
-      if (friend.pending && friend.sender_id === tempId) {
-        {
-          console.log("Its hitting true true");
-        }
-        setFriendRequest(true);
       } else {
-        console.log("Its hitting false false");
-        setFriendRequest(false);
+        setSelfCheck(false);
+      }
+      // FriendRequest
+      // boolean to check if its pending and if the sender id is either session user id or
+      // profile id
+      // also needs to check if its pending and if the receiver id is either session user id or
+      // profile id
+      // needs to render accept or decline if pending is true
+      // needs to render add friend option if pending is false
+      if (
+        friend.sender_id === tempId ||
+        // friend.sender_id === currentUserId ||
+        friend.receiver_id === tempId
+        // friend.receiver_id === currentUserId
+      ) {
+        setFriendAccept(true);
+      } else {
+        setFriendAccept(false);
       }
     });
   });
@@ -54,6 +76,7 @@ function Friends({ currentUser }) {
     e.preventDefault();
     // setBool(!bool);
     setBoolTwo(!boolTwo);
+    setFriendAccept(true);
     const addFriend = {
       sender_id: currentUserId,
       receiver_id: currentUser.id,
@@ -69,6 +92,7 @@ function Friends({ currentUser }) {
     e.preventDefault();
     setBool(bool);
     setBoolTwo(boolTwo);
+    setFriendAccept(true);
     let oldFriend;
     Object.values(allFriends)?.map((friend) => {
       if (
@@ -79,16 +103,39 @@ function Friends({ currentUser }) {
         oldFriend = friend;
         oldFriend.accept = !bool;
         oldFriend.pending = boolTwo;
+        if (oldFriend.accept === true && oldFriend.pending === false) {
+          setShow(true);
+        } else {
+          setShow(false);
+        }
       }
-      if (oldFriend?.accept) {
-        setShow(true);
-        dispatch(friendActions.updateFriend(oldFriend));
-      } else {
-        setShow(false);
-      }
+      dispatch(friendActions.updateFriend(oldFriend));
     });
   };
-  console.log(allFriends);
+
+  const handleDecline = (e) => {
+    e.preventDefault();
+    // setBool(!bool)
+    setBool(boolTwo);
+    setFriendAccept(true);
+    let oldFriend;
+    Object.values(allFriends)?.map((friend) => {
+      if (
+        friend.pending &&
+        friend.receiver_id === currentUserId &&
+        friend.sender_id === tempId
+      ) {
+        oldFriend = friend;
+        oldFriend.pending = boolTwo;
+        if (oldFriend.pending === false && oldFriend.accept === false) {
+          setShow(true);
+        } else {
+          setShow(false);
+        }
+      }
+      dispatch(friendActions.updateFriend(oldFriend));
+    });
+  };
 
   return (
     <>
@@ -111,19 +158,24 @@ function Friends({ currentUser }) {
               pending
             </div>
           )}
-          {friendRequest && (
+          {!check && friendAccept && show && (
             <div style={{ display: "flex" }}>
               <button onClick={handleAccept}>Accept</button>
               <div style={{ width: "10px" }}></div>
-              {/* <button onClick={handleDecline}>Decline</button> */}
+              <button onClick={handleDecline}>Decline</button>
             </div>
           )}
-          {!check && !friendRequest && !show && (
-            <button className="add-friends" onClick={handleClick}>
-              Add Friend
-            </button>
+          {/* only show add friend if show is false and friendRequest is false
+          and check is false */}
+          {!show && !check && !friendAccept && (
+            <div style={{ display: "flex" }}>
+              <button className="add-friends" onClick={handleClick}>
+                Add Friend
+              </button>
+              <div style={{ width: "10px" }}></div>
+            </div>
           )}
-          {show && <div>Friend</div>}
+          {friendAccept && <div>Friend</div>}
         </div>
       )}
     </>
