@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_31_002059) do
     t.integer "sender_id", null: false
     t.integer "receiver_id", null: false
     t.boolean "accept", default: false, null: false
+    t.boolean "pending", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["receiver_id"], name: "index_friends_on_receiver_id"

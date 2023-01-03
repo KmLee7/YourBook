@@ -1,1 +1,1 @@
-json.extract! friend, :id, :sender_id, :receiver_id, :accept
+json.extract! friend, :id, :sender_id, :receiver_id, :accept, :pending

@@ -37,10 +37,14 @@ function ProfilePage() {
   let currentUser = useSelector((state) => {
     return state.entities.users[id];
   });
+  // let currentUserId = useSelector((state) => {
+  //   return state.entities.users[id];
+  // });
   let userName;
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;
   }
+
   useEffect(() => {
     dispatch(postActions.fetchPosts());
   }, []);
