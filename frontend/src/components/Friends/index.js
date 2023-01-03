@@ -11,8 +11,9 @@ function Friends({ currentUser }) {
   const [bool, setBool] = useState(false);
   const [boolTwo, setBoolTwo] = useState(false);
   const [check, setCheck] = useState(false);
+  const [selfCheck, setSelfCheck] = useState(false);
   const tempId = currentUser?.id ? currentUser.id : null;
-  localStorage.setItem("profileId", tempId);
+  // localStorage.setItem("profileId", tempId);
   // console.log(localStorage.getItem("profileId") === `${currentUser.id}`);
 
   useEffect(() => {
@@ -30,6 +31,10 @@ function Friends({ currentUser }) {
       } else {
         console.log(friend.pending && friend.receiver_id === tempId, "bye");
         setCheck(false);
+      }
+      if (currentUserId === tempId) {
+        console.log(currentUserId === tempId, "this is sthete");
+        setSelfCheck(true);
       }
     });
   });
@@ -52,26 +57,30 @@ function Friends({ currentUser }) {
 
   return (
     <>
-      {check ? (
-        <div
-          style={{
-            display: "flex",
-            width: "75px",
-            height: "25px",
-            justifyContent: "center",
-            alignItems: "center",
-            border: "1px solid black",
-            backgroundColor: "rgb(12, 109, 195)",
-            borderRadius: "6px",
-            color: "white",
-          }}
-        >
-          pending
+      {!selfCheck && (
+        <div>
+          {check ? (
+            <div
+              style={{
+                display: "flex",
+                width: "75px",
+                height: "25px",
+                justifyContent: "center",
+                alignItems: "center",
+                border: "1px solid black",
+                backgroundColor: "rgb(12, 109, 195)",
+                borderRadius: "6px",
+                color: "white",
+              }}
+            >
+              pending
+            </div>
+          ) : (
+            <button className="add-friends" onClick={handleClick}>
+              Add Friend
+            </button>
+          )}
         </div>
-      ) : (
-        <button className="add-friends" onClick={handleClick}>
-          Add Friend
-        </button>
       )}
     </>
   );
