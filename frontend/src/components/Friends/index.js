@@ -12,6 +12,8 @@ function Friends({ currentUser }) {
   const [boolTwo, setBoolTwo] = useState(false);
   const [check, setCheck] = useState(false);
   const [selfCheck, setSelfCheck] = useState(false);
+  const [friendRequest, setFriendRequest] = useState(false);
+  const [show, setShow] = useState(false);
   const tempId = currentUser?.id ? currentUser.id : null;
   // localStorage.setItem("profileId", tempId);
   // console.log(localStorage.getItem("profileId") === `${currentUser.id}`);
@@ -36,6 +38,15 @@ function Friends({ currentUser }) {
         console.log(currentUserId === tempId, "this is sthete");
         setSelfCheck(true);
       }
+      if (friend.pending && friend.sender_id === tempId) {
+        {
+          console.log("Its hitting true true");
+        }
+        setFriendRequest(true);
+      } else {
+        console.log("Its hitting false false");
+        setFriendRequest(false);
+      }
     });
   });
 
@@ -54,12 +65,36 @@ function Friends({ currentUser }) {
       dispatch(friendActions.createFriend(addFriend));
     }
   };
+  const handleAccept = (e) => {
+    e.preventDefault();
+    setBool(bool);
+    setBoolTwo(boolTwo);
+    let oldFriend;
+    Object.values(allFriends)?.map((friend) => {
+      if (
+        friend.pending &&
+        friend.receiver_id === currentUserId &&
+        friend.sender_id === tempId
+      ) {
+        oldFriend = friend;
+        oldFriend.accept = !bool;
+        oldFriend.pending = boolTwo;
+      }
+      if (oldFriend?.accept) {
+        setShow(true);
+        dispatch(friendActions.updateFriend(oldFriend));
+      } else {
+        setShow(false);
+      }
+    });
+  };
+  console.log(allFriends);
 
   return (
     <>
       {!selfCheck && (
         <div>
-          {check ? (
+          {check && (
             <div
               style={{
                 display: "flex",
@@ -75,11 +110,20 @@ function Friends({ currentUser }) {
             >
               pending
             </div>
-          ) : (
+          )}
+          {friendRequest && (
+            <div style={{ display: "flex" }}>
+              <button onClick={handleAccept}>Accept</button>
+              <div style={{ width: "10px" }}></div>
+              {/* <button onClick={handleDecline}>Decline</button> */}
+            </div>
+          )}
+          {!check && !friendRequest && !show && (
             <button className="add-friends" onClick={handleClick}>
               Add Friend
             </button>
           )}
+          {show && <div>Friend</div>}
         </div>
       )}
     </>
