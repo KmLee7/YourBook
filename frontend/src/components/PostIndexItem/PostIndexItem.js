@@ -48,7 +48,7 @@ function PostIndexItem({ post }) {
   };
   useEffect(() => {
     let handlerTwo = (e) => {
-      if (!menuRef.current.contains(e.target)) {
+      if (!menuRef?.current?.contains(e.target)) {
         setOpen(false);
       }
     };
@@ -71,15 +71,12 @@ function PostIndexItem({ post }) {
     return <CommentIndexItem key={comment.id} comment={comment} post={post} />;
   });
   const handleCommentClick = (post) => {
-    // e.preventDefault();
     setAny(post);
-    // console.log(post, "hits here");
   };
 
   return (
     <>
       <div className="one-post" key={post.id}>
-        {/* <div className="user-logo-name"> */}
         <div className="one-post-top">
           <button
             style={{
@@ -100,7 +97,7 @@ function PostIndexItem({ post }) {
               <div style={{ width: "10px" }}></div>
             </div>
           </button>
-          {/* <div style={{ width: "50px" }}></div> */}
+
           <div className="edit-delete-container" ref={menuRef}>
             <button
               className="drop-down-edit-delete-trigger"
@@ -110,7 +107,6 @@ function PostIndexItem({ post }) {
             >
               <HiDotsHorizontal style={{ width: "50px" }} />
             </button>
-            {/* <div style={{ width: "600px" }}></div> */}
             {currentUserId === post.user_id && (
               <div
                 className={`edit-delete-buttonss ${
@@ -189,55 +185,9 @@ function PostIndexItem({ post }) {
             marginBottom: "10px",
           }}
         ></div>
-        {/* <div className="edit-delete-buttonss">
-            <button
-            className="editPost-button"
-            onClick={() => {
-              setToggleEdit(true);
-            }}
-            >
-            Edit
-            </button>
-            <div className="line-break9h"></div>
-            <button
-            className="deletePost-button"
-            onClick={() => handleDelete(post.id)}
-            >
-            Delete
-            </button>
-            </div>
-            <button
-            onClick={() => {
-              setToggleEdit(false);
-            }}
-            >
-            Edit
-          </button> */}
-        {/* Comments testing here */}
         <div className="write-a-commment-component">
           <Comments postId={post.id} />
-          {/* {!any ? (
-            <input
-              style={{
-                width: "97%",
-                height: "30px",
-                border: "none",
-                borderRadius: "20px",
-                backgroundColor: "rgb(244, 242, 242)",
-                textIndent: "15px",
-                fontSize: "18px",
-                marginBottom: "10px",
-              }}
-              id="comment-content"
-              // id= {`comment-content ${postId}`}
-              type="text"
-              placeholder="Write a comment..."
-              //   value={body}
-              //   autoFocus={true}
-            />
-          ) : null} */}
         </div>
-        {/* <div>{CommentList}</div> */}
         <div>
           {Object.values(comments).map((comment) => {
             return (

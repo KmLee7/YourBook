@@ -18,10 +18,19 @@ import { logout } from "../../store/session";
 import { useRef } from "react";
 import EditPostFormModal from "../EditPost";
 import Friends from "../Friends";
+import * as commentsAction from "../../store/comments";
+import CommentIndexItem from "../CommentIndexItem/CommentIndexItem";
+import SearchBar from "../SearchUser/SearchUser";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { FcLike } from "react-icons/fc";
+import Likes from "../Likes";
+import { VscComment } from "react-icons/vsc";
+import Comments from "../Comments";
 
 function ProfilePage() {
   const [open, setOpen] = useState(false);
-  const menuRef = useRef();
+  const [openTwo, setOpenTwo] = useState(false);
+  let postRef = useRef(null);
   const [show, setShow] = useState(false);
   const [showBio, setShowBio] = useState(false);
   const [bio, setBio] = useState("");
@@ -34,12 +43,10 @@ function ProfilePage() {
     ({ entities: { users }, session: { currentUserId } }) =>
       users[currentUserId]
   );
+  console.log(tempcurrentUser, "this is the temp current user");
   let currentUser = useSelector((state) => {
     return state.entities.users[id];
   });
-  // let currentUserId = useSelector((state) => {
-  //   return state.entities.users[id];
-  // });
   let userName;
   if (currentUser) {
     userName = currentUser.first_name + " " + currentUser.last_name;
@@ -52,6 +59,16 @@ function ProfilePage() {
   const PostIndexItem = ({ post }) => {
     const user = useSelector(({ entities: { users } }) => users[post.user_id]);
     const currentUserId = useSelector((state) => state.session.currentUserId);
+    const allComments = useSelector((state) => state.entities.comments);
+    const [openTwo, setOpenTwo] = useState(false);
+    const allLikes = useSelector((state) => state.entities.likes);
+
+    const CommentList = Object.values(allComments)?.map((comment) => {
+      return (
+        <CommentIndexItem key={comment.id} comment={comment} post={post} />
+      );
+    });
+
     let username;
     if (user) {
       username = user.first_name + " " + user.last_name;
@@ -67,37 +84,133 @@ function ProfilePage() {
       }
     };
     useEffect(() => {
-      let handler = (e) => {
-        if (!menuRef.current.contains(e.target)) {
-          setOpen(false);
-        }
-        return;
-      };
-      document.addEventListener("mousedown", handler);
+      dispatch(commentsAction.fetchComments());
+    }, []);
+    let count = 0;
+    let oneLikeCount = Object.values(allLikes).map((like) => {
+      if (like.liked && like.post_id === post.id) {
+        count += 1;
+      }
+      return count;
     });
+    useEffect(() => {
+      let handlerTwo = (e) => {
+        if (!postRef?.current?.contains(e.target)) {
+          setOpenTwo(false);
+        }
+      };
+      document.addEventListener("mousedown", handlerTwo);
+
+      return () => {
+        document.removeEventListener("mousedown", handlerTwo);
+      };
+    }, []);
+
     return (
-      <div className="one-post" key={post.id}>
-        <div className="user-logo-name">
-          <FaUserCircle size={25} />
-          <div className="line-break1h"></div>
-          {username}
-        </div>
-        <div className="line-break6h"></div>
-        <div>{post.content}</div>
-        {currentUserId === post.user_id && (
-          <div className="edit-delete-buttonss">
-            <div>
-              <EditPostFormModal post={post} />
-            </div>
-            <div className="line-break9h"></div>
+      <div className="one-post-profile" key={post.id}>
+        <div className="one-post-profile-container">
+          <div className="user-logo-name-profile">
+            <FaUserCircle size={25} />
+            <div className="line-break1h"></div>
+            {username}
+          </div>
+          <div style={{ width: "150px" }}></div>
+          <div
+            className="edit-delete-container"
+            style={{ width: "50px", justifyContent: "flex-end" }}
+            ref={postRef}
+          >
             <button
-              className="deletePost-button"
-              onClick={() => handleDelete(post.id)}
+              className="drop-down-edit-delete-trigger"
+              onClick={() => {
+                setOpenTwo(!openTwo);
+              }}
             >
-              Delete
+              <HiDotsHorizontal style={{ width: "50px" }} />
             </button>
+
+            {currentUserId === post.user_id && (
+              <div
+                className={`edit-delete-buttonss ${
+                  openTwo ? "active" : "inactive"
+                }`}
+              >
+                <div className="edit-delete-post-container">
+                  <div>
+                    <EditPostFormModal post={post} />
+                  </div>
+                  <div style={{ height: "5px" }}></div>
+                  <button
+                    className="deletePost-button"
+                    onClick={() => handleDelete(post.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        <div>{post.content}</div>
+        {count === 0
+          ? null
+          : count === 1 && (
+              <div className="one-post-likes">
+                <FcLike size={16} />
+                <div style={{ width: "5px" }}></div>
+                {count} Like
+              </div>
+            )}
+        {count > 1 && (
+          <div className="one-post-likes">
+            <FcLike size={16} />
+            <div style={{ width: "5px" }}></div>
+            {count} Likes
           </div>
         )}
+        <div
+          style={{
+            width: "515px",
+            border: "1px solid lightgray",
+            marginTop: "10px",
+          }}
+        ></div>
+        <div className="under-post-above-comment">
+          <div className="post-likes">
+            <Likes postId={post.id} />
+          </div>
+
+          <div
+            className="post-comment"
+            key={post.id}
+            onClick={() => {
+              let inputs = document.getElementsByClassName("comment-content");
+              Object.values(inputs).map((input) => {
+                let commentPostId = input.id.split("comment-content ")[1];
+                if (commentPostId === `${post.id}`) {
+                  input.focus();
+                }
+              });
+            }}
+          >
+            <VscComment size={22} /> <div style={{ width: "10px" }}></div>
+            <div style={{ fontSize: "20px" }}>Comment</div>
+          </div>
+        </div>
+        <div
+          style={{
+            width: "515px",
+            border: "1px solid lightgray",
+            marginBottom: "10px",
+          }}
+        ></div>
+        <div className="write-a-commment-component">
+          <Comments postId={post.id} />
+        </div>
+        <div style={{ height: "5px" }}></div>
+        <div style={{ marginTop: "8px", marginLeft: "10px" }}>
+          {CommentList}
+        </div>
       </div>
     );
   };
@@ -123,6 +236,27 @@ function ProfilePage() {
     e.preventDefault();
     history.push("/");
   };
+  let menuRef = useRef(null);
+  const users = useSelector((state) => state.entities.users);
+  let tempUsers = Object.values(users);
+  // console.log(tempUsers);
+  let names = [];
+  for (let i = 0; i < tempUsers.length; i++) {
+    names.push(tempUsers[i].first_name);
+  }
+
+  useEffect(() => {
+    let handlerThree = (e) => {
+      if (!menuRef?.current?.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handlerThree);
+
+    return () => {
+      document.removeEventListener("mousedown", handlerThree);
+    };
+  }, []);
 
   return (
     <>
@@ -140,12 +274,11 @@ function ProfilePage() {
           </button>
 
           <div className="line-break1h"></div>
-          <div className="nav-search">
-            <CgSearch size={20} style={{ color: "black" }} />
-            <input
-              className="nav-search-bar"
-              type="text"
-              placeholder="Search Yourbook"
+          <div className="nav-search-profile">
+            <SearchBar
+              className="search-bar"
+              placeholder="Search yourbook"
+              data={tempUsers}
             />
           </div>
         </div>
@@ -295,14 +428,6 @@ function ProfilePage() {
               </div>
             </div>
             <div className="edit-details">
-              {/* <div className="details-list">
-                {currentUser.work ? currentUser.work : ""}{" "}
-                {currentUser.highschool ? currentUser.highschool : ""}{" "}
-                {currentUser.college ? currentUser.college : ""}
-                {currentUser.city ? currentUser.city : ""}{" "}
-                {currentUser.hometown ? currentUser.hometown : ""}{" "}
-                {currentUser.relationship ? currentUser.relationship : ""}
-              </div> */}
               <DetailsFormModal />
             </div>
             <div className="add-hobbies">
@@ -322,10 +447,9 @@ function ProfilePage() {
               </button>
             </div>
           </div>
-
           <div className="profilepage-posts">
             <div style={{ width: 10, height: 20 }}></div>
-            <div className="post-form">
+            <div className="post-form-profile">
               <div className="upper">
                 <FaUserCircle size={33} className="default-profile" />
                 <div className="line-break1h"></div>
@@ -335,12 +459,6 @@ function ProfilePage() {
               </div>
               <div className="line-break4h"></div>
               <div className="border-line1h"></div>
-              {/* Work on after graduation */}
-              {/* <div className="bottom">
-                  <div>Live Video</div>
-                  <div>Photo/video</div>
-                  <div>Feeling/activity</div>
-                </div> */}
             </div>
             <div className="line-break5h"></div>
             <div className="all-posts">

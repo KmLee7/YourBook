@@ -10,12 +10,16 @@ function Friends({ currentUser }) {
   const { id } = useParams();
   const [bool, setBool] = useState(false);
   const [boolTwo, setBoolTwo] = useState(false);
-  const [check, setCheck] = useState(false);
+
   const [selfCheck, setSelfCheck] = useState(false);
-  const [friendAccept, setFriendAccept] = useState(false);
-  const [show, setShow] = useState(false);
-  const [showTwo, setShowTwo] = useState(false);
+
+  const [pend, setPend] = useState(false);
+  const [option, setOption] = useState(false);
+  const [qwerty, setQwerty] = useState(false);
+  const [result, setResult] = useState(false);
+
   const tempId = currentUser?.id ? currentUser.id : null;
+  console.log(tempId);
 
   //tempId is the profile id
   //currentUserId is the session user id
@@ -35,48 +39,34 @@ function Friends({ currentUser }) {
 
   useEffect(() => {
     Object.values(allFriends)?.map((friend) => {
-      // Pending // Check
-      // Check is boolean for if pending is true
-      // and if receiver id is equal to receiver id is equal to profile id
-      // check = (pending and receiver id = profile id)
-      if (friend.pending && friend.receiver_id === tempId) {
-        setCheck(true);
-      } else {
-        setCheck(false);
-      }
-      // SelfCheck
-      // boolean to check if session user id is equal to profile id
-      // if true then dont show the friends functionality
-      if (currentUserId === tempId) {
+      console.log(friend.sender_id, "sender id");
+      console.log(tempId, "tempId");
+      console.log(friend.receiver_id, "receiver id");
+      console.log(currentUserId, "user id");
+      if (tempId === currentUserId) {
         setSelfCheck(true);
-      } else {
-        setSelfCheck(false);
-      }
-      // FriendRequest
-      // boolean to check if its pending and if the sender id is either session user id or
-      // profile id
-      // also needs to check if its pending and if the receiver id is either session user id or
-      // profile id
-      // needs to render accept or decline if pending is true
-      // needs to render add friend option if pending is false
-      if (
-        friend.sender_id === tempId ||
-        // friend.sender_id === currentUserId ||
-        friend.receiver_id === tempId
-        // friend.receiver_id === currentUserId
+      } else if (
+        friend.pending &&
+        tempId !== friend.sender_id &&
+        tempId !== friend.receiver_id
       ) {
-        setFriendAccept(true);
+        setPend(false);
+      }
+      if (!pend && tempId !== friend.receiver_id) {
+        console.log(!pend);
+        console.log(tempId !== friend.receiver_id);
+        setQwerty(true);
       } else {
-        setFriendAccept(false);
+        setOption(false);
+        setQwerty(false);
       }
     });
-  });
+  }, [allFriends]);
 
   const handleClick = (e) => {
     e.preventDefault();
-    // setBool(!bool);
     setBoolTwo(!boolTwo);
-    setFriendAccept(true);
+
     const addFriend = {
       sender_id: currentUserId,
       receiver_id: currentUser.id,
@@ -92,7 +82,6 @@ function Friends({ currentUser }) {
     e.preventDefault();
     setBool(bool);
     setBoolTwo(boolTwo);
-    setFriendAccept(true);
     let oldFriend;
     Object.values(allFriends)?.map((friend) => {
       if (
@@ -103,11 +92,11 @@ function Friends({ currentUser }) {
         oldFriend = friend;
         oldFriend.accept = !bool;
         oldFriend.pending = boolTwo;
-        if (oldFriend.accept === true && oldFriend.pending === false) {
-          setShow(true);
-        } else {
-          setShow(false);
-        }
+        // if (oldFriend.accept === true && oldFriend.pending === false) {
+        //   setShow(true);
+        // } else {
+        //   setShow(false);
+        // }
       }
       dispatch(friendActions.updateFriend(oldFriend));
     });
@@ -117,7 +106,6 @@ function Friends({ currentUser }) {
     e.preventDefault();
     // setBool(!bool)
     setBool(boolTwo);
-    setFriendAccept(true);
     let oldFriend;
     Object.values(allFriends)?.map((friend) => {
       if (
@@ -127,21 +115,19 @@ function Friends({ currentUser }) {
       ) {
         oldFriend = friend;
         oldFriend.pending = boolTwo;
-        if (oldFriend.pending === false && oldFriend.accept === false) {
-          setShow(true);
-        } else {
-          setShow(false);
-        }
       }
       dispatch(friendActions.updateFriend(oldFriend));
     });
   };
+  console.log(pend, "pend");
+  console.log(option, "option");
+  console.log(qwerty, "qwerty");
 
   return (
     <>
       {!selfCheck && (
         <div>
-          {check && (
+          {pend && (
             <div
               style={{
                 display: "flex",
@@ -158,24 +144,26 @@ function Friends({ currentUser }) {
               pending
             </div>
           )}
-          {!check && friendAccept && show && (
-            <div style={{ display: "flex" }}>
-              <button onClick={handleAccept}>Accept</button>
-              <div style={{ width: "10px" }}></div>
-              <button onClick={handleDecline}>Decline</button>
-            </div>
-          )}
-          {/* only show add friend if show is false and friendRequest is false
-          and check is false */}
-          {!show && !check && !friendAccept && (
-            <div style={{ display: "flex" }}>
-              <button className="add-friends" onClick={handleClick}>
-                Add Friend
-              </button>
-              <div style={{ width: "10px" }}></div>
-            </div>
-          )}
-          {friendAccept && <div>Friend</div>}
+          <div>
+            {option && (
+              <div style={{ display: "flex" }}>
+                <button onClick={handleAccept}>Accept</button>
+                <div style={{ width: "10px" }}></div>
+                <button onClick={handleDecline}>Decline</button>
+              </div>
+            )}
+          </div>
+          <div>
+            {qwerty && (
+              <div style={{ display: "flex" }}>
+                <button className="add-friends" onClick={handleClick}>
+                  Add Friend
+                </button>
+                <div style={{ width: "10px" }}></div>
+              </div>
+            )}
+            {result && <div>Friend</div>}
+          </div>
         </div>
       )}
     </>

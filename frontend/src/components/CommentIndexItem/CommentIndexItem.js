@@ -19,9 +19,6 @@ function CommentIndexItem({ comment, post, any }) {
   const [open, setOpen] = useState(false);
 
   let menuRef = useRef(null);
-  // console.log(Object.values(posts)[0].id);
-  // console.log(onePost.id, "this is the id");
-  // console.log(comment, postsArr, "from Comment Index Item");
   const currentUserId = useSelector((state) => state.session.currentUserId);
   // console.log(currentUserId);
   const comments = useSelector((state) => state.entities.comments);
@@ -34,18 +31,19 @@ function CommentIndexItem({ comment, post, any }) {
       return dispatch(deleteComment(commentId));
     }
   };
+
   useEffect(() => {
-    let handler = (e) => {
-      if (!menuRef.current.contains(e.target) === null) {
-        return () => {
-          document.removeEventListener("mousedown", handler);
-        };
-      }
-      if (!menuRef.current.contains(e.target)) {
+    const handler = (e) => {
+      // e.preventDefault();
+      // console.log(e.current?.path, "this is the event");
+      if (!menuRef?.current?.contains(e.target)) {
         setOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   }, []);
   return (
     <>
@@ -96,8 +94,7 @@ function CommentIndexItem({ comment, post, any }) {
                 }`}
               >
                 <div className="edit-delete-comments-container">
-                  <div>
-                    {" "}
+                  <div style={{ display: "flex" }}>
                     <EditCommentModal comment={comment} />
                   </div>
                   <div style={{ height: "5px" }}></div>
