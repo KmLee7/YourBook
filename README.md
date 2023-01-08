@@ -1,6 +1,6 @@
 # Yourbook
 
-[Yourbook](https://github.com/KmLee7/YourBook.git)
+[Yourbook](https://your--book.herokuapp.com/login)
 
 ## Brief Overview
 
