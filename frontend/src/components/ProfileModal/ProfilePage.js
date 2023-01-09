@@ -374,10 +374,14 @@ function ProfilePage() {
           </div>
           <div className="user-username">{userName}</div>
         </div>
-        <div className="under-upper-container">
-          Posts
-          <div style={{ width: "15px" }}></div>
-          <Friends currentUser={currentUser} />
+        <div>
+          <div className="under-upper-container">
+            <div className="post-add-friend">
+              <div>Posts</div>
+              <div style={{ width: "15px" }}></div>
+              <Friends currentUser={currentUser} />
+            </div>
+          </div>
         </div>
 
         <div className="lower-container">
