@@ -13,7 +13,7 @@ json.users do
     users.values.each do |user|
         json.set! user.id do
             # json.partial! '/api/users/user', user: user
-            json.extract! user, :id, :email, :first_name, :last_name, :birthday, :gender, :created_at, :updated_at, :post_ids
+            json.extract! user, :id, :email, :first_name, :last_name, :birthday, :gender, :created_at, :updated_at, :post_ids, :bio, :work, :highschool, :college, :city, :hometown, :relationship
         end
     end
 end

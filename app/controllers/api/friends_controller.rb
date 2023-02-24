@@ -30,10 +30,12 @@ class Api::FriendsController < ApplicationController
     end
     
     def destroy
-        @friend_one = Friend.find(params[:id][:sender_id])
-        @friend_two = Friend.find(params[:id][:receiver_id])
-        if @friend_one || @friend_two
-            @friend_one.destroy || @friend_two.destroy
+        # @friend_one = Friend.find(params[:id][:sender_id])
+        @friend_two = Friend.find(params[:id])
+        # if @friend_one || @friend_two
+        if @friend_two
+            # @friend_one.destroy || @friend_two.destroy
+            @friend_two.destroy
         end
         head :no_content
     end

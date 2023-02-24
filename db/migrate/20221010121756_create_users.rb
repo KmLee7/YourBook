@@ -8,14 +8,14 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :gender, null: false
       t.string :password_digest, null: false
       t.string :session_token, null: false
-      t.string :bio
-      t.string :work
-      t.string :highschool
-      t.string :college
-      t.string :city
-      t.string :hometown
-      t.string :relationship
-      t.string :hobbies
+      t.string :bio, default: ""
+      t.string :work, default: ""
+      t.string :highschool, default: ""
+      t.string :college, default: ""
+      t.string :city, default: ""
+      t.string :hometown, default: ""
+      t.string :relationship, default: ""
+      t.string :hobbies, default: ""
       t.timestamps
     end
 

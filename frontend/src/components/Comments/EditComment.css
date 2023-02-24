@@ -1,0 +1,8 @@
+.comment-body.inactive {
+  pointer-events: none;
+}
+
+.editButton {
+  display: block;
+  align-items: center;
+}

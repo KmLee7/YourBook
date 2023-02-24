@@ -1,0 +1,31 @@
+.addFriendButton {
+  width: 90px;
+  height: 25px;
+  background-color: aliceblue;
+  border: none;
+  border-radius: 6px;
+}
+.addFriendButton:hover {
+  background-color: rgb(96, 96, 247);
+}
+
+.friend {
+  font-weight: 700;
+  font-size: 18px;
+}
+.deleteFriendDiv {
+  font-size: 14px;
+  color: white;
+  background-color: rgb(255, 0, 0);
+  border: 1px solid rgb(255, 0, 0);
+}
+.deleteFriendDiv:hover {
+  font-size: 14px;
+  color: rgb(255, 0, 0);
+  background-color: white;
+  border: 1px solid white;
+}
+.friendAndDeleteWrapper {
+  display: flex;
+  justify-content: center;
+}

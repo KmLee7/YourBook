@@ -66,7 +66,7 @@ export const updateFriend = (friend) => async (dispatch) => {
 };
 
 export const deleteFriend = (friendId) => async (dispatch) => {
-  const res = await csrfFetch(`api/friends/${friendId}`, {
+  const res = await csrfFetch(`/api/friends/${friendId}`, {
     method: "DELETE",
   });
   dispatch(removeFriend(friendId));
@@ -80,7 +80,6 @@ const friendsReducer = (state = {}, action) => {
     case RECEIVE_FRIENDS:
       return { ...nextState, ...action.friends };
     case RECEIVE_FRIEND:
-      console.log(action.friends, "this is the action.friend");
       nextState[action.friend.id] = action.friend;
       return nextState;
     case REMOVE_FRIEND:

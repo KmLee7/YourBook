@@ -1,6 +1,7 @@
 import csrfFetch from "./csrf";
 import { SET_CURRENT_USER } from "./session";
 import { currentUser } from "./session";
+import { RECEIVE_USERS } from "./user";
 
 export const RECEIVE_POSTS = "posts/RECEIVE_POSTS";
 export const RECEIVE_POST = "posts/RECEIVE_POST";
@@ -100,6 +101,8 @@ const postsReducer = (state = {}, action) => {
     case RECEIVE_POST:
       nextState[action.post.id] = action.post;
       return nextState;
+    // case RECEIVE_USERS:
+    //   return { ...nextState, ...action.users };
     case REMOVE_POST:
       delete nextState[action.postId];
       return nextState;

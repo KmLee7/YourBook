@@ -11,6 +11,4 @@ json.posts do
 end
 
 
-# json.user do
-#     json.extract! @user.posts, :user_id, :content
-# end
+# json.partial! 'user', user: @user

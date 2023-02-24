@@ -10,21 +10,11 @@ function Likes({ postId }) {
   const dispatch = useDispatch();
   const [bool, setBool] = useState(false);
   const [check, setCheck] = useState(false);
-  // const [checkCurrent, setCheckCurrent] = useState(false);
+
   const [show, setShow] = useState(false);
 
   const currentUserId = useSelector((state) => state.session.currentUserId);
   const allLikes = useSelector((state) => state.entities.likes);
-  // const allLikeLiked = Object.values(allLikes).map((like) => like.liked);
-  // const likeLiked = allLikeLiked.map((liked) => liked);
-  // console.log(
-  //   allLikes,
-  //   "ALL THE LIKES",
-  //   currentUserId,
-  //   "THIS THE CURRENT USER ID",
-  //   allLikeLiked.map((likeLiked) => likeLiked),
-  //   "THIS IS THE ALL LIKE LIKED"
-  // );
 
   useEffect(() => {
     dispatch(likeActions.fetchLikes());
@@ -42,7 +32,7 @@ function Likes({ postId }) {
       }
     });
   }, [allLikes]);
-  // console.log(checkCurrent, "THIS THE CHECK CURRENT VAR");
+
   const handleClick = (e) => {
     e.preventDefault();
     setBool(!bool);
@@ -53,12 +43,11 @@ function Likes({ postId }) {
     };
     if (check === false) {
       dispatch(likeActions.createLike(newlike));
-      // console.log("hits here, in the like section");
+
       setCheck(true);
     } else {
       let oldLike;
 
-      // console.log(bool, "BOOL IF CHECK IS TRUE");
       Object.values(allLikes).map((like) => {
         if (like.user_id === currentUserId && like.post_id === postId) {
           oldLike = like;
@@ -71,9 +60,6 @@ function Likes({ postId }) {
         }
       });
       dispatch(likeActions.updateLike(oldLike));
-
-      // console.log(oldLike, "oldlike");
-      // console.log("hitting second one");
     }
   };
 

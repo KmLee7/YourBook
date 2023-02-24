@@ -3,10 +3,9 @@ import csrfFetch from "./csrf.js";
 export const SET_CURRENT_USER = "session/setCurrentUser";
 export const REMOVE_CURRENT_USER = "session/removeCurrentUser";
 
-const setCurrentUser = ({ user, posts }) => ({
+const setCurrentUser = ({ user }) => ({
   type: SET_CURRENT_USER,
   user,
-  posts,
 });
 
 const removeCurrentUser = () => ({

@@ -1,51 +1,37 @@
-import LoginFormPage from "./components/LoginFormPage";
+// import LoginFormPage from "./components/LoginFormPage";
 import { Redirect, Route, Switch } from "react-router-dom";
 import HomePage from "./components/HomePage/index";
-import Navigation from "./components/Navigation/index";
-import ProfilePage from "./components/ProfileModal/ProfilePage";
+import LoginPage from "./components/LoginPage/index";
+// import ProfilePage from "./components/ProfileModal/ProfilePage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { currentUser } from "./store/session";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 function App() {
   const hasUser = useSelector((state) => !!state.session.currentUserId);
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
-  console.log(hasUser, "has user!!!!!");
+  console.log(hasUser, "has user!!!");
+  console.log(useSelector((state) => state.session));
   // useEffect(() => {
   //   dispatch(currentUser).then(() => setLoad(true));
   // }, [dispatch]);
   return (
     <div>
       <>
-        {!sessionStorage.getItem("currentUser") && (
+        {!hasUser && (
           <Redirect to="/login">
-            <Navigation />
+            <LoginPage />
           </Redirect>
         )}
         <Switch>
-          <Route exact path="/login" component={Navigation} />
+          <Route exact path="/login" component={LoginPage} />
           <Route exact path="/" component={HomePage} />
           <Route exact path="/ProfilePage/:id" component={ProfilePage} />
         </Switch>
       </>
     </div>
-    // <>
-    //   {load && (
-    //     <>
-    //       {!hasUser && (
-    //         <>
-    //           <Redirect to="/login" />
-    //         </>
-    //       )}
-    //       <Switch>
-    //         <Route exact path="/login" component={Navigation} />
-    //         <Route exact path="/" component={HomePage} />
-    //         <Route exact path="/ProfilePage/:id" component={ProfilePage} />
-    //       </Switch>
-    //     </>
-    //   )}
-    // </>
   );
 }
 
